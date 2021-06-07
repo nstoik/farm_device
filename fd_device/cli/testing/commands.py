@@ -7,13 +7,12 @@ from subprocess import call
 from typing import List
 
 import click
-import pytest
 from pyment import PyComment
 
 from fd_device.settings import get_config
 
 config = get_config()  # pylint: disable=invalid-name
-HERE = config.APP_DIR
+APP_DIR = config.APP_DIR
 PROJECT_ROOT = config.PROJECT_ROOT
 TEST_PATH = os.path.join(PROJECT_ROOT, "tests")
 MAX_DEPTH_RECUR = 50
@@ -101,9 +100,21 @@ def test(coverage, filename, function):
     if function:
         pytest_args.extend(["-k", function])
     if coverage:
-        pytest_args.extend(["--cov", HERE])
+        pytest_args.extend(["--cov", APP_DIR])
         pytest_args.extend(["--cov-report", "term-missing:skip-covered"])
-    rv = pytest.main(args=pytest_args, plugins=["pytest_cov"])
+
+    def execute_tool(description, *args):
+        """Execute a checking tool with its arguments."""
+        command_line = list(args)
+        click.echo(f"{description}: {' '.join(command_line)}")
+        rv = call(command_line)
+        return rv
+
+    previous_env = os.getenv("FD_DEVICE_CONFIG", default="dev")
+    os.environ["FD_DEVICE_CONFIG"] = "test"
+    rv = execute_tool("Run pytest", "pytest", *pytest_args)
+    os.environ["FD_DEVICE_CONFIG"] = previous_env
+
     sys.exit(rv)
 
 
