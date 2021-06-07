@@ -2,7 +2,7 @@
 """Database module, including the SQLAlchemy database object and DB-related utilities."""
 from sqlalchemy import Column, ForeignKey, Integer
 
-from fd_device.database.base import get_base
+from fd_device.database.base import get_base, get_session
 
 Base = get_base(with_query=True)
 
@@ -11,26 +11,34 @@ class CRUDMixin:
     """Mixin that adds convenience methods for CRUD (create, read, update, delete) operations."""
 
     @classmethod
-    def create(cls, session, **kwargs):
+    def create(cls, session=None, **kwargs):
         """Create a new record and save it the database."""
+        if session is None:
+            session = get_session()
         instance = cls(**kwargs)
         return instance.save(session)
 
-    def update(self, session, commit=True, **kwargs):
+    def update(self, session=None, commit=True, **kwargs):
         """Update specific fields of a record."""
+        if session is None:
+            session = get_session()
         for attr, value in kwargs.items():
             setattr(self, attr, value)
         return self.save(session) if commit else self
 
-    def save(self, session, commit=True):
+    def save(self, session=None, commit=True):
         """Save the record."""
+        if session is None:
+            session = get_session()
         session.add(self)
         if commit:
             session.commit()
         return self
 
-    def delete(self, session, commit=True):
+    def delete(self, session=None, commit=True):
         """Remove the record from the database."""
+        if session is None:
+            session = get_session()
         session.delete(self)
         return commit and session.commit()
 
