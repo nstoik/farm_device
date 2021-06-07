@@ -13,25 +13,25 @@ class TestConnection:
     """Connection model tests."""
 
     @staticmethod
-    def test_create_connection_object(dbsession):
+    def test_create_connection_object():
         """Create a Connection instance."""
 
         connection = Connection()
-        connection.save(dbsession)
+        connection.save()
 
         assert connection.last_updated is None
         assert isinstance(connection.first_connected, dt.datetime)
         assert not bool(connection.is_connected)
 
     @staticmethod
-    def test_update_connection_object(dbsession):
+    def test_update_connection_object():
         """Create and update a Connection instance."""
 
         connection = Connection()
-        connection.save(dbsession)
+        connection.save()
 
         connection.is_connected = True
-        connection.save(dbsession)
+        connection.save()
 
         assert isinstance(connection.last_updated, dt.datetime)
         assert bool(connection.is_connected)
@@ -42,11 +42,11 @@ class TestDevice:
     """Device model tests."""
 
     @staticmethod
-    def test_create_device_object(dbsession):
+    def test_create_device_object():
         """Create a Device instance."""
 
         device = Device(device_id="TEST01")
-        device.save(dbsession)
+        device.save()
 
         assert device.__repr__() == "<Device: device_id=TEST01>"
         assert device.device_id == "TEST01"
@@ -54,33 +54,33 @@ class TestDevice:
         assert device.exterior_sensor == "null"
 
     @staticmethod
-    def test_get_device_by_id(dbsession):
+    def test_get_device_by_id():
         """Test retrieving a device by its ID."""
 
         device = Device(device_id="TEST01")
-        device.save(dbsession)
+        device.save()
 
         retrieved = Device.get_by_id(device.id)
 
         assert device.id == retrieved.id
 
     @staticmethod
-    def test_device_factory(dbsession):
+    def test_device_factory():
         """Test DeviceFactory."""
 
-        device = DeviceFactory.create(dbsession)
-        device.save(dbsession)
+        device = DeviceFactory()
+        device.save()
 
         retrieved = Device.get_by_id(device.id)
 
         assert device.id == retrieved.id
 
     @staticmethod
-    def test_device_properties(dbsession):
+    def test_device_properties():
         """Test all Device properties."""
 
-        device = DeviceFactory.create(dbsession)
-        device.save(dbsession)
+        device = DeviceFactory()
+        device.save()
 
         assert device.hardware_version is None
         assert device.software_version is None
@@ -99,36 +99,36 @@ class TestGrainbin:
     """Grainbin model tests."""
 
     @staticmethod
-    def test_create_grainbin(dbsession):
+    def test_create_grainbin():
         """Create a grainbin instance."""
-        device = DeviceFactory.create(dbsession)
-        device.save(dbsession)
+        device = DeviceFactory()
+        device.save()
 
         grainbin = Grainbin(name="TestGrainbin", bus_number=1, device_id=device.id)
-        grainbin.save(dbsession)
+        grainbin.save()
 
         assert grainbin.device_id == device.id
         assert grainbin.bus_number == 1
 
     @staticmethod
-    def test_get_grainbin_by_id(dbsession):
+    def test_get_grainbin_by_id():
         """Test retrieving a grainbin by its ID."""
-        device = DeviceFactory.create(dbsession)
-        device.save(dbsession)
+        device = DeviceFactory()
+        device.save()
 
         grainbin = Grainbin(name="TestGrainbin", bus_number=1, device_id=device.id)
-        grainbin.save(dbsession)
+        grainbin.save()
 
         retrieved = Grainbin.get_by_id(grainbin.id)
 
         assert grainbin.id == retrieved.id
 
     @staticmethod
-    def test_grainbin_factory(dbsession):
+    def test_grainbin_factory():
         """Test GrainbinFactory."""
 
-        grainbin = GrainbinFactory.create(dbsession)
-        grainbin.save(dbsession)
+        grainbin = GrainbinFactory()
+        grainbin.save()
 
         retrieved = Grainbin.get_by_id(grainbin.id)
         device = Device.get_by_id(grainbin.device_id)
@@ -138,11 +138,11 @@ class TestGrainbin:
         assert isinstance(device, Device)
 
     @staticmethod
-    def test_grainbin_properies(dbsession):
+    def test_grainbin_properies():
         """Test all Grainbin properties."""
 
-        grainbin = GrainbinFactory.create(dbsession)
-        grainbin.save(dbsession)
+        grainbin = GrainbinFactory()
+        grainbin.save()
 
         assert grainbin.name.startswith("Test Grainbin")
         assert isinstance(grainbin.bus_number, int)
