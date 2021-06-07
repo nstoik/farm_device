@@ -37,7 +37,7 @@ netifaces = "~=0.11.0"
 click = "~=7.1.2"
 psutil = "~=5.8.0"
 pika = "~=1.2.0"
-celery = "~=5.0.0"
+celery = "~=5.1.0"
 multiprocessing-logging = "~=0.3.0"
 
 [requires]
