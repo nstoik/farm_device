@@ -13,9 +13,9 @@ services:
 
     volumes:
       # line below is for vs code file editing inside the container on a local host
-      - .:/workspaces/fd_device:cached
+      #- .:/workspaces/fd_device:cached
       # line below is for vs code file editing inside the container on a remote host (absolute path)
-      #- /home/ubuntu/fd_device:/workspaces/fd_device:cached
+      - /home/ubuntu/fd_device:/workspaces/fd_device:cached
       # this is for bash command history. https://code.visualstudio.com/docs/remote/containers-advanced#_persist-bash-history-between-runs
       - bashhistory:/commandhistory
 

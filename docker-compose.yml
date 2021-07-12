@@ -29,8 +29,8 @@ services:
   fd_pgadmin:
     container_name: fd_pgadmin
     # the tag 'snapshot' is needed for running on arm64 hardware
-    # image: dpage/pgadmin4:snapshot
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:snapshot
+    #image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: fd@farmmonitor.ca
       PGADMIN_DEFAULT_PASSWORD: farm_device
