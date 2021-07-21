@@ -19,7 +19,7 @@ flake8-isort = "~=4.0.0"
 isort = "~=5.9.2"
 mypy = "~=0.910"
 pep8-naming = "~=0.12.0"
-pylint = "~=2.9.3"
+pylint = "~=2.9.5"
 # this is needed only until click is updated to v8+ (celery depends on v7.1.2)
 types-click = "~=7.1.2"
 
