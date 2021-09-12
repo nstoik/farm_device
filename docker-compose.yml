@@ -3,7 +3,7 @@ version: '3.8'
 services: 
   device:
     image: nstoik/farm_device_device:latest
-    container_name: device
+    container_name: fd_device
     build:
       context: ./device
       dockerfile: Dockerfile
@@ -19,7 +19,7 @@ services:
 
   database:
     image: postgres:11
-    container_name: "database"
+    container_name: fd_database
     restart: unless-stopped
     environment:
       POSTGRES_PASSWORD: farm_device
@@ -31,7 +31,7 @@ services:
       - farm_device
 
   pgadmin:
-    container_name: pgadmin
+    container_name: fd_pgadmin
     # the tag 'snapshot' is needed for running on arm64 hardware
     image: dpage/pgadmin4:snapshot
     #image: dpage/pgadmin4
