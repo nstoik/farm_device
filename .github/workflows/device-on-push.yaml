@@ -1,11 +1,16 @@
-name: Build Status
+name: Device Build Status
 
 on:
-  - push
+    push:
+        paths:
+            - 'device/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: device/
     steps:
       - uses: actions/checkout@v2.3.4
       - name: Set up Python

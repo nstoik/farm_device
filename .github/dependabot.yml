@@ -1,16 +1,22 @@
 version: 2
 updates:
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "daily"
-
+  # configuration for the root directory
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+
+  # configuration for the device directory
+  - package-ecosystem: "docker"
+    directory: "/device"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "/device/.devcontainer"
+    schedule:
+          interval: "weekly"
 
   - package-ecosystem: "pip"
-    directory: "/"
+    directory: "/device"
     schedule:
       interval: "daily"
