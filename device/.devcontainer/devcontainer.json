@@ -23,14 +23,15 @@
 		"eamodio.gitlens",
 		"ms-python.vscode-pylance",
 	],
+	"postCreateCommand": "git config --global core.autocrlf true",
 	"settings": {
 		"python.linting.enabled": true,
 		"python.linting.pylintEnabled": true,
 		"python.linting.pylintArgs": ["--load-plugins",],
 		"python.linting.flake8Enabled": true,
-		"python.linting.flake8Args": ["--config=/workspaces/database/setup.cfg"],
+		"python.linting.flake8Args": ["--config=/workspaces/device/setup.cfg"],
 		"python.linting.mypyEnabled": true,
-		"python.linting.mypyArgs": ["--config=/workspaces/database/setup.cfg"],
+		"python.linting.mypyArgs": ["--config=/workspaces/device/setup.cfg"],
 		"python.formatting.provider": "black"
 	}
 }
