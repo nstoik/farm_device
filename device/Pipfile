@@ -8,7 +8,6 @@ name = "pypi"
 factory-boy = "~=3.2.0"
 pytest = "~=6.2.5"
 pytest-cov = "*"
-
 # Lint and code style
 black = "==20.8b1"
 flake8 = "~=3.9.2"
@@ -41,6 +40,8 @@ psutil = "~=5.8.0"
 pika = "~=1.2.0"
 celery = "~=5.1.2"
 multiprocessing-logging = "~=0.3.0"
+# Environment and variable parsing
+environs = "~=9.3.2"
 
 [requires]
 python_version = "3.9"

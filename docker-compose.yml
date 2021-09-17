@@ -1,11 +1,11 @@
 version: '3.8'
 
 services: 
-  fd_device:
-    image: nstoik/fd_device:latest
+  device:
+    image: nstoik/farm_device_device:latest
     container_name: fd_device
     build:
-      context: .
+      context: ./device
       dockerfile: Dockerfile
     networks:
       - farm_device
@@ -14,9 +14,12 @@ services:
     volumes:
       - "logs:/logs"
     restart: unless-stopped
-  fd_db:
+
+    # standard docker containers below
+
+  database:
     image: postgres:11
-    container_name: "fd_db"
+    container_name: fd_database
     restart: unless-stopped
     environment:
       POSTGRES_PASSWORD: farm_device
@@ -26,7 +29,8 @@ services:
       - "dbdata:/var/lib/postgresql/data"
     networks:
       - farm_device
-  fd_pgadmin:
+
+  pgadmin:
     container_name: fd_pgadmin
     # the tag 'snapshot' is needed for running on arm64 hardware
     image: dpage/pgadmin4:snapshot

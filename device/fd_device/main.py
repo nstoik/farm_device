@@ -56,10 +56,11 @@ def main():
         return
 
     device_connection = Process(target=run_connection)
-    device_connection.start()
+    # device_connection.start()
 
     try:
-        device_connection.join()
+        # device_connection.join()
+        print("pass")
     except KeyboardInterrupt:
         logger.warning("Keyboard interrupt in main process")
 

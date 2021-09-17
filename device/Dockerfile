@@ -7,6 +7,7 @@ ENV LC_ALL C.UTF-8
 ARG USERNAME=fd
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
+ARG WORKING_DIR=/workspaces/device
 
 
 RUN pip install -U pip && pip install pipenv && \
@@ -18,17 +19,17 @@ RUN pip install -U pip && pip install pipenv && \
     # echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME && \
     # chmod 0440 /etc/sudoers.d/$USERNAME && \
     # make working directory and change owner
-    mkdir -p /workspaces/fd_device/ && \
-    chown $USER_UID:$USER_GID /workspaces/fd_device/ && \
+    mkdir -p ${WORKING_DIR}/ && \
+    chown $USER_UID:$USER_GID ${WORKING_DIR}/ && \
     # create directory for logs and change owner
     mkdir /logs/ && \
     chown $USER_UID:$USER_GID /logs/
 
 # Change to the newly created user
 USER $USER_UID:$USER_GID
-COPY fd_device /workspaces/fd_device/fd_device
-COPY Pipfile* package* setup.py /workspaces/fd_device/
-WORKDIR /workspaces/fd_device
+COPY . ${WORKING_DIR}/
+COPY Pipfile* package* setup.py ${WORKING_DIR}/
+WORKDIR ${WORKING_DIR}
 
 # Production deploy steps below
 RUN pipenv install --deploy --ignore-pipfile

@@ -4,12 +4,17 @@
 import logging
 import os
 
+from environs import Env
+
+env = Env()
+env.read_env()
+
 
 class CeleryConfig:
     """Celery configuration."""
 
     # Broker settings.
-    broker_url = "pyamqp://fm:farm_monitor@localhost/farm_monitor"
+    broker_url = "amqp://fm:farm_monitor@10.10.1.204/farm_monitor"
 
     # List of modules to import when the Celery worker starts.
     # imports = ('fm_server.device.tasks',)

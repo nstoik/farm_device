@@ -5,35 +5,33 @@
 
 	 // The order of the files is important since later files override previous ones
 	 "dockerComposeFile": [
-        "../docker-compose.yml",
-        "dev.docker-compose.yml"
+		"../../docker-compose.yml",
+		"../../docker-compose.devcontainer.yml",
     ],
 
 	"remoteUser": "fd",
-	"service": "fd_device",
+	"service": "device",
 	// workspace mount is used when connecting to a docker container on a remote host. Use absolute path.
 	// https://code.visualstudio.com/docs/remote/containers-advanced#_developing-inside-a-container-on-a-remote-docker-host
 	// Otherwise do not need workspaceMount
-	//"workspaceMount": "source=/home/ubuntu/fd_device,target=/workspaces/fd_device,type=bind,consistency=cached",
-    "workspaceFolder": "/workspaces/fd_device",
-    "shutdownAction": "stopCompose",	
-
-	//  Uncomment the next line to run commands after the container is created.
-	"postCreateCommand": "git config --global core.autocrlf true",
+	"workspaceMount": "source=/home/ubuntu/farm_device,target=/workspaces,type=bind,consistency=cached",
+  "workspaceFolder": "/workspaces",
+  "shutdownAction": "none",
 
 	"extensions": [
 		"ms-python.python",
 		"eamodio.gitlens",
 		"ms-python.vscode-pylance",
 	],
+	"postCreateCommand": "git config --global core.autocrlf true",
 	"settings": {
 		"python.linting.enabled": true,
 		"python.linting.pylintEnabled": true,
-		"python.linting.pylintArgs": [
-			"--load-plugins",
-		],
+		"python.linting.pylintArgs": ["--load-plugins",],
 		"python.linting.flake8Enabled": true,
+		"python.linting.flake8Args": ["--config=/workspaces/device/setup.cfg"],
 		"python.linting.mypyEnabled": true,
+		"python.linting.mypyArgs": ["--config=/workspaces/device/setup.cfg"],
 		"python.formatting.provider": "black"
 	}
 }
