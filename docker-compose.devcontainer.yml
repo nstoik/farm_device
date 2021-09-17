@@ -7,8 +7,10 @@ services:
             context: ./device
             dockerfile: .devcontainer/dev.Dockerfile
         volumes:
-            # this is for vs code file editing inside the container
-            - .:/workspaces:cached
+            # this is for vs code file editing inside the container from a local host
+            #- .:/workspaces:cached
+            # this is for vs code file editing inside the container on a remote host
+            - /home/ubuntu/farm_device:/workspaces:cached
             # this is for bash command history. https://code.visualstudio.com/docs/remote/containers-advanced#_persist-bash-history-between-runs
             - bashhistory:/commandhistory
         # Overrides default command so things don't shut down after the process ends.

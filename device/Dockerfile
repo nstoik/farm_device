@@ -27,7 +27,7 @@ RUN pip install -U pip && pip install pipenv && \
 
 # Change to the newly created user
 USER $USER_UID:$USER_GID
-COPY . ${WORKING_DIR}
+COPY . ${WORKING_DIR}/
 COPY Pipfile* package* setup.py ${WORKING_DIR}/
 WORKDIR ${WORKING_DIR}
 
