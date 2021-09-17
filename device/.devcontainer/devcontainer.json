@@ -14,9 +14,9 @@
 	// workspace mount is used when connecting to a docker container on a remote host. Use absolute path.
 	// https://code.visualstudio.com/docs/remote/containers-advanced#_developing-inside-a-container-on-a-remote-docker-host
 	// Otherwise do not need workspaceMount
-	  //"workspaceMount": "source=/home/ubuntu/farm_device,target=/workspaces/device,type=bind,consistency=cached",
-    "workspaceFolder": "/workspaces",
-    "shutdownAction": "none",	
+	"workspaceMount": "source=/home/ubuntu/farm_device,target=/workspaces,type=bind,consistency=cached",
+  "workspaceFolder": "/workspaces",
+  "shutdownAction": "none",
 
 	"extensions": [
 		"ms-python.python",
