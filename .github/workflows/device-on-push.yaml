@@ -28,7 +28,9 @@ jobs:
       - name: Test
         run: echo $PIPENV_DONT_LOAD_ENV
       - name: Test Pipenv shell
-        run: pipenv shell
+        run: |
+          pip list
+          pipenv run pip list
       - name: Run Python lints
         run: pipenv run fd_device lint --check
       - name: Run Python tests
