@@ -24,7 +24,7 @@ jobs:
       - run: cp .env.example .env
       - name: Run Python lints
         run: |
-          echo "Hello World $FD_DEVICE_CONFIG
+          echo "Hello World $FD_DEVICE_CONFIG"
           pipenv run fd_device lint --check
       - name: Run Python tests
         run: pipenv run fd_device test --coverage
