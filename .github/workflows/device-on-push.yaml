@@ -27,6 +27,8 @@ jobs:
         run: echo "PIPENV_DONT_LOAD_ENV=1" >> $GITHUB_ENV
       - name: Test
         run: echo $PIPENV_DONT_LOAD_ENV
+      - name: Test Pipenv shell
+        run: pipenv shell
       - name: Run Python lints
         run: pipenv run fd_device lint --check
       - name: Run Python tests
