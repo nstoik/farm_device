@@ -16,6 +16,7 @@ class CeleryConfig:
     # Broker settings.
     broker_url = "amqp://fm:farm_monitor@10.10.1.204/farm_monitor"
 
+
     # List of modules to import when the Celery worker starts.
     # imports = ('fm_server.device.tasks',)
 
