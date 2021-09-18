@@ -13,7 +13,7 @@ env.read_env()
 class CeleryConfig:
     """Celery configuration."""
 
-    # Broker settings
+    # Broker settings.
     broker_url = "amqp://fm:farm_monitor@10.10.1.204/farm_monitor"
 
     # List of modules to import when the Celery worker starts.

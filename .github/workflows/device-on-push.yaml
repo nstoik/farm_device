@@ -3,7 +3,8 @@ name: Device Build Status
 on:
     push:
         paths:
-            - 'device/**'
+            #- 'device/**'
+            - '**'
 
 jobs:
   device-build:
@@ -22,10 +23,12 @@ jobs:
           pip install pipenv
           pipenv install --dev
       - run: cp .env.example .env
+      - name: Set env
+        run: echo "PIPENV_DONT_LOAD_ENV=1" >> $GITHUB_ENV
+      - name: Test
+        run: echo $PIPENV_DONT_LOAD_ENV
       - name: Run Python lints
-        run: |
-          echo "Hello World $FD_DEVICE_CONFIG"
-          pipenv run fd_device lint --check
+        run: pipenv run fd_device lint --check
       - name: Run Python tests
         run: pipenv run fd_device test --coverage
       #- name: Run Python docstrings
