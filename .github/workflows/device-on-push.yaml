@@ -32,7 +32,7 @@ jobs:
           pip list
           pipenv run pip list
       - name: Run Python lints
-        run: pipenv run fd_device lint --check
+        run: pipenv run fd_device
       - name: Run Python tests
         run: pipenv run fd_device test --coverage
       #- name: Run Python docstrings
