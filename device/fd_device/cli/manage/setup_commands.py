@@ -71,9 +71,7 @@ def first_setup(standalone):  # noqa: C901
         click.echo("Current sensor information: ")
         x = 1
         for sensor, temperature in current_sensors.items():
-            click.echo(
-                "{0}. Sensor: {1} Temperature: {2}".format(x, sensor, temperature)
-            )
+            click.echo(f"{x}. Sensor: {sensor} Temperature: {temperature}")
             x = x + 1
 
         interior_sensor = click.prompt(
@@ -94,7 +92,7 @@ def first_setup(standalone):  # noqa: C901
             x = 1
             interface_details = []
             for interface in interfaces:
-                click.echo("{0}. {1}".format(x, interface))
+                click.echo(f"{x}. {interface}")
                 x = x + 1
                 interface_details.append(get_interface_details(interface))
 
