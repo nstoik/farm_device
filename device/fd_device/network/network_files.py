@@ -7,13 +7,13 @@ def hostapd_file(interface, wifi_ssid, wifi_password):
 
     contents = (
         "# This is the name of the WiFi interface\n"
-        "interface={interface}\n"
+        f"interface={interface}\n"
         "\n"
         "# Use the nl80211 driver with the brcmfmac driver\n"
         "driver=nl80211\n"
         "\n"
         "# This is the name of the network\n"
-        "ssid={wifi_ssid}\n"
+        f"ssid={wifi_ssid}\n"
         "\n"
         "# Use the 2.4Ghz band\n"
         "hw_mode=g\n"
@@ -46,11 +46,11 @@ def hostapd_file(interface, wifi_ssid, wifi_password):
         "wpa_key_mgmt=WPA-PSK\n"
         "\n"
         "# The network passphrase\n"
-        "wpa_passphrase={wifi_password}\n"
+        f"wpa_passphrase={wifi_password}\n"
         "\n"
         "# Use AES, instead of TKIP\n"
         "rsn_pairwise=CCMP\n"
-    ).format(interface=interface, wifi_ssid=wifi_ssid, wifi_password=wifi_password)
+    )
 
     with open("/tmp/hostapd_temp", "w") as f:
         f.write(contents)
@@ -238,7 +238,7 @@ def dhcpcd_file(interface=None):
     contents.append(top_part)
 
     if interface:
-        contents.append("denyinterfaces {interface}\n".format(interface=interface))
+        contents.append(f"denyinterfaces {interface}\n")
 
     # compile all the contents into one string and write it to file
     with open("/tmp/dhcpcd_temp", "w") as f:

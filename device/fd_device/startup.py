@@ -64,8 +64,8 @@ def search_on_socket(logger, session, connection):
 
     interface_address = get_ip_of_interface(interface, broadcast=True)
 
-    logger.info("looking for FarmMonitor address on interface {}".format(interface))
-    logger.debug("address is {}:{}".format(interface_address, presence_port))
+    logger.info(f"looking for FarmMonitor address on interface {interface}")
+    logger.debug(f"address is {interface_address}:{presence_port}")
 
     # Create UDP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
@@ -85,16 +85,12 @@ def search_on_socket(logger, session, connection):
                 _, addrinfo = sock.recvfrom(2)
                 if check_rabbitmq_address(logger, addrinfo[0]):
                     sock.close()
-                    logger.debug(
-                        "Found FarmMonitor at {}:{}".format(addrinfo[0], addrinfo[1])
-                    )
+                    logger.debug(f"Found FarmMonitor at {addrinfo[0]}:{addrinfo[1]}")
                     connection.address = addrinfo[0]
                     session.commit()
                     return True
                 logger.debug(
-                    "Reply from {}:{}, but no rabbitmq server present".format(
-                        addrinfo[0], addrinfo[1]
-                    )
+                    f"Reply from {addrinfo[0]}:{addrinfo[1]}, but no rabbitmq server present"
                 )
             else:
                 logger.debug("No broadcast from FarmMonitor yet")
