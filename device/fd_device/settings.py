@@ -40,11 +40,13 @@ class Config:
 
     UPDATER_PATH = "/home/pi/farm_monitor/farm_update/update.sh"
 
-    SQLALCHEMY_DATABASE_URI = "postgresql://fd:farm_device@fd_db/farm_device.db"
+    SQLALCHEMY_DATABASE_URI = "postgresql://fd:farm_device@fd_database/farm_device.db"
 
     RABBITMQ_USER = "fd"
     RABBITMQ_PASSWORD = "farm_monitor"
     RABBITMQ_VHOST = "farm_monitor"
+
+    RABBITMQ_HOST_ADDRESS = env.str("RABBITMQ_HOST_ADDRESS", default=None)
 
 
 class DevConfig(Config):

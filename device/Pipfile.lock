@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d85a6c6254c060bfbb3b02472a379d47d2d8f239c8e3b2db1e18d258975a6fc7"
+            "sha256": "013334c3f06145dbf9573ab4b61170c5461c2ceb6008baff6333da1326c341f4"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -361,6 +361,14 @@
             ],
             "version": "==2021.1"
         },
+        "schedule": {
+            "hashes": [
+                "sha256:617adce8b4bf38c360b781297d59918fbebfb2878f1671d189f4f4af5d0567a4",
+                "sha256:e6ca13585e62c810e13a08682e0a6a8ad245372e376ba2b8679294f377dfc8e4"
+            ],
+            "index": "pypi",
+            "version": "==1.1.0"
+        },
         "six": {
             "hashes": [
                 "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926",
@@ -530,7 +538,7 @@
                 "sha256:f0b278ce10936db1a37e6954e15a3730bea96a0997c26d7fee88e6c396c2086d",
                 "sha256:f11642dddbb0253cc8853254301b51390ba0081750a8ac03f20ea8103f0c56b6"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4.0'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
             "version": "==5.5"
         },
         "e1839a8": {
@@ -552,6 +560,10 @@
             ],
             "markers": "python_version >= '3.6'",
             "version": "==8.13.2"
+        },
+        "fd-device": {
+            "editable": true,
+            "path": "."
         },
         "flake8": {
             "hashes": [
@@ -1014,10 +1026,6 @@
                 "sha256:f60667673ff9c249709160529ab39667d1ae9fd38634e006bec95611f632e759"
             ],
             "version": "==2021.8.28"
-        },
-        "sanitized-package": {
-            "editable": true,
-            "path": "."
         },
         "six": {
             "hashes": [

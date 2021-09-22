@@ -42,6 +42,8 @@ celery = "~=5.1.2"
 multiprocessing-logging = "~=0.3.0"
 # Environment and variable parsing
 environs = "~=9.3.2"
+# basic scheduler
+schedule = "~=1.1.0"
 
 [requires]
 python_version = "3.9"

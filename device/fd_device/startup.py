@@ -12,7 +12,7 @@ from fd_device.settings import get_config
 from fd_device.system.info import get_ip_of_interface
 
 
-def get_rabbitmq_address(logger, session):
+def get_rabbitmq_address(logger, session):  # noqa: C901
     """Find and return the address of the RabbitMQ server to connect to."""
 
     try:
@@ -20,6 +20,20 @@ def get_rabbitmq_address(logger, session):
     except NoResultFound:
         connection = Connection()
         session.add(connection)
+
+    # try environment variable address (if present) to see if it works.
+    config = get_config()
+    if config.RABBITMQ_HOST_ADDRESS is not None:
+        logger.debug(
+            f"trying environment variable for rabbitmq address of {config.RABBITMQ_HOST_ADDRESS}"
+        )
+        if check_rabbitmq_address(logger, config.RABBITMQ_HOST_ADDRESS):
+            logger.info(
+                f"environment variable address of host {config.RABBITMQ_HOST_ADDRESS} was found and the url was valid"
+            )
+            connection.address = config.RABBITMQ_HOST_ADDRESS
+            session.commit()
+            return True
 
     # try previously found address (if available) to see if it is still working
     if connection.address:

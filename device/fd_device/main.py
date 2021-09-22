@@ -6,11 +6,13 @@ from multiprocessing import Process
 
 from multiprocessing_logging import install_mp_handler
 
+from fd_device.celery_runner import run_scheduled_tasks
 from fd_device.database.base import get_session
-from fd_device.device.service import run_connection
 
 from .settings import get_config
 from .startup import get_rabbitmq_address
+
+# from fd_device.device.service import run_connection
 
 
 def configure_logging(config):
@@ -55,18 +57,24 @@ def main():
         time.sleep(1)
         return
 
-    device_connection = Process(target=run_connection)
+    # device_connection = Process(target=run_connection)
+    scheduler_process = Process(target=run_scheduled_tasks)
+
     # device_connection.start()
+    scheduler_process.start()
 
     try:
         # device_connection.join()
-        print("pass")
+        scheduler_process.join()
     except KeyboardInterrupt:
         logger.warning("Keyboard interrupt in main process")
 
         time.sleep(1)
-        device_connection.terminate()
-        device_connection.join()
+        # device_connection.terminate()
+        # device_connection.join()
+
+        scheduler_process.terminate()
+        scheduler_process.join()
 
     return
 
