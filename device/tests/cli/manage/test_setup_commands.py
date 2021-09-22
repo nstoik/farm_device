@@ -100,3 +100,27 @@ def test_first_setup_not_standalone_db(dbsession):
     assert device.software_version == "0.1"
     assert device.interior_sensor is None
     assert device.exterior_sensor is None
+
+
+@pytest.mark.usefixtures("tables")
+def test_first_setup_setup_hardware_information():
+    """Test that setting the hardware information works."""
+
+    runner = CliRunner()
+    result = runner.invoke(first_setup, input="y\nN\ny\n\n2\nN\ny\n0.1\n\n")
+
+    # answered yes
+    assert "Is this a standalone configuration?" in result.output
+    # answered NO
+    assert "Do you want to change the device name?" in result.output
+    # answered yes and accepted default of pi3_0001. Entered 2 for number of grainbin reader chips
+    assert "Do you want to set hardware informations?" in result.output
+    assert "Enter the hardware version [pi3_0001]:" in result.output
+    assert "Enter the number of grainbin reader chips on the board [0]" in result.output
+    # answered No
+    assert "Do you want to set the sensor information" in result.output
+    # answered yes and entered 0.1
+    assert "Do you want to set the software information?" in result.output
+    # answered no
+    assert "Do you want to set details for the interfaces?" in result.output
+    assert not result.exception

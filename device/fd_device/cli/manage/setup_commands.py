@@ -171,7 +171,7 @@ def initialize_device():
     # set grainbin info
     grainbins = initialize_grainbin(device.device_id, hd.grainbin_reader_count)
     for grainbin in grainbins:
-        session.merge(grainbin)
+        device.grainbins.append(grainbin)
     device.grainbin_count = len(grainbins)
 
     session.commit()
