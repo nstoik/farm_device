@@ -29,7 +29,7 @@ types-click = "~=7.1.5"
 pyment = {git = "https://github.com/dadadel/pyment",editable = true}
 
 [packages]
-SQLAlchemy = "~=1.4.23"
+SQLAlchemy = "~=1.4.25"
 # for Postgresql
 psycopg2 = "~=2.9.1"
 alembic = "~=1.7.3"
