@@ -3,7 +3,6 @@ import datetime
 
 from fd_device.database.base import get_session
 from fd_device.database.device import Device
-from fd_device.grainbin.update import get_grainbin_info
 
 
 def get_device_info(session=None):
@@ -18,12 +17,11 @@ def get_device_info(session=None):
     info = {}
 
     info["created_at"] = datetime.datetime.now()
-    info["id"] = device.device_id
+    info["device_id"] = device.device_id
     info["hardware_version"] = device.hardware_version
     info["software_version"] = device.software_version
 
     info["grainbin_count"] = device.grainbin_count
-    info["grainbin_data"] = get_grainbin_info(session)
 
     if close_session:
         session.close()

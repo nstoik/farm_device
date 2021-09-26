@@ -14,7 +14,7 @@ class CeleryConfig:
     """Celery configuration."""
 
     # Broker settings.
-    broker_url = "amqp://fm:farm_monitor@10.10.1.204/farm_monitor"
+    broker_url = "amqp://fd:farm_monitor@10.10.1.204/farm_monitor"
 
     # List of modules to import when the Celery worker starts.
     # imports = ('fm_server.device.tasks',)
@@ -22,7 +22,18 @@ class CeleryConfig:
     # Using the database to store task state and results.
     result_backend = "rpc://"
 
-    broker_transport_options = {"confirm_publish": True}
+    # set the broker transport options.
+    # confirm_publish 'True' waits until the publish is confirmed.
+    # the rest of the settings deal with timeouts.
+    # retry 5 times, starting at 0 seconds and incrementing 1 second
+    # each time, up until a max of 30 seconds
+    broker_transport_options = {
+        "confirm_publish": True,
+        "max_retries": 5,
+        "interval_start": 0,
+        "interval_step": 1,
+        "interval_max": 30,
+    }
 
     broker_pool_limit = 0
 
@@ -38,7 +49,7 @@ class Config:
     LOG_LEVEL = logging.INFO
     LOG_FILE = "/logs/farm_device.log"
 
-    UPDATER_PATH = "/home/pi/farm_monitor/farm_update/update.sh"
+    # UPDATER_PATH = "/home/pi/farm_monitor/farm_update/update.sh"
 
     SQLALCHEMY_DATABASE_URI = "postgresql://fd:farm_device@fd_database/farm_device.db"
 
@@ -47,6 +58,10 @@ class Config:
     RABBITMQ_VHOST = "farm_monitor"
 
     RABBITMQ_HOST_ADDRESS = env.str("RABBITMQ_HOST_ADDRESS", default=None)
+
+    # Scheduler settings
+    # How often to send the device update. Every x minutes
+    SCHEDULER_DEVICE_UPDATE_INTERVAL = 5
 
 
 class DevConfig(Config):
