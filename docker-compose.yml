@@ -22,7 +22,7 @@ services:
       context: ./1wire
       dockerfile: Dockerfile
     devices:
-      - "dev/i2c-0"
+      #- "/dev/i2c-0"
       - "/dev/i2c-1"
     networks:
       - farm_device
