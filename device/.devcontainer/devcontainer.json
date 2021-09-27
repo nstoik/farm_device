@@ -24,8 +24,8 @@
 		"ms-python.vscode-pylance",
 	],
 	"postCreateCommand": [
-		"git config --global core.autocrlf true",
-		"git config --global user.email 'neslonstoik@gmail.com'",
+		"git config --global core.autocrlf true &&",
+		"git config --global user.email 'neslonstoik@gmail.com' &&",
 		"git config --global user.name 'Nelson'",
 	],
 	"settings": {
