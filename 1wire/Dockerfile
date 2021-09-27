@@ -11,4 +11,5 @@ RUN mkdir /mnt/1wire
 
 COPY owfs.conf /etc/owfs.conf
 
-CMD ["/bin/bash"]
+# Run forever
+CMD exec /bin/bash -c "trap : TERM INT; sleep infinity & wait"
