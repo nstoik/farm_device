@@ -15,6 +15,19 @@ services:
       - "logs:/logs"
     restart: unless-stopped
 
+  1wire:
+    image: nstoik/farm_device_1wire:latest
+    container_name: fd_1wire
+    build:
+      context: ./1wire
+      dockerfile: Dockerfile
+    devices:
+      - "dev/i2c-0"
+      - "/dev/i2c-1"
+    networks:
+      - farm_device
+    restart: unless-stopped
+
     # standard docker containers below
 
   database:
