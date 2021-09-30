@@ -7,9 +7,13 @@ RUN apt-get update && \
     apt-get autoclean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN mkdir /mnt/1wire
+COPY start.sh /start.sh
+
+RUN ["chmod", "+x", "/start.sh"]
 
 COPY owfs.conf /etc/owfs.conf
 
 # Run forever
-CMD exec /bin/bash -c "trap : TERM INT; sleep infinity & wait"
+# CMD exec /bin/bash -c "trap : TERM INT; sleep infinity & wait"
+
+ENTRYPOINT ["/start.sh"]
