@@ -11,6 +11,7 @@ services:
       - farm_device
     depends_on:
       - "fd_db"
+      - "fd_1wire"
     volumes:
       - "logs:/logs"
     restart: unless-stopped
