@@ -27,7 +27,7 @@ services:
     networks:
       - farm_device
     ports:
-      - "2122:2121"
+      - "2121:2121"
     restart: unless-stopped
 
     # standard docker containers below
