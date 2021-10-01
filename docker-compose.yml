@@ -27,6 +27,8 @@ services:
       - "/dev/i2c-1:/dev/i2c-1"
     networks:
       - farm_device
+    ports:
+      - "2122:2121"
     restart: unless-stopped
 
     # standard docker containers below
