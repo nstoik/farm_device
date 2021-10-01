@@ -13,7 +13,6 @@ RUN ["chmod", "+x", "/start.sh"]
 
 COPY owfs.conf /etc/owfs.conf
 
-# Run forever
-# CMD exec /bin/bash -c "trap : TERM INT; sleep infinity & wait"
+EXPOSE 2121
 
 ENTRYPOINT ["/start.sh"]
