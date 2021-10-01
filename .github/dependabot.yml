@@ -6,6 +6,12 @@ updates:
     schedule:
       interval: "weekly"
 
+  # configuration for the 1wire directory
+  - package-ecosystem: "docker"
+    directory: "/1wire"
+    schedule:
+      interval: "weekly"
+
   # configuration for the device directory
   - package-ecosystem: "docker"
     directory: "/device"
