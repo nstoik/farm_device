@@ -2,7 +2,7 @@
 
 echo "Starting all services"
 
-/usr/bin/owserver --foreground -c /etc/owfs.conf
+/usr/bin/owserver --foreground --debug -c /etc/owfs.conf
 
 # Spin until we receive a SIGTERM (e.g. from `docker stop`)
 echo "all work done, go sleeping..."
