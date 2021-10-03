@@ -10,10 +10,11 @@ services:
     networks:
       - farm_device
     depends_on:
-      - "fd_db"
-      - "fd_1wire"
+      - "database"
+      - "1wire"
     volumes:
       - "logs:/logs"
+      - "/sys/devices/w1_bus_master1:/sys/devices/w1_bus_master1"
     restart: unless-stopped
 
   1wire:
@@ -53,6 +54,8 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: fd@farmmonitor.ca
       PGADMIN_DEFAULT_PASSWORD: farm_device
+    depends_on:
+      - "database"
     volumes:
         - pgadmin:/root/.pgadmin
         - pgadmin:/var/lib/pgadmin
