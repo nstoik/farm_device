@@ -23,7 +23,7 @@
 		"eamodio.gitlens",
 		"ms-python.vscode-pylance",
 	],
-	"postCreateCommand": "git config --global core.autocrlf true && git config --global user.email 'nelsonstoik@gmail.com' && git config --global user.name 'Nelson'",
+	"postCreateCommand": "pipenv install --dev && git config --global core.autocrlf true && git config --global user.email 'nelsonstoik@gmail.com' && git config --global user.name 'Nelson'",
 	"settings": {
 		"python.linting.enabled": true,
 		"python.linting.pylintEnabled": true,
