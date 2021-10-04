@@ -55,7 +55,7 @@ COPY --chown=${USER_UID}:${USER_GID} . $WORKING_DIR/
 COPY --chown=${USER_UID}:${USER_GID} Pipfile* setup.py $WORKING_DIR/
 WORKDIR $WORKING_DIR
 
-# Set up the dev environment (this is run in the post create command instead)
+# Set up the dev environment (this is run manually inside the container instead for dev)
 # RUN pipenv install --dev
 
 # Switch back to dialog for any ad-hoc use of apt-get
