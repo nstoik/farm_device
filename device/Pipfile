@@ -41,7 +41,7 @@ pika = "~=1.2.0"
 celery = "~=5.1.2"
 multiprocessing-logging = "~=0.3.0"
 # Environment and variable parsing
-environs = "~=9.3.2"
+environs = "~=9.3.4"
 # basic scheduler
 schedule = "~=1.1.0"
 
