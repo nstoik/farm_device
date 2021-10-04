@@ -11,25 +11,25 @@ services:
       - farm_device
     depends_on:
       - "database"
-      - "1wire"
+      #- "1wire"
     volumes:
       - "logs:/logs"
-      - "/sys/devices/w1_bus_master1:/sys/devices/w1_bus_master1"
+      #- "/sys/devices/w1_bus_master1:/sys/devices/w1_bus_master1"
     restart: unless-stopped
 
-  1wire:
-    image: nstoik/farm_device_1wire:latest
-    container_name: fd_1wire
-    build:
-      context: ./1wire
-      dockerfile: Dockerfile
-    devices:
-      - "/dev/i2c-1:/dev/i2c-1"
-    networks:
-      - farm_device
-    ports:
-      - "2121:2121"
-    restart: unless-stopped
+  # 1wire:
+  #   image: nstoik/farm_device_1wire:latest
+  #   container_name: fd_1wire
+  #   build:
+  #     context: ./1wire
+  #     dockerfile: Dockerfile
+  #   devices:
+  #     - "/dev/i2c-1:/dev/i2c-1"
+  #   networks:
+  #     - farm_device
+  #   ports:
+  #     - "2121:2121"
+  #   restart: unless-stopped
 
     # standard docker containers below
 
