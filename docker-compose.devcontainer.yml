@@ -16,5 +16,11 @@ services:
         # Overrides default command so things don't shut down after the process ends.
         command: /bin/sh -c "while sleep 1000; do :; done"
 
+    1wire:
+        image: nstoik/farm_device_1wire:dev
+        build:
+            context: ./1wire
+            dockerfile: Dockerfile
+
 volumes:
     bashhistory:
