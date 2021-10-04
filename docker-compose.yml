@@ -11,10 +11,10 @@ services:
       - farm_device
     depends_on:
       - "database"
-      - "1wire"
+      #- "1wire"
     volumes:
       - "logs:/logs"
-      - "/sys/devices/w1_bus_master1:/sys/devices/w1_bus_master1"
+      #- "/sys/devices/w1_bus_master1:/sys/devices/w1_bus_master1"
     restart: unless-stopped
 
   1wire:
