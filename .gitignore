@@ -5,3 +5,5 @@ build/
 
 # Configuration
 .env
+
+.coverage
