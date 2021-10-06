@@ -5,7 +5,7 @@ import pytest
 
 from fd_device.database.device import Connection, Device, Grainbin
 
-from .factories import DeviceFactory, GrainbinFactory
+from ..factories import DeviceFactory, GrainbinFactory
 
 
 @pytest.mark.usefixtures("tables")
