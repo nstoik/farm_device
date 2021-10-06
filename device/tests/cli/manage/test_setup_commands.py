@@ -130,7 +130,10 @@ def test_first_setup_setup_hardware_information():
 def test_first_setup_setup_temp_sensors(mocker):
     """Test that setting the hardware information works."""
 
-    mocked_sensors = [{"name": "sensor_1_name", 'temperature': 22.38}, {"name": "sensor_2_name", 'temperature': 22.19}]
+    mocked_sensors = [
+        {"name": "sensor_1_name", "temperature": 22.38},
+        {"name": "sensor_2_name", "temperature": 22.19},
+    ]
 
     mocker.patch(
         "fd_device.cli.manage.setup_commands.get_connected_sensors",
