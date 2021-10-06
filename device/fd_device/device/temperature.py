@@ -1,4 +1,4 @@
-"""Module to interface with the temperature sensors connected to the device."""
+"""Module to interface with the temperature sensors connected directly to the device."""
 
 
 def temperature(sensor_name, sample_number=3, percision=2):
@@ -16,15 +16,20 @@ def temperature(sensor_name, sample_number=3, percision=2):
     return "U"
 
 
-def _read_temperature(name):
-    """Low level read the temperatures of a sensor."""
-    w1_master_devices = "/sys/bus/w1/devices/w1_bus_master1/w1_master_slaves"
+def _get_sensors() -> list:
+    """Get a list of sensors currently connected to the device."""
 
-    # get connected sensors
+    w1_master_devices = "/sys/bus/w1/devices/w1_bus_master1/w1_master_slaves"
     with open(w1_master_devices) as f:
         content = [line.rstrip("\n") for line in f]
 
-    if name in content:
+    return content
+
+
+def _read_temperature(name):
+    """Low level read the temperatures of a sensor."""
+
+    if name in _get_sensors():
         # sensor is connected
         sensor_file = "/sys/bus/w1/devices/" + name + "/w1_slave"
         try:
@@ -44,21 +49,18 @@ def _read_temperature(name):
     return "U"
 
 
-def get_connected_sensors(values=False):
+def get_connected_sensors(values=False) -> list[dict]:
     """Return all of the sensores connected to the device."""
-    w1_master_devices = "/sys/bus/w1/devices/w1_bus_master1/w1_master_slaves"
-    # get connected sensors
-    with open(w1_master_devices) as f:
-        content = [line.rstrip("\n") for line in f]
 
-    if values:
-        values = {}
-        for sensor in content:
-            temp = temperature(sensor, sample_number=2)
-            values[sensor] = temp
-        return values
+    connected_sensors: list[dict] = []
 
-    return content
+    for sensor in _get_sensors():
+        sensor_info = {"name": sensor}
+        if values:
+            sensor_info["temperature"] = temperature(sensor, sample_number=2)
+        connected_sensors.append(sensor_info)
+
+    return connected_sensors
 
 
 if __name__ == "__main__":
