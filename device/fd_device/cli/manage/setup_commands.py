@@ -69,10 +69,10 @@ def first_setup(standalone):  # noqa: C901
     if click.confirm("Do you want to set the sensor information?"):
         current_sensors = get_connected_sensors(values=True)
         click.echo("Current sensor information: ")
-        x = 1
-        for sensor, temperature in current_sensors.items():
-            click.echo(f"{x}. Sensor: {sensor} Temperature: {temperature}")
-            x = x + 1
+        for index, sensor in enumerate(current_sensors):
+            click.echo(
+                f"{index + 1}. Sensor: {sensor['name']} Temperature: {sensor['temperature']}"
+            )
 
         interior_sensor = click.prompt(
             "Select which sensor is the internal temperature", default=1

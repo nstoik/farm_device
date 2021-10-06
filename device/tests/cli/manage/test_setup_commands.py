@@ -124,3 +124,35 @@ def test_first_setup_setup_hardware_information():
     # answered no
     assert "Do you want to set details for the interfaces?" in result.output
     assert not result.exception
+
+
+@pytest.mark.usefixtures("tables")
+def test_first_setup_setup_temp_sensors():
+    """Test that setting the hardware information works."""
+
+    runner = CliRunner()
+    result = runner.invoke(first_setup, input="y\nN\ny\n\n2\ny\n\n\ny\n0.1\n\n")
+
+    print(result.output)
+
+    # answered yes
+    assert "Is this a standalone configuration?" in result.output
+    # answered NO
+    assert "Do you want to change the device name?" in result.output
+    # answered yes and accepted default of pi3_0001. Entered 2 for number of grainbin reader chips
+    assert "Do you want to set hardware informations?" in result.output
+    assert "Enter the hardware version [pi3_0001]:" in result.output
+    assert "Enter the number of grainbin reader chips on the board [0]" in result.output
+    # answered yes
+    assert "Do you want to set the sensor information" in result.output
+    assert "Current sensor information:" in result.output
+    assert "1. Sensor: 28-03146d1e42ff Temperature:" in result.output
+    assert "2. Sensor: 28-03146d2281ff Temperature:" in result.output
+    # answered default 1 and 2 for sensor selection
+    assert "Select which sensor is the internal temperature [1]:" in result.output
+    assert "Select which sensor is the external temperature [2]:" in result.output
+    # answered yes and entered 0.1
+    assert "Do you want to set the software information?" in result.output
+    # answered no
+    assert "Do you want to set details for the interfaces?" in result.output
+    assert not result.exception
