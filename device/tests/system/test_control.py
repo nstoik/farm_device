@@ -32,8 +32,8 @@ def test_set_sensor_info(dbsession, mocker):
 
     hd = dbsession.query(Hardware).one()
 
-    assert hd.interior_sensor == mocked_sensors[0]
-    assert hd.exterior_sensor == mocked_sensors[1]
+    assert hd.interior_sensor == mocked_sensors[0]["name"]
+    assert hd.exterior_sensor == mocked_sensors[1]["name"]
 
 
 @pytest.mark.usefixtures("tables")
