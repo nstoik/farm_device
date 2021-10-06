@@ -168,6 +168,13 @@ def initialize_device():
     device.interior_sensor = hd.interior_sensor
     device.exterior_sensor = hd.exterior_sensor
 
+    # check if grainbins already exisit (running setup again)
+    # and remove them if they are present
+    if len(device.grainbins) > 0:
+        for grainbin in device.grainbins:
+            session.delete(grainbin)
+        device.grainbin_count = 0
+        session.commit()
     # set grainbin info
     grainbins = initialize_grainbin(device.device_id, hd.grainbin_reader_count)
     for grainbin in grainbins:

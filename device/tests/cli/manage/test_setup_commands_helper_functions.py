@@ -45,3 +45,28 @@ def test_initialize_device(dbsession):
     device = dbsession.query(Device).first()
 
     assert len(device.grainbins) == number_of_grainbins
+
+
+@pytest.mark.usefixtures("tables")
+def test_initialize_device_twice(dbsession):
+    """Test the initialize_device function if ran again.
+
+    Both device and grainbins my be present already, so make
+    sure the function can handle that gracefully.
+    """
+
+    # initialize the device once.
+    number_of_grainbins = random.randint(1, 10)
+    set_hardware_info("TEST_HARDWARE_VERSION", str(number_of_grainbins))
+    set_software_info("TEST_SOFTWARE_VERSION")
+    initialize_device()
+
+    device = dbsession.query(Device).first()
+    assert len(device.grainbins) == number_of_grainbins
+
+    # now initialize the device again.
+    number_of_grainbins_second_time = random.randint(1, 10)
+    set_hardware_info("TEST_HARDWARE_VERSION", str(number_of_grainbins_second_time))
+    initialize_device()
+    device_second = dbsession.query(Device).first()
+    assert len(device_second.grainbins) == number_of_grainbins_second_time
