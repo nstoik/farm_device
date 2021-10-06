@@ -8,6 +8,7 @@ name = "pypi"
 factory-boy = "~=3.2.0"
 pytest = "~=6.2.5"
 pytest-cov = "*"
+pytest-mock = "~=3.6.1"
 # Lint and code style
 black = "==20.8b1"
 flake8 = "~=3.9.2"
@@ -44,6 +45,9 @@ multiprocessing-logging = "~=0.3.0"
 environs = "~=9.3.2"
 # basic scheduler
 schedule = "~=1.1.0"
+# for reading temperature from owfs webserver
+requests = "~=2.26.0"
+beautifulsoup4 = "~=4.10.0"
 
 [requires]
 python_version = "3.9"
