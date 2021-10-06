@@ -140,6 +140,11 @@ def test_first_setup_setup_temp_sensors(mocker):
         return_value=mocked_sensors,
         autospec=True,
     )
+    mocker.patch(
+        "fd_device.cli.manage.setup_commands.set_sensor_info",
+        return_value=None,
+        autospec=True,
+    )
 
     runner = CliRunner()
     result = runner.invoke(first_setup, input="y\nN\ny\n\n2\ny\n\n\ny\n0.1\n\n")
