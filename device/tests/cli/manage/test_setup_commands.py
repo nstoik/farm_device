@@ -127,13 +127,19 @@ def test_first_setup_setup_hardware_information():
 
 
 @pytest.mark.usefixtures("tables")
-def test_first_setup_setup_temp_sensors():
+def test_first_setup_setup_temp_sensors(mocker):
     """Test that setting the hardware information works."""
+
+    mocked_sensors = [{"name": "sensor_1_name", 'temperature': 22.38}, {"name": "sensor_2_name", 'temperature': 22.19}]
+
+    mocker.patch(
+        "fd_device.cli.manage.setup_commands.get_connected_sensors",
+        return_value=mocked_sensors,
+        autospec=True,
+    )
 
     runner = CliRunner()
     result = runner.invoke(first_setup, input="y\nN\ny\n\n2\ny\n\n\ny\n0.1\n\n")
-
-    print(result.output)
 
     # answered yes
     assert "Is this a standalone configuration?" in result.output
@@ -146,8 +152,8 @@ def test_first_setup_setup_temp_sensors():
     # answered yes
     assert "Do you want to set the sensor information" in result.output
     assert "Current sensor information:" in result.output
-    assert "1. Sensor: 28-03146d1e42ff Temperature:" in result.output
-    assert "2. Sensor: 28-03146d2281ff Temperature:" in result.output
+    assert "1. Sensor: sensor_1_name Temperature: 22.38" in result.output
+    assert "2. Sensor: sensor_2_name Temperature: 22.19" in result.output
     # answered default 1 and 2 for sensor selection
     assert "Select which sensor is the internal temperature [1]:" in result.output
     assert "Select which sensor is the external temperature [2]:" in result.output
