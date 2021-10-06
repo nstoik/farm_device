@@ -32,7 +32,7 @@ def set_service_state(control):
     raise NotImplementedError
 
 
-def set_sensor_info(interior, exterior):
+def set_sensor_info(interior: int, exterior: int):
     """Set the sensor details for the device.
 
     There should be two 1W sensors connected directly to the device.
@@ -41,22 +41,23 @@ def set_sensor_info(interior, exterior):
     """
 
     logger.debug("setting sensor info for device")
-    interior = int(interior)
-    exterior = int(exterior)
+    # subtract 1 from the passed in values for interior and exterior to offset 0 index
+    interior = int(interior) - 1
+    exterior = int(exterior) - 1
     # get the 1W sensors that are connected directly to the device
-    # theses are the interior and exterior temp sensors
+    # these are the interior and exterior temp sensors
     sensors = get_connected_sensors()
 
     int_sensor = "no_sensor_selected"
     ext_sensor = "no_sensor_selected"
 
     try:
-        int_sensor = sensors[interior]
-    except ValueError:
+        int_sensor = sensors[interior]["name"]
+    except IndexError:
         pass
     try:
-        ext_sensor = sensors[exterior]
-    except ValueError:
+        ext_sensor = sensors[exterior]["name"]
+    except IndexError:
         pass
 
     logger.debug(f"interior sensor is: {int_sensor}")
