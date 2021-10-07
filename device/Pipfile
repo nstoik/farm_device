@@ -9,6 +9,7 @@ factory-boy = "~=3.2.0"
 pytest = "~=6.2.5"
 pytest-cov = "*"
 pytest-mock = "~=3.6.1"
+
 # Lint and code style
 black = "==20.8b1"
 flake8 = "~=3.9.2"
@@ -20,6 +21,12 @@ isort = "~=5.9.3"
 mypy = "~=0.910"
 pep8-naming = "~=0.12.1"
 pylint = "~=2.11.1"
+
+# type hints
+types-beautifulsoup4 = "~=4.10.1"
+types-setuptools = "~=57.4.0"
+types-psutil = "~=5.8.10"
+types-requests = "~=2.25.9"
 # this is needed only until click is updated to v8+ (celery depends on v7.1.2)
 types-click = "~=7.1.5"
 
