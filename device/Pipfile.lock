@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ff29be217ef2502ca193b3be756464ac61d70992438a4679d3d49ceb8d4f1ede"
+            "sha256": "decddc11e63e243b1296f680c22ecfc6bfd04abfbd7c281987bb5bd9752671b8"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -83,7 +83,7 @@
                 "sha256:a0713dc7a1de3f06bc0df5a9567ad19ead2d3d5689b434768a6145bff77c0667",
                 "sha256:f184f0d851d96b6d29297354ed981b7dd71df7ff500d82fa6d11f0856bee8035"
             ],
-            "markers": "python_full_version >= '3.6.2' and python_full_version < '4.0.0'",
+            "markers": "python_version < '4' and python_full_version >= '3.6.2'",
             "version": "==0.3.0"
         },
         "click-plugins": {
@@ -467,7 +467,7 @@
                 "sha256:4987c65554f7a2dbf30c18fd48778ef124af6fab771a377103da0585e2336ece",
                 "sha256:c4fdf4019605b6e5423637e01bc9fe4daef873709a7973e195ceba0a62bbc844"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_full_version < '4.0.0'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
             "version": "==1.26.7"
         },
         "vine": {
@@ -596,15 +596,11 @@
         },
         "faker": {
             "hashes": [
-                "sha256:81c807d45b26d8f4916944621c8895d449b552f672267a01a3b0a90dc033fde0",
-                "sha256:eff29a0d71afe0c41d3f6a7d799c045e58c486d1d6621f386c2925b6cd1b6dff"
+                "sha256:526da15fd36801427b8af91af854bbe7d6b979d696d3ecef91bf4d81e9b004f2",
+                "sha256:ae9bf986d75caa9c9011eed400bb2ed6e94f2208e987ee2aa013f8a0ae495772"
             ],
             "markers": "python_version >= '3.6'",
-            "version": "==9.0.0"
-        },
-        "fd-device": {
-            "editable": true,
-            "path": "."
+            "version": "==9.2.0"
         },
         "flake8": {
             "hashes": [
@@ -1076,6 +1072,10 @@
             ],
             "version": "==2021.9.30"
         },
+        "sanitized-package": {
+            "editable": true,
+            "path": "."
+        },
         "six": {
             "hashes": [
                 "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926",
@@ -1209,11 +1209,11 @@
         },
         "types-psutil": {
             "hashes": [
-                "sha256:138c7d49e4733d2f5f306e131bd77b39394a5721b766bb0e666870cce3b1e777",
-                "sha256:316e0b5da3e30631b74af5153f169bb04d86ee1d52a4b135dbc6c72e4771fb87"
+                "sha256:11ae89e7a2549b5e86c84a11bf8f4f72843b0894972fc0ced046063ab569dead",
+                "sha256:7cf3f533a8356a418f88bc43742f6d799b565477d6b2bb03a79cef41d2fa6ffb"
             ],
             "index": "pypi",
-            "version": "==5.8.10"
+            "version": "==5.8.12"
         },
         "types-requests": {
             "hashes": [
