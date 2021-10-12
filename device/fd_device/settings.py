@@ -43,6 +43,7 @@ class Config:
 
     APP_DIR = os.path.abspath(os.path.dirname(__file__))  # This directory
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
+    TEST_DIR = os.path.abspath(os.path.join(PROJECT_ROOT, "tests"))
 
     PRESENCE_PORT = 5554
 
