@@ -194,7 +194,7 @@ def initialize_grainbin(device_id, grainbin_reader_count):
     """
 
     grainbins = []
-    for bus_number in range(grainbin_reader_count):
+    for bus_number in range(1, grainbin_reader_count + 1):
         name = device_id + "." + str(bus_number).zfill(2)
         grainbin = Grainbin(name, bus_number, device_id)
         grainbins.append(grainbin)
