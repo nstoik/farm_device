@@ -7,7 +7,7 @@ name = "pypi"
 # Testing
 factory-boy = "~=3.2.0"
 pytest = "~=6.2.5"
-pytest-cov = "*"
+pytest-cov = "~=3.0.0"
 pytest-mock = "~=3.6.1"
 
 # Lint and code style
@@ -29,6 +29,8 @@ types-psutil = "~=5.8.12"
 types-requests = "~=2.25.9"
 # this is needed only until click is updated to v8+ (celery depends on v7.1.2)
 types-click = "~=7.1.5"
+# manually specifiy this package for mypy since it wasn't being installed automatically when upgrading to Python 3.10
+typing-extensions = "~=3.10.0.2"
 
 "e1839a8" = {path = ".", editable = true}
 
