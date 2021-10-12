@@ -1,0 +1,27 @@
+<HTML><HEAD><TITLE>1-Wire Web: bus.1/28.BC9A290D0000</TITLE></HEAD>
+<BODY BGCOLOR='#BBBBBB'><TABLE WIDTH='100%' BGCOLOR='#DDDDDD' BORDER='1'><TR><TD>OWFS</TD><TD><A HREF='/'>Bus listing</A></TD><TD><A HREF='http://www.owfs.org'>OWFS homepage</A></TD><TD><A HREF='http://www.maxim-ic.com'>Dallas/Maxim</A></TD><TD>by <A HREF='mailto://paul.alfille@gmail.com'>Paul H Alfille</A></TD></TR></TABLE>
+<H1>bus.1/28.BC9A290D0000</H1><HR>
+<BR><small><A href='/uncached/bus.1/28.BC9A290D0000'>uncached version</A></small><TABLE BGCOLOR="#DDDDDD" BORDER=1><TR><TD><A HREF='/bus.1/'><CODE><B><BIG>up</BIG></B></CODE></A></TD><TD>directory</TD></TR><TR><TD><B>address</B></TD><TD>28BC9A290D00009D</TD></TR>
+<TR><TD><B>alias</B></TD><TD><FORM METHOD='GET' ACTION='http://fd_1wire:2121/bus.1/28.BC9A290D0000'><INPUT TYPE='TEXT' NAME='alias' VALUE=''><INPUT TYPE='SUBMIT' VALUE='CHANGE'></FORM></TD></TR>
+<TR><TD><B>crc8</B></TD><TD>9D</TD></TR>
+<TR><TD><B>errata</B></TD><TD><A HREF='/bus.1/28.BC9A290D0000/errata'>errata</A></TD></TR>
+<TR><TD><B>family</B></TD><TD>28</TD></TR>
+<TR><TD><B>fasttemp</B></TD><TD>22.5</TD></TR>
+<TR><TD><B>id</B></TD><TD>BC9A290D0000</TD></TR>
+<TR><TD><B>latesttemp</B></TD><TD>22.5</TD></TR>
+<TR><TD><B>locator</B></TD><TD>FFFFFFFFFFFFFFFF</TD></TR>
+<TR><TD><B>power</B></TD><TD>NO  (0)</TD></TR>
+<TR><TD><B>r_address</B></TD><TD>9D00000D299ABC28</TD></TR>
+<TR><TD><B>r_id</B></TD><TD>00000D299ABC</TD></TR>
+<TR><TD><B>r_locator</B></TD><TD>FFFFFFFFFFFFFFFF</TD></TR>
+<TR><TD><B>scratchpad</B></TD><TD><PRE>68014B461FFF081095</PRE></TD></TR>
+<TR><TD><B>temperature</B></TD><TD>22.375</TD></TR>
+<TR><TD><B>temperature10</B></TD><TD>22.5</TD></TR>
+<TR><TD><B>temperature11</B></TD><TD>22.5</TD></TR>
+<TR><TD><B>temperature12</B></TD><TD>22.375</TD></TR>
+<TR><TD><B>temperature9</B></TD><TD>22.5</TD></TR>
+<TR><TD><B>temphigh</B></TD><TD><FORM METHOD='GET' ACTION='http://fd_1wire:2121/bus.1/28.BC9A290D0000'><INPUT TYPE='TEXT' NAME='temphigh' VALUE='75'><INPUT TYPE='SUBMIT' VALUE='CHANGE'></FORM></TD></TR>
+<TR><TD><B>templow</B></TD><TD><FORM METHOD='GET' ACTION='http://fd_1wire:2121/bus.1/28.BC9A290D0000'><INPUT TYPE='TEXT' NAME='templow' VALUE='70'><INPUT TYPE='SUBMIT' VALUE='CHANGE'></FORM></TD></TR>
+<TR><TD><B>tempres</B></TD><TD><FORM METHOD='GET' ACTION='http://fd_1wire:2121/bus.1/28.BC9A290D0000'><INPUT TYPE='TEXT' NAME='tempres' VALUE='12'><INPUT TYPE='SUBMIT' VALUE='CHANGE'></FORM></TD></TR>
+<TR><TD><B>type</B></TD><TD>DS18B20</TD></TR>
+</TABLE></BODY></HTML>
