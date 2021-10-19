@@ -61,8 +61,11 @@ class Config:
     RABBITMQ_HOST_ADDRESS = env.str("RABBITMQ_HOST_ADDRESS", default=None)
 
     # Scheduler settings
+    SEND_TASK_GET_TIMEOUT = 5
     # How often to send the device update. Every x minutes
-    SCHEDULER_DEVICE_UPDATE_INTERVAL = 5
+    SCHEDULER_DEVICE_UPDATE_INTERVAL = 30
+    # How often to send the grainbin update. Every x minutes
+    SCHEDULER_GRAINBIN_UPDATE_INTERVAL = 10
 
 
 class DevConfig(Config):
