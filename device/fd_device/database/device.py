@@ -22,16 +22,18 @@ class Grainbin(SurrogatePK):
     __tablename__ = "grainbin"
     name = Column(String(20), unique=True)
     bus_number = Column(Integer, nullable=False)
+    bus_number_string = Column(String(10), nullable=True)
     creation_time = Column(DateTime, default=func.now())
     last_updated = Column(DateTime, default=func.now(), onupdate=func.now())
     average_temp = Column(String(7))
 
     device_id = reference_col("device")
 
-    def __init__(self, name, bus_number, device_id):
+    def __init__(self, name: str, bus_number: int, device_id: int):
         """Create the Grainbin object."""
         self.name = name
         self.bus_number = bus_number
+        self.bus_number_string = f"bus.{bus_number}"
         self.device_id = device_id
         self.average_temp = "unknown"
 

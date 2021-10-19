@@ -109,6 +109,7 @@ class TestGrainbin:
 
         assert grainbin.device_id == device.id
         assert grainbin.bus_number == 1
+        assert grainbin.bus_number_string == "bus.1"
 
     @staticmethod
     def test_get_grainbin_by_id():
