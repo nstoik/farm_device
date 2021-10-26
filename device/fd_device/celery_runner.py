@@ -72,6 +72,9 @@ schedule.every(GRAINBIN_INTERVAL).minutes.at(":00").do(send_grainbin_update)
 def run_scheduled_tasks():
     """Run the scheduled tasks using the 'schedule' package."""
 
+    # always send a device update upon start up (in case the device is new to the server)
+    send_device_update()
+
     try:
         while True:
             idle_seconds = schedule.idle_seconds()
