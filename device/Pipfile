@@ -24,7 +24,7 @@ pylint = "~=2.11.1"
 
 # type hints
 types-beautifulsoup4 = "~=4.10.1"
-types-setuptools = "~=57.4.0"
+types-setuptools = "~=57.4.2"
 types-psutil = "~=5.8.12"
 types-requests = "~=2.25.9"
 # this is needed only until click is updated to v8+ (celery depends on v7.1.2)
