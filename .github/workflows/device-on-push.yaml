@@ -21,8 +21,8 @@ jobs:
         run: |
           pip install pipenv
           pipenv install --dev
-      - run: cp .env.example .env
-      - name: Run Python lints
+      #- run: cp .env.example .env
+      #- name: Run Python lints
         run: pipenv run fd_device lint --check
       - name: Run Python tests
         run: pipenv run fd_device test --coverage
