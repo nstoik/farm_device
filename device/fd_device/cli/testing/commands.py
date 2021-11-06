@@ -108,12 +108,12 @@ def test(coverage, filename, function):
     pipenv_path = pipenv_path.stdout.decode().replace("\n", "")
     pipenv_path = os.path.join(pipenv_path, "bin")
 
-    def execute_tool(description, pipenv_path, *args):
+    def execute_tool(description, pipenv_path_with_bin, *args):
         """Execute a checking tool with its arguments."""
 
         # Add the virtual environment to the path for subprocess calls
         my_env = os.environ.copy()
-        my_env["PATH"] = os.pathsep.join([pipenv_path, my_env["PATH"]])
+        my_env["PATH"] = os.pathsep.join([pipenv_path_with_bin, my_env["PATH"]])
 
         command_line = list(args)
         click.echo(f"{description}: {' '.join(command_line)}")
@@ -148,14 +148,19 @@ def lint(fix_imports, check):
 
     files_and_directories = get_root_files_and_directories()
 
-    command_prefix = ["pipenv", "run"]
+    # Get the virtual environment to the path for subprocess calls
+    pipenv_path = run(["pipenv", "--venv"], check=True, stdout=PIPE)
+    pipenv_path = pipenv_path.stdout.decode().replace("\n", "")
+    pipenv_path = os.path.join(pipenv_path, "bin")
+    my_env = os.environ.copy()
+    my_env["PATH"] = os.pathsep.join([pipenv_path, my_env["PATH"]])
 
     def execute_tool(description, *args):
         """Execute a checking tool with its arguments."""
-        command_line = command_prefix + list(args) + files_and_directories
+        command_line = list(args) + files_and_directories
         click.echo(f"{description}: {' '.join(command_line)}")
 
-        rv = call(command_line)
+        rv = call(command_line, env=my_env)
         if rv != 0:
             sys.exit(rv)
 
