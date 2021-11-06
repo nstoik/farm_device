@@ -106,12 +106,12 @@ def test(coverage, filename, function):
     def execute_tool(description, *args):
         """Execute a checking tool with its arguments."""
         my_env = os.environ.copy()
-        click.echo(my_env["PATH"])
+        click.echo(f"Old path is: {my_env['PATH']}")
         pipenv_path = (
             run(["pipenv", "--venv"], check=True, stdout=PIPE).stdout.decode().rstrip()
         )
         my_env["PATH"] = pipenv_path + os.pathsep + my_env["PATH"]
-        click.echo(my_env["PATH"])
+        click.echo(f"New path is: {my_env['PATH']}")
         command_line = list(args)
         click.echo(f"{description}: {' '.join(command_line)}")
         rv = call(command_line, env=my_env)
