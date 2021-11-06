@@ -107,7 +107,9 @@ def test(coverage, filename, function):
         """Execute a checking tool with its arguments."""
         my_env = os.environ.copy()
         click.echo(my_env["PATH"])
-        pipenv_path = run(["pipenv", "--venv"], stdout=PIPE).stdout.decode().rstrip()
+        pipenv_path = (
+            run(["pipenv", "--venv"], check=True, stdout=PIPE).stdout.decode().rstrip()
+        )
         my_env["PATH"] = pipenv_path + os.pathsep + my_env["PATH"]
         click.echo(my_env["PATH"])
         command_line = list(args)
