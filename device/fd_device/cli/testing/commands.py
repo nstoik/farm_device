@@ -105,9 +105,10 @@ def test(coverage, filename, function):
 
     def execute_tool(description, *args):
         """Execute a checking tool with its arguments."""
+        my_env = os.environ.copy()
         command_line = list(args)
         click.echo(f"{description}: {' '.join(command_line)}")
-        rv = call(command_line)
+        rv = call(command_line, env=my_env)
         return rv
 
     previous_env = os.getenv("FD_DEVICE_CONFIG", default="dev")
