@@ -138,11 +138,12 @@ def lint(fix_imports, check):
 
     files_and_directories = get_root_files_and_directories()
 
+    command_prefix = ["pipenv", "run"]
+
     def execute_tool(description, *args):
         """Execute a checking tool with its arguments."""
-        command_line = list(args) + files_and_directories
+        command_line = command_prefix + list(args) + files_and_directories
         click.echo(f"{description}: {' '.join(command_line)}")
-        click.echo(command_line)
         rv = call(command_line)
         if rv != 0:
             sys.exit(rv)
@@ -156,7 +157,7 @@ def lint(fix_imports, check):
         black_args.append("--check")
         # mypy_args.append("--check")
     if fix_imports:
-        execute_tool("Fixing import order", "pipenv", "run", "isort", *isort_args)
+        execute_tool("Fixing import order", "isort", *isort_args)
     execute_tool("Formatting style", "black", *black_args)
     execute_tool("Checking code style", "flake8")
     execute_tool("Checking for code errors", "pylint", *pylint_args)
