@@ -23,7 +23,9 @@ jobs:
           pipenv install --dev
       - run: cp .env.example .env
       - name: Test isort command
-        run: isort --version
+        run: |
+          pipenv run pip list | grep isort
+          isort --version
       - name: Run Python lints
         run: pipenv run fd_device lint --check
       - name: Run Python tests
