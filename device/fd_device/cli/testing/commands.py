@@ -156,7 +156,7 @@ def lint(fix_imports, check):
         black_args.append("--check")
         # mypy_args.append("--check")
     if fix_imports:
-        execute_tool("Fixing import order", "isort", *isort_args)
+        execute_tool("Fixing import order", "pipenv", "run", "isort", *isort_args)
     execute_tool("Formatting style", "black", *black_args)
     execute_tool("Checking code style", "flake8")
     execute_tool("Checking for code errors", "pylint", *pylint_args)
