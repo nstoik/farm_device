@@ -26,7 +26,7 @@ pylint = "~=2.11.1"
 types-beautifulsoup4 = "~=4.10.4"
 types-setuptools = "~=57.4.2"
 types-psutil = "~=5.8.12"
-types-requests = "~=2.25.9"
+types-requests = "~=2.25.11"
 # this is needed only until click is updated to v8+ (celery depends on v7.1.2)
 types-click = "~=7.1.7"
 # manually specifiy this package for mypy since it wasn't being installed automatically when upgrading to Python 3.10
