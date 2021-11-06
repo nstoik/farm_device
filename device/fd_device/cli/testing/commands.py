@@ -142,6 +142,7 @@ def lint(fix_imports, check):
         """Execute a checking tool with its arguments."""
         command_line = list(args) + files_and_directories
         click.echo(f"{description}: {' '.join(command_line)}")
+        click.echo(command_line)
         rv = call(command_line)
         if rv != 0:
             sys.exit(rv)
