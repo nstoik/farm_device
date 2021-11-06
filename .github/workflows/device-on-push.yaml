@@ -21,6 +21,7 @@ jobs:
         run: |
           pip install pipenv
           pipenv install --dev
+          pipenv --venv
       - run: cp .env.example .env
       - name: Run Python lints
         run: pipenv run fd_device lint --check

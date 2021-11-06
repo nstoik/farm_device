@@ -108,7 +108,7 @@ def test(coverage, filename, function):
         my_env = os.environ.copy()
         click.echo(my_env)
         call(["whereis", "pytest"])
-        call(["whereis", "pytest"], env=my_env)
+        call(["pipenv", "--venv"])
         command_line = list(args)
         click.echo(f"{description}: {' '.join(command_line)}")
         rv = call(command_line, env=my_env)
