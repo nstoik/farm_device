@@ -3,7 +3,7 @@
 import os
 import sys
 from glob import glob
-from subprocess import call
+from subprocess import PIPE, call, run
 from typing import List
 
 import click
@@ -106,9 +106,10 @@ def test(coverage, filename, function):
     def execute_tool(description, *args):
         """Execute a checking tool with its arguments."""
         my_env = os.environ.copy()
-        click.echo(my_env)
-        call(["whereis", "pytest"])
-        call(["pipenv", "--venv"])
+        click.echo(my_env["PATH"])
+        pipenv_path = run(["pipenv", "--venv"], stdout=PIPE).stdout.decode().rstrip()
+        my_env["PATH"] = pipenv_path + os.pathsep + my_env["PATH"]
+        click.echo(my_env["PATH"])
         command_line = list(args)
         click.echo(f"{description}: {' '.join(command_line)}")
         rv = call(command_line, env=my_env)
