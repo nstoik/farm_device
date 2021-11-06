@@ -111,6 +111,7 @@ def test(coverage, filename, function):
             run(["pipenv", "--venv"], check=True, stdout=PIPE).stdout.decode().rstrip()
         )
         click.echo(f"Pipenv path is: {pipenv_path}")
+
         my_env["PATH"] = pipenv_path + os.pathsep + my_env["PATH"]
         click.echo(f"New path is: {my_env['PATH']}")
         command_line = list(args)
