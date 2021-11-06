@@ -5,19 +5,19 @@ name = "pypi"
 
 [dev-packages]
 # Testing
-factory-boy = "~=3.2.0"
+factory-boy = "~=3.2.1"
 pytest = "~=6.2.5"
 pytest-cov = "~=3.0.0"
 pytest-mock = "~=3.6.1"
 
 # Lint and code style
 black = "~=21.10b0"
-flake8 = "~=3.9.2"
+flake8 = "~=4.0.1"
 flake8-blind-except = "~=0.2.0"
 flake8-debugger = "~=4.0.0"
 flake8-docstrings = "~=1.6.0"
 flake8-isort = "~=4.1.1"
-isort = "~=5.9.3"
+isort = "~=5.10.0"
 mypy = "~=0.910"
 pep8-naming = "~=0.12.1"
 pylint = "~=2.11.1"
@@ -25,8 +25,8 @@ pylint = "~=2.11.1"
 # type hints
 types-beautifulsoup4 = "~=4.10.4"
 types-setuptools = "~=57.4.2"
-types-psutil = "~=5.8.12"
-types-requests = "~=2.25.9"
+types-psutil = "~=5.8.13"
+types-requests = "~=2.25.11"
 # this is needed only until click is updated to v8+ (celery depends on v7.1.2)
 types-click = "~=7.1.7"
 # manually specifiy this package for mypy since it wasn't being installed automatically when upgrading to Python 3.10
