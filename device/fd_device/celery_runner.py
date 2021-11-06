@@ -41,6 +41,9 @@ def send_update_to_server(task_name: str, payload, ignore_result: bool = False):
     except amqp_exceptions.ConnectionForced as connection_error:
         LOGGER.error(f"Caught Connection error: {connection_error}")
         return False
+    except OSError as os_error:
+        LOGGER.error(f"Caught OSError: {os_error}")
+        return False
 
 
 def send_device_update():
@@ -89,7 +92,11 @@ def run_scheduled_tasks():
                 LOGGER.debug(f"scheduler sleeping for {idle_seconds} seconds.")
                 time.sleep(idle_seconds)
 
+            start = time.time()
             schedule.run_pending()
+            end = time.time()
+            elapsed_time = end - start
+            LOGGER.debug(f"SCHEDULER - took: {elapsed_time} seconds to run")
     except KeyboardInterrupt:
         LOGGER.info("Stopping scheduler")
 
