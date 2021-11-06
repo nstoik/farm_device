@@ -106,8 +106,9 @@ def test(coverage, filename, function):
     def execute_tool(description, *args):
         """Execute a checking tool with its arguments."""
         my_env = os.environ.copy()
-        print(my_env)
+        click.echo(my_env)
         call(["whereis", "pytest"])
+        call(["whereis", "pytest"], env=my_env)
         command_line = list(args)
         click.echo(f"{description}: {' '.join(command_line)}")
         rv = call(command_line, env=my_env)
