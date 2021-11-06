@@ -25,7 +25,7 @@ jobs:
       - name: Test isort command
         run: |
           pipenv run pip list | grep isort
-          isort --version
+          pipenv run isort --version
       - name: Run Python lints
         run: pipenv run fd_device lint --check
       - name: Run Python tests
