@@ -110,6 +110,7 @@ def test(coverage, filename, function):
         pipenv_path = (
             run(["pipenv", "--venv"], check=True, stdout=PIPE).stdout.decode().replace("\n", "")
         )
+        pipenv_path = os.path.join(pipenv_path, "bin")
         click.echo(f"Pipenv path is: {pipenv_path}")
 
         my_env["PATH"] = pipenv_path + os.pathsep + my_env["PATH"]
