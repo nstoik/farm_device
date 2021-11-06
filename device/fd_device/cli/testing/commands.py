@@ -103,18 +103,18 @@ def test(coverage, filename, function):
         pytest_args.extend(["--cov", APP_DIR])
         pytest_args.extend(["--cov-report", "term-missing:skip-covered"])
 
-    def execute_tool(description, *args):
-        """Execute a checking tool with its arguments."""
-        my_env = os.environ.copy()
-        click.echo(f"Old path is: {my_env['PATH']}")
-        pipenv_path = (
-            run(["pipenv", "--venv"], check=True, stdout=PIPE).stdout.decode().replace("\n", "")
-        )
-        pipenv_path = os.path.join(pipenv_path, "bin")
-        click.echo(f"Pipenv path is: {pipenv_path}")
+    # Get the virtual environment to the path for subprocess calls
+    pipenv_path = run(["pipenv", "--venv"], check=True, stdout=PIPE)
+    pipenv_path = pipenv_path.stdout.decode().replace("\n", "")
+    pipenv_path = os.path.join(pipenv_path, "bin")
 
-        my_env["PATH"] = pipenv_path + os.pathsep + my_env["PATH"]
-        click.echo(f"New path is: {my_env['PATH']}")
+    def execute_tool(description, pipenv_path, *args):
+        """Execute a checking tool with its arguments."""
+
+        # Add the virtual environment to the path for subprocess calls
+        my_env = os.environ.copy()
+        my_env["PATH"] = os.pathsep.join([pipenv_path, my_env["PATH"]])
+
         command_line = list(args)
         click.echo(f"{description}: {' '.join(command_line)}")
         rv = call(command_line, env=my_env)
@@ -122,7 +122,7 @@ def test(coverage, filename, function):
 
     previous_env = os.getenv("FD_DEVICE_CONFIG", default="dev")
     os.environ["FD_DEVICE_CONFIG"] = "test"
-    rv = execute_tool("Run pytest", "pytest", *pytest_args)
+    rv = execute_tool("Run pytest", pipenv_path, "pytest", *pytest_args)
     os.environ["FD_DEVICE_CONFIG"] = previous_env
 
     sys.exit(rv)
