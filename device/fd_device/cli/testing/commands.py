@@ -108,7 +108,7 @@ def test(coverage, filename, function):
         my_env = os.environ.copy()
         click.echo(f"Old path is: {my_env['PATH']}")
         pipenv_path = (
-            run(["pipenv", "--venv"], check=True, stdout=PIPE).stdout.decode().rstrip()
+            run(["pipenv", "--venv"], check=True, stdout=PIPE).stdout.decode().replace("\n", "")
         )
         click.echo(f"Pipenv path is: {pipenv_path}")
 
