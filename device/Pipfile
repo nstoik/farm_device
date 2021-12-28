@@ -23,7 +23,7 @@ pep8-naming = "~=0.12.1"
 pylint = "~=2.12.2"
 
 # type hints
-types-beautifulsoup4 = "~=4.10.5"
+types-beautifulsoup4 = "~=4.10.6"
 types-setuptools = "~=57.4.2"
 types-psutil = "~=5.8.14"
 types-requests = "~=2.26.1"
