@@ -11,7 +11,7 @@ pytest-cov = "~=3.0.0"
 pytest-mock = "~=3.6.1"
 
 # Lint and code style
-black = "~=21.11b1"
+black = "~=21.12b0"
 flake8 = "~=4.0.1"
 flake8-blind-except = "~=0.2.0"
 flake8-debugger = "~=4.0.0"
@@ -26,7 +26,7 @@ pylint = "~=2.12.2"
 types-beautifulsoup4 = "~=4.10.5"
 types-setuptools = "~=57.4.2"
 types-psutil = "~=5.8.14"
-types-requests = "~=2.26.1"
+types-requests = "~=2.26.2"
 # this is needed only until click is updated to v8+ (celery depends on v7.1.2)
 types-click = "~=7.1.8"
 # manually specifiy this package for mypy since it wasn't being installed automatically when upgrading to Python 3.10
