@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "297d5806e1a3622953ab922a2fe7a64830cebee6ccce42ed5244d1047f444d3b"
+            "sha256": "9da286f190b035d2640eb0b39b7ab9d3f7e3ebdb406720907d7424d233b18058"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -83,7 +83,7 @@
                 "sha256:a0713dc7a1de3f06bc0df5a9567ad19ead2d3d5689b434768a6145bff77c0667",
                 "sha256:f184f0d851d96b6d29297354ed981b7dd71df7ff500d82fa6d11f0856bee8035"
             ],
-            "markers": "python_version < '4' and python_full_version >= '3.6.2'",
+            "markers": "python_full_version >= '3.6.2' and python_full_version < '4.0.0'",
             "version": "==0.3.0"
         },
         "click-plugins": {
@@ -507,7 +507,7 @@
                 "sha256:000ca7f471a233c2251c6c7023ee85305721bfdf18621ebff4fd17a8653427ed",
                 "sha256:0e7c33d9a63e7ddfcb86780aac87befc2fbddf46c58dbb487e0855f7ceec283c"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_full_version < '4.0.0'",
             "version": "==1.26.8"
         },
         "vine": {
@@ -1239,11 +1239,11 @@
         },
         "types-setuptools": {
             "hashes": [
-                "sha256:5499a0f429281d1a3aa9494c79b6599ab356dfe6d393825426bc749e48ea1bf8",
-                "sha256:9c96aab47fdcf066fef83160b2b9ddbfab3d2c8fdc89053579d0b306837bf22a"
+                "sha256:65ef8946fc31aed946177629e681861217aceb8fc9b75a44ba987d7eea9388aa",
+                "sha256:b1be17770e830432571bcb81a78fed13df32ca787550ed575dfbc921816ad18a"
             ],
             "index": "pypi",
-            "version": "==57.4.2"
+            "version": "==57.4.6"
         },
         "typing-extensions": {
             "hashes": [
