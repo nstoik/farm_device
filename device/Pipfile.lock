@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f54a75a273c1623e9b545ffd215ae61576dcfd95cead47cef9f8bfdeefb19b3d"
+            "sha256": "0c547ff5aa9cf3b4ffc8ee56b73559e279e3be6de400b1d811ac811a4da9b133"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -83,7 +83,7 @@
                 "sha256:a0713dc7a1de3f06bc0df5a9567ad19ead2d3d5689b434768a6145bff77c0667",
                 "sha256:f184f0d851d96b6d29297354ed981b7dd71df7ff500d82fa6d11f0856bee8035"
             ],
-            "markers": "python_version < '4' and python_full_version >= '3.6.2'",
+            "markers": "python_full_version >= '3.6.2' and python_full_version < '4.0.0'",
             "version": "==0.3.0"
         },
         "click-plugins": {
@@ -507,7 +507,7 @@
                 "sha256:000ca7f471a233c2251c6c7023ee85305721bfdf18621ebff4fd17a8653427ed",
                 "sha256:0e7c33d9a63e7ddfcb86780aac87befc2fbddf46c58dbb487e0855f7ceec283c"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_full_version < '4.0.0'",
             "version": "==1.26.8"
         },
         "vine": {
@@ -1231,11 +1231,11 @@
         },
         "types-requests": {
             "hashes": [
-                "sha256:ad18284931c5ddbf050ccdd138f200d18fd56f88aa3567019d8da9b2d4fe0344",
-                "sha256:d63fa617846dcefff5aa2d59e47ab4ffd806e4bb0567115f7adbb5e438302fe4"
+                "sha256:2e0e100dd489f83870d4f61949d3a7eae4821e7bfbf46c57e463c38f92d473d4",
+                "sha256:f38bd488528cdcbce5b01dc953972f3cead0d060cfd9ee35b363066c25bab13c"
             ],
             "index": "pypi",
-            "version": "==2.26.3"
+            "version": "==2.27.7"
         },
         "types-setuptools": {
             "hashes": [
@@ -1244,6 +1244,13 @@
             ],
             "index": "pypi",
             "version": "==57.4.6"
+        },
+        "types-urllib3": {
+            "hashes": [
+                "sha256:3adcf2cb5981809091dbff456e6999fe55f201652d8c360f99997de5ac2f556e",
+                "sha256:cfd1fbbe4ba9a605ed148294008aac8a7b8b7472651d1cc357d507ae5962e3d2"
+            ],
+            "version": "==1.26.7"
         },
         "typing-extensions": {
             "hashes": [
