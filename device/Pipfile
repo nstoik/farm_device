@@ -51,7 +51,7 @@ pika = "~=1.2.0"
 celery = "~=5.1.2"
 multiprocessing-logging = "~=0.3.0"
 # Environment and variable parsing
-environs = "~=9.4.0"
+environs = "~=9.5.0"
 # basic scheduler
 schedule = "~=1.1.0"
 # for reading temperature from owfs webserver
