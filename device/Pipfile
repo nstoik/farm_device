@@ -30,7 +30,7 @@ types-requests = "~=2.27.10"
 # this is needed only until click is updated to v8+ (celery depends on v7.1.2)
 types-click = "~=7.1.8"
 # manually specifiy this package for mypy since it wasn't being installed automatically when upgrading to Python 3.10
-typing-extensions = "~=4.0.1"
+typing-extensions = "~=4.1.1"
 
 "e1839a8" = {path = ".", editable = true}
 
