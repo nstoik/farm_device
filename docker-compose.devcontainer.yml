@@ -5,7 +5,7 @@ services:
         image: nstoik/farm_device_device:dev
         build:
             context: ./device
-            dockerfile: .devcontainer/dev.Dockerfile
+            dockerfile: .devcontainer/devcontainer.Dockerfile
         volumes:
             # this is for vs code file editing inside the container from a local host
             #- .:/workspaces:cached
