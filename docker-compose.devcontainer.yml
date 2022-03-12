@@ -2,7 +2,7 @@ version: '3.8'
 
 services: 
     device:
-        image: nstoik/farm_device_device:dev
+        image: nstoik/fd_device:devcontainer
         build:
             context: ./device
             dockerfile: .devcontainer/devcontainer.Dockerfile
