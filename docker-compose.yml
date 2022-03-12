@@ -2,7 +2,7 @@ version: '3.8'
 
 services: 
   device:
-    image: nstoik/farm_device_device:latest
+    image: nstoik/fd_device:latest
     container_name: fd_device
     build:
       context: ./device
@@ -18,7 +18,7 @@ services:
     restart: unless-stopped
 
   1wire:
-    image: nstoik/farm_device_1wire:latest
+    image: nstoik/fd_1wire:latest
     container_name: fd_1wire
     build:
       context: ./1wire
@@ -34,7 +34,7 @@ services:
     # standard docker containers below
 
   database:
-    image: postgres:11
+    image: postgres:14
     container_name: fd_database
     restart: unless-stopped
     environment:
