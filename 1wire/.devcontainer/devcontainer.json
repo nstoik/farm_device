@@ -6,6 +6,7 @@
 	 // The order of the files is important since later files override previous ones
 	 "dockerComposeFile": [
 		"../../docker-compose.yml",
+		"../../docker-compose.dev.yml",
 		"../../docker-compose.devcontainer.yml",
     ],
 
@@ -15,8 +16,8 @@
 	// https://code.visualstudio.com/docs/remote/containers-advanced#_developing-inside-a-container-on-a-remote-docker-host
 	// Otherwise do not need workspaceMount
 	"workspaceMount": "source=/home/ubuntu/farm_device,target=/workspaces,type=bind,consistency=cached",
-  "workspaceFolder": "/workspaces",
-  "shutdownAction": "none",
+	"workspaceFolder": "/workspaces",
+	"shutdownAction": "none",
 
 	"extensions": [],
 	// "postCreateCommand": "git config --global core.autocrlf true && git config --global user.email 'nelsonstoik@gmail.com' && git config --global user.name 'Nelson'",

@@ -25,4 +25,4 @@ updates:
   - package-ecosystem: "pip"
     directory: "/device"
     schedule:
-      interval: "daily"
+      interval: "weekly"

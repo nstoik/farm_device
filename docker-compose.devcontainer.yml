@@ -2,10 +2,10 @@ version: '3.8'
 
 services: 
     device:
-        image: nstoik/farm_device_device:dev
+        image: nstoik/fd_device:devcontainer
         build:
             context: ./device
-            dockerfile: .devcontainer/dev.Dockerfile
+            dockerfile: .devcontainer/devcontainer.Dockerfile
         volumes:
             # this is for vs code file editing inside the container from a local host
             #- .:/workspaces:cached
