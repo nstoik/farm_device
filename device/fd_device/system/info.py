@@ -166,12 +166,12 @@ def get_system_memory() -> dict:
     virtual_mem = psutil.virtual_memory()
     disk = psutil.disk_usage("/")
 
-    system_mem["ram_used"] = virtual_mem.used // 2 ** 20  # MB
-    system_mem["ram_total"] = virtual_mem.total // 2 ** 20  # MB
-    system_mem["ram_free"] = virtual_mem.free // 2 ** 20  # MB
-    system_mem["disk_used"] = round(float(disk.used) / 2 ** 30, 3)  # GB
-    system_mem["disk_total"] = round(float(disk.total) / 2 ** 30, 3)  # GB
-    system_mem["disk_free"] = round(float(disk.free) / 2 ** 30, 3)  # GB
+    system_mem["ram_used"] = virtual_mem.used // 2**20  # MB
+    system_mem["ram_total"] = virtual_mem.total // 2**20  # MB
+    system_mem["ram_free"] = virtual_mem.free // 2**20  # MB
+    system_mem["disk_used"] = round(float(disk.used) / 2**30, 3)  # GB
+    system_mem["disk_total"] = round(float(disk.total) / 2**30, 3)  # GB
+    system_mem["disk_free"] = round(float(disk.free) / 2**30, 3)  # GB
 
     return system_mem
 
@@ -186,8 +186,8 @@ def get_storage() -> dict:
     logger.debug("getting device storage")
     disk = psutil.disk_usage("/")
     system_mem = {}
-    system_mem["disk_used"] = round(float(disk.used) / 2 ** 30, 3)  # GB
-    system_mem["disk_total"] = round(float(disk.total) / 2 ** 30, 3)  # GB
-    system_mem["disk_free"] = round(float(disk.free) / 2 ** 30, 3)  # GB
+    system_mem["disk_used"] = round(float(disk.used) / 2**30, 3)  # GB
+    system_mem["disk_total"] = round(float(disk.total) / 2**30, 3)  # GB
+    system_mem["disk_free"] = round(float(disk.free) / 2**30, 3)  # GB
 
     return system_mem

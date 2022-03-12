@@ -11,7 +11,7 @@ pytest-cov = "~=3.0.0"
 pytest-mock = "~=3.7.0"
 
 # Lint and code style
-black = "~=21.12b0"
+black = "~=22.1"
 flake8 = "~=4.0.1"
 flake8-blind-except = "~=0.2.0"
 flake8-debugger = "~=4.0.0"
@@ -27,8 +27,6 @@ types-beautifulsoup4 = "~=4.10.14"
 types-setuptools = "~=57.4.10"
 types-psutil = "~=5.8.20"
 types-requests = "~=2.27.11"
-# this is needed only until click is updated to v8+ (celery depends on v7.1.2)
-types-click = "~=7.1.8"
 # manually specifiy this package for mypy since it wasn't being installed automatically when upgrading to Python 3.10
 typing-extensions = "~=4.1.1"
 
@@ -45,10 +43,10 @@ psycopg2 = "~=2.9.3"
 alembic = "~=1.7.6"
 gpiozero = "~=1.6.2"
 netifaces = "~=0.11.0"
-click = "~=7.1.2"
+click = "~=8.0.4"
 psutil = "~=5.9.0"
 pika = "~=1.2.0"
-celery = "~=5.1.2"
+celery = "~=5.2.3"
 multiprocessing-logging = "~=0.3.0"
 # Environment and variable parsing
 environs = "~=9.5.0"
