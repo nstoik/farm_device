@@ -1,75 +1,75 @@
 version: '3.8'
 
 services: 
-  device:
-    image: nstoik/fd_device:latest
-    container_name: fd_device
-    build:
-      context: ./device
-      dockerfile: Dockerfile
-    networks:
-      - farm_device
-    depends_on:
-      - "database"
-      - "1wire"
-    volumes:
-      - "logs:/logs"
-      - "/sys/devices/w1_bus_master1:/sys/devices/w1_bus_master1"
-    restart: unless-stopped
+    device:
+        image: nstoik/fd_device:latest
+        container_name: fd_device
+        build:
+            context: ./device
+            dockerfile: Dockerfile
+        networks:
+        - farm_device
+        depends_on:
+        - "database"
+        - "1wire"
+        volumes:
+        - "logs:/logs"
+        - "/sys/devices/w1_bus_master1:/sys/devices/w1_bus_master1"
+        restart: unless-stopped
 
-  1wire:
-    image: nstoik/fd_1wire:latest
-    container_name: fd_1wire
-    build:
-      context: ./1wire
-      dockerfile: Dockerfile
-    devices:
-      - "/dev/i2c-1:/dev/i2c-1"
-    networks:
-      - farm_device
-    ports:
-      - "2121:2121"
-    restart: unless-stopped
+    1wire:
+        image: nstoik/fd_1wire:latest
+        container_name: fd_1wire
+        build:
+            context: ./1wire
+            dockerfile: Dockerfile
+        devices:
+        - "/dev/i2c-1:/dev/i2c-1"
+        networks:
+        - farm_device
+        ports:
+        - "2121:2121"
+        restart: unless-stopped
 
     # standard docker containers below
 
-  database:
-    image: postgres:14
-    container_name: fd_database
-    restart: unless-stopped
-    environment:
-      POSTGRES_PASSWORD: farm_device
-      POSTGRES_USER: fd
-      POSTGRES_DB: farm_device.db
-    volumes:
-      - "dbdata:/var/lib/postgresql/data"
-    networks:
-      - farm_device
+    database:
+        image: postgres:14
+        container_name: fd_database
+        restart: unless-stopped
+        environment:
+            POSTGRES_PASSWORD: farm_device
+            POSTGRES_USER: fd
+            POSTGRES_DB: farm_device.db
+        volumes:
+        - "dbdata:/var/lib/postgresql/data"
+        networks:
+        - farm_device
 
-  pgadmin:
-    container_name: fd_pgadmin
-    # the tag 'snapshot' is needed for running on arm64 hardware
-    image: dpage/pgadmin4:snapshot
-    #image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: fd@farmmonitor.ca
-      PGADMIN_DEFAULT_PASSWORD: farm_device
-    depends_on:
-      - "database"
-    volumes:
-        - pgadmin:/root/.pgadmin
-        - pgadmin:/var/lib/pgadmin
-    ports:
-      - "5052:80"
-    networks:
-      - farm_device
-    restart: unless-stopped
+    pgadmin:
+        container_name: fd_pgadmin
+        # the tag 'snapshot' is needed for running on arm64 hardware
+        image: dpage/pgadmin4:snapshot
+        #image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: fd@farmmonitor.ca
+            PGADMIN_DEFAULT_PASSWORD: farm_device
+        depends_on:
+        - "database"
+        volumes:
+            - pgadmin:/root/.pgadmin
+            - pgadmin:/var/lib/pgadmin
+        ports:
+        - "5052:80"
+        networks:
+        - farm_device
+        restart: unless-stopped
   
 volumes:
-  logs:
-  dbdata:
-  pgadmin:
+    logs:
+    dbdata:
+    pgadmin:
 
 networks:
-  farm_device:
-    name: farm_device
+    farm_device:
+        name: farm_device
