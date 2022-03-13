@@ -3,6 +3,8 @@ version: '3.8'
 services: 
     device:
         image: nstoik/fd_device:dev
+        build:
+            target: dev-stage
 
     1wire:
         image: nstoik/fd_1wire:dev
