@@ -1,0 +1,13 @@
+{
+    "Servers": {
+        "1": {
+            "Name": "Farm Device Server",
+            "Group": "Servers",
+            "Port": 5432,
+            "Username": "fd",
+            "Host": "fd_database",
+            "SSLMode": "prefer",
+            "MaintenanceDB": "postgres"
+        }
+    }
+}
