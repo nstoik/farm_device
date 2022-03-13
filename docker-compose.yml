@@ -2,11 +2,14 @@ version: '3.8'
 
 services: 
     device:
-        image: nstoik/fd_device:latest
+        image: nstoik/fd_device:${FD_DEVICE}
         container_name: fd_device
         build:
             context: ./device
             dockerfile: Dockerfile
+        environment:
+            FD_DEVICE_CONFIG: ${FD_DEVICE_CONFIG}
+            RABBITMQ_HOST_ADDRESS: ${RABBITMQ_HOST_ADDRESS}
         networks:
         - farm_device
         depends_on:
@@ -18,7 +21,7 @@ services:
         restart: unless-stopped
 
     1wire:
-        image: nstoik/fd_1wire:latest
+        image: nstoik/fd_1wire:${FD_1WIRE}
         container_name: fd_1wire
         build:
             context: ./1wire
@@ -38,9 +41,9 @@ services:
         container_name: fd_database
         restart: unless-stopped
         environment:
-            POSTGRES_PASSWORD: farm_device
-            POSTGRES_USER: fd
-            POSTGRES_DB: farm_device.db
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_DB: ${POSTGRES_DB}
         volumes:
         - "dbdata:/var/lib/postgresql/data"
         networks:
@@ -48,12 +51,10 @@ services:
 
     pgadmin:
         container_name: fd_pgadmin
-        # the tag 'snapshot' is needed for running on arm64 hardware
-        image: dpage/pgadmin4:snapshot
-        #image: dpage/pgadmin4
+        image: dpage/pgadmin4:latest
         environment:
-            PGADMIN_DEFAULT_EMAIL: fd@farmmonitor.ca
-            PGADMIN_DEFAULT_PASSWORD: farm_device
+            PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+            PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
         depends_on:
         - "database"
         volumes:
