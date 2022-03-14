@@ -10,34 +10,6 @@ env = Env()
 env.read_env()
 
 
-class CeleryConfig:
-    """Celery configuration."""
-
-    # Broker settings.
-    broker_url = "amqp://fd:farm_monitor@10.10.1.204/farm_monitor"
-
-    # List of modules to import when the Celery worker starts.
-    # imports = ('fm_server.device.tasks',)
-
-    # Using the database to store task state and results.
-    result_backend = "rpc://"
-
-    # set the broker transport options.
-    # confirm_publish 'True' waits until the publish is confirmed.
-    # the rest of the settings deal with timeouts.
-    # retry 5 times, starting at 0 seconds and incrementing 1 second
-    # each time, up until a max of 30 seconds
-    broker_transport_options = {
-        "confirm_publish": True,
-        "max_retries": 5,
-        "interval_start": 0,
-        "interval_step": 1,
-        "interval_max": 30,
-    }
-
-    broker_pool_limit = 0
-
-
 class Config:
     """Base configuration."""
 
@@ -52,7 +24,12 @@ class Config:
 
     # UPDATER_PATH = "/home/pi/farm_monitor/farm_update/update.sh"
 
-    SQLALCHEMY_DATABASE_URI = "postgresql://fd:farm_device@fd_database/farm_device.db"
+    POSTGRES_PASSWORD = env("POSTGRES_PASSWORD", default="farm_device")
+    POSTGRES_USER = env("POSTGRES_USER", default="fd")
+    POSTGRES_DB = env("POSTGRES_DB", default="farm_device.db")
+    POSTGRES_HOST = env("POSTGRES_HOST", default="fd_database")
+    SQLALCHEMY_DATABASE_URI = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}/{POSTGRES_DB}"
+    # SQLALCHEMY_DATABASE_URI = "postgresql://fd:farm_device@fd_database/farm_device.db"
 
     RABBITMQ_USER = "fd"
     RABBITMQ_PASSWORD = "farm_monitor"
@@ -89,6 +66,35 @@ class TestConfig(Config):
     TESTING = True
 
     SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/fd_device_test_db.sqlite"
+
+
+class CeleryConfig:
+    """Celery configuration."""
+
+    # Broker settings.
+    # broker_url = "amqp://fd:farm_monitor@10.10.1.204/farm_monitor"
+    broker_url = f"amqp://{Config.RABBITMQ_USER}:{Config.RABBITMQ_PASSWORD}@{Config.RABBITMQ_HOST_ADDRESS}/{Config.RABBITMQ_VHOST}"  # noqa=E501
+
+    # List of modules to import when the Celery worker starts.
+    # imports = ('fm_server.device.tasks',)
+
+    # Using the database to store task state and results.
+    result_backend = "rpc://"
+
+    # set the broker transport options.
+    # confirm_publish 'True' waits until the publish is confirmed.
+    # the rest of the settings deal with timeouts.
+    # retry 5 times, starting at 0 seconds and incrementing 1 second
+    # each time, up until a max of 30 seconds
+    broker_transport_options = {
+        "confirm_publish": True,
+        "max_retries": 5,
+        "interval_start": 0,
+        "interval_step": 1,
+        "interval_max": 30,
+    }
+
+    broker_pool_limit = 0
 
 
 def get_config(override_default=None):
