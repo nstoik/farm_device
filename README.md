@@ -59,7 +59,7 @@ VS Code automatically builds the required containers when you launch into a remo
 
 To bring the farm device stack down and remove the containers, run:
 ``` bash
-docker compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.devcontainer.yml -p down
+docker compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.devcontainer.yml down
 ```
 # Raspberry Pi Ubuntu 21.04 host setup
 
