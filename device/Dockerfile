@@ -46,7 +46,8 @@ CMD ["pipenv", "run", "fd_device", "run"]
 
 
 # prod stage steps below. Similiar as the dev stage, but we copy the venv from
-# the build stage to the prod stage (no git in slim version of this docker base image)FROM python:3.10-slim AS prod-stage
+# the build stage to the prod stage (no git in slim version of this docker base image)
+FROM python:3.10-slim AS prod-stage
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG C.UTF-8
