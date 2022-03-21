@@ -30,8 +30,6 @@ types-requests = "~=2.27.12"
 # manually specifiy this package for mypy since it wasn't being installed automatically when upgrading to Python 3.10
 typing-extensions = "~=4.1.1"
 
-"e1839a8" = {path = ".", editable = true}
-
 # Documentation and Docstrings
 # pyment = "~=0.3.4"
 pyment = {git = "https://github.com/dadadel/pyment",editable = true}
@@ -55,6 +53,7 @@ schedule = "~=1.1.0"
 # for reading temperature from owfs webserver
 requests = "~=2.27.1"
 beautifulsoup4 = "~=4.10.0"
+"e1839a8" = {path = ".", editable = true}
 
 [requires]
 python_version = "3.10"
