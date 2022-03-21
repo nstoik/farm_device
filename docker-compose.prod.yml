@@ -4,3 +4,36 @@ services:
     device:
         build:
             target: prod-stage
+
+    database_management:
+        image: nstoik/fd_device:{FD_DEVICE}
+        container_name: fd_database_management
+        command: pipenv run fd_device database database_upgrade --revision "head"
+        build:
+            context: ./device
+            dockerfile: Dockerfile
+            target: prod-stage
+        networks:
+        - farm_device
+        depends_on:
+        - database
+        restart: on-failure
+
+    traefik:
+        ports:
+            - 80:80
+            - 443:443
+            # The Web UI (enabled by --api.insecure=true)
+            - "8080:8080"
+            # for RabbitMQ
+            - "5672:5672"
+            # For the presence notifer
+            #- "5554:5554/udp"
+        volumes:
+            - ./traefik/traefik.prod.yml:/etc/traefik/traefik.yml
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.fm_traefik.rule=Host(`traefik.${TRAEFIK_DOMAIN}`)"
+            - "traefik.http.routers.fm_traefik.entrypoints=websecure"
+            - "traefik.http.routers.fm_traefik.tls.certresolver=letsencrypt"
+            - "traefik.http.routers.fm_traefik.service=api@internal"

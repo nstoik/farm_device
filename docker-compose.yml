@@ -34,6 +34,24 @@ services:
         - "2121:2121"
         restart: unless-stopped
 
+    # traefik container configuration belo
+    traefik:
+        image: traefik:latest
+        container_name: fd_traefik
+        networks:
+        - farm_device
+        # ports are set in the docker-compose.dev and docker-compose.prod files
+        volumes:
+        - /var/run/docker.sock:/var/run/docker.sock:ro
+        - traefik:/letsencrypt
+        environment:
+        - CLOUDFLARE_EMAIL=${CLOUDFLARE_EMAIL}
+        - CLOUDFLARE_DNS_API_KEY=${CLOUDFLARE_DNS_API_KEY}
+        restart: unless-stopped
+        depends_on:
+        - device
+        - 1wire
+
     # standard docker containers below
 
     database:
@@ -71,6 +89,7 @@ volumes:
     logs:
     dbdata:
     pgadmin:
+    traefik:
 
 networks:
     farm_device:

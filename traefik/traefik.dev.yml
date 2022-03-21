@@ -1,0 +1,63 @@
+entryPoints:
+  web:
+    address: ':80'
+  #websecure:
+  #  address: ':443'
+
+# Traefik dashboard over http
+api:
+  dashboard: true
+  insecure: true
+
+log:
+  level: DEBUG
+
+accessLog: {}
+
+providers:
+  docker:
+    endpoint: 'unix:///var/run/docker.sock'
+    exposedByDefault: false # containers are not discovered automatically
+    network: farm_device
+
+certificatesResolvers:
+  letsencrypt:
+    # Enable ACME (Let's Encrypt): automatic SSL.
+    acme:
+
+      # Email address used for registration.
+      email: "nelsonstoik@gmail.com"
+
+      # File or key used for certificates storage.
+      storage: "/letsencrypt/acme.json"
+
+      # CA server to use.
+      # Uncomment the line to use Let's Encrypt's staging server,
+      # leave commented to go to prod.
+      #
+      # Optional
+      # Default: "https://acme-v02.api.letsencrypt.org/directory"
+      #
+      caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+
+      # Use a DNS-01 ACME challenge rather than HTTP-01 challenge.
+      # Note: mandatory for wildcard certificate generation.
+      #
+      # Optional
+      #
+      dnsChallenge:
+
+        # DNS provider used.
+        #
+        # Required
+        #
+        provider: cloudflare
+
+        # Use following DNS servers to resolve the FQDN authority.
+        #
+        # Optional
+        # Default: empty
+        #
+        resolvers:
+          - "1.1.1.1:53"
+          - "1.0.0.1:53"
