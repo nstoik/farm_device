@@ -44,7 +44,7 @@ netifaces = "~=0.11.0"
 click = "~=8.0.4"
 psutil = "~=5.9.0"
 pika = "~=1.2.0"
-celery = "~=5.2.3"
+celery = "~=5.2.6"
 multiprocessing-logging = "~=0.3.0"
 # Environment and variable parsing
 environs = "~=9.5.0"
