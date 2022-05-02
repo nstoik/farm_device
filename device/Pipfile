@@ -52,7 +52,7 @@ environs = "~=9.5.0"
 schedule = "~=1.1.0"
 # for reading temperature from owfs webserver
 requests = "~=2.27.1"
-beautifulsoup4 = "~=4.10.0"
+beautifulsoup4 = "~=4.11.1"
 "e1839a8" = {path = ".", editable = true}
 
 [requires]
