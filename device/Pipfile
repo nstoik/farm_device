@@ -20,7 +20,7 @@ flake8-isort = "~=4.1.1"
 isort = "~=5.10.1"
 mypy = "~=0.950"
 pep8-naming = "~=0.12.1"
-pylint = "~=2.13.8"
+pylint = "~=2.13.9"
 
 # type hints
 types-beautifulsoup4 = "~=4.11.0"
