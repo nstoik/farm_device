@@ -1,6 +1,31 @@
 # Farm Device
 Main documentation for the Farm Device project.
 
+# Raspberry Pi Ubuntu 21.04 host setup
+
+## Installing Docker and Docker Compose
+
+To install Docker and Docker Compose, follow the steps from the [Docker Webpage](https://docs.docker.com/engine/install/ubuntu/#install-docker-engine)
+
+## Additional Host Setup
+Add the required packages by running the following commands.
+
+```bash
+sudo apt install i2c-tools
+```
+
+Add the following line to ```/boot/firmware/config.txt```
+
+```dtoverlay=w1-gpio```
+
+# First Time Setup
+1. Pull the latest code from the repository.
+2. Copy the `.env.example` file to `.env` and edit the values to match your setup.
+3. Pull the docker images down to the host machine (see [Production](#Production))
+    * In the `docker-compose.prod.yml` file, a special service is specified to update the database to the latest revision.
+    * This way, the database always applies any available updates when the application starts.
+
+
 # Environment Variables
 There is a set of environment variables that can be used to configure the application. In the GitHub repository, an example configuration file is available in the root directory as `.env.example`.
 
@@ -61,19 +86,6 @@ To bring the farm device stack down and remove the containers, run:
 ``` bash
 docker compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.devcontainer.yml down
 ```
-# Raspberry Pi Ubuntu 21.04 host setup
-
-Add the required packages by running the following commands.
-
-TODO: Add docker setup steps
-
-```bash
-sudo apt install i2c-tools
-```
-
-Add the following line to ```/boot/firmware/config.txt```
-
-```dtoverlay=w1-gpio```
 
 # Building Docker Containers
 There are multiple options for building the docker containers
@@ -134,3 +146,5 @@ The list of available variables are:
 A few additional comments on the `docker-bake.hcl` file:
 - print is optional and will print the configuration of the builder
 - push will push the built images to the registry
+- --load is optional and will load the image into docker
+  - When using --load, only a sinle platform can be specified. An example of overriding the platform for 'linux/amd64' is `--set default.platform=linux/amd64`

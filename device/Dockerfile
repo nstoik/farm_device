@@ -35,6 +35,8 @@ RUN pipenv install --deploy --ignore-pipfile
 
 # dev stage steps below
 FROM build-stage as dev-stage
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
 
 COPY --chown=${USER_UID}:${USER_GID} . $WORKING_DIR/
 RUN pipenv run pip install -e .
