@@ -19,6 +19,8 @@ providers:
     endpoint: 'unix:///var/run/docker.sock'
     exposedByDefault: false # containers are not discovered automatically
     network: farm_device
+    # only create routes for containers that have this label.
+    constraints: "Label(`custom.label`,`farm_device`)"
 
 certificatesResolvers:
   letsencrypt:

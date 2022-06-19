@@ -34,7 +34,7 @@ services:
         - "2121:2121"
         restart: unless-stopped
 
-    # traefik container configuration belo
+    # traefik container configuration below
     traefik:
         image: traefik:latest
         container_name: fd_traefik
@@ -51,6 +51,8 @@ services:
         depends_on:
         - device
         - 1wire
+        labels:
+        -  custom.label=farm_device
 
     # standard docker containers below
 

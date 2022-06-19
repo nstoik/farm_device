@@ -21,12 +21,8 @@ services:
 
     traefik:
         ports:
-            - 80:80
-            - 443:443
-            # for RabbitMQ
-            - "5672:5672"
-            # For the presence notifer
-            #- "5554:5554/udp"
+            - $TRAEKIK_ACCESS_PORT:80
+            - $TRAEKIK_ACCESS_PORT_SECURE:443
         volumes:
             - ./traefik/traefik.prod.yml:/etc/traefik/traefik.yml
         labels:
