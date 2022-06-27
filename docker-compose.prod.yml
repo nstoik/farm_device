@@ -14,9 +14,9 @@ services:
             dockerfile: Dockerfile
             target: prod-stage
         networks:
-        - farm_device
+            - farm_device
         depends_on:
-        - database
+            - database
         restart: on-failure
 
     traefik:

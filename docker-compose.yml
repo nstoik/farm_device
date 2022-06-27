@@ -11,13 +11,13 @@ services:
             FD_DEVICE_CONFIG: ${FD_DEVICE_CONFIG}
             RABBITMQ_HOST_ADDRESS: ${RABBITMQ_HOST_ADDRESS}
         networks:
-        - farm_device
+            - farm_device
         depends_on:
-        - "database"
-        - "1wire"
+            - "database"
+            - "1wire"
         volumes:
-        - "logs:/logs"
-        - "/sys/devices/w1_bus_master1:/sys/devices/w1_bus_master1"
+            - "logs:/logs"
+            - "/sys/devices/w1_bus_master1:/sys/devices/w1_bus_master1"
         restart: unless-stopped
 
     1wire:
@@ -27,9 +27,9 @@ services:
             context: ./1wire
             dockerfile: Dockerfile
         devices:
-        - "/dev/i2c-1:/dev/i2c-1"
+            - "/dev/i2c-1:/dev/i2c-1"
         networks:
-        - farm_device
+            - farm_device
         ports:
         - "2121:2121"
         restart: unless-stopped
@@ -39,18 +39,18 @@ services:
         image: traefik:latest
         container_name: fd_traefik
         networks:
-        - farm_device
+            - farm_device
         # ports are set in the docker-compose.dev and docker-compose.prod files
         volumes:
-        - /var/run/docker.sock:/var/run/docker.sock:ro
-        - traefik:/letsencrypt
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - traefik:/letsencrypt
         environment:
-        - CLOUDFLARE_EMAIL=${CLOUDFLARE_EMAIL}
-        - CLOUDFLARE_DNS_API_KEY=${CLOUDFLARE_DNS_API_KEY}
+            - CLOUDFLARE_EMAIL=${CLOUDFLARE_EMAIL}
+            - CLOUDFLARE_DNS_API_KEY=${CLOUDFLARE_DNS_API_KEY}
         restart: unless-stopped
         depends_on:
-        - device
-        - 1wire
+            - device
+            - 1wire
         labels:
         -  custom.label=farm_device
 
@@ -65,9 +65,9 @@ services:
             POSTGRES_USER: ${POSTGRES_USER}
             POSTGRES_DB: ${POSTGRES_DB}
         volumes:
-        - "dbdata:/var/lib/postgresql/data"
+            - "dbdata:/var/lib/postgresql/data"
         networks:
-        - farm_device
+            - farm_device
 
     pgadmin:
         container_name: fd_pgadmin
@@ -76,15 +76,15 @@ services:
             PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
             PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
         depends_on:
-        - "database"
+            - "database"
         volumes:
             - pgadmin:/root/.pgadmin
             - pgadmin:/var/lib/pgadmin
             - ./pgadmin/server_definition.json:/pgadmin4/servers.json:ro
         ports:
-        - "5052:80"
+            - "5052:80"
         networks:
-        - farm_device
+            - farm_device
         restart: unless-stopped
   
 volumes:
