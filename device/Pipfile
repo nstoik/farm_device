@@ -26,7 +26,7 @@ pylint = "~=2.13.9"
 types-beautifulsoup4 = "~=4.11.2"
 types-setuptools = "~=57.4.18"
 types-psutil = "~=5.8.23"
-types-requests = "~=2.27.30"
+types-requests = "~=2.28.0"
 # manually specifiy this package for mypy since it wasn't being installed automatically when upgrading to Python 3.10
 typing-extensions = "~=4.2.0"
 
