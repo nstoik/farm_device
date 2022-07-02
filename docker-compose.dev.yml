@@ -8,6 +8,9 @@ services:
 
     1wire:
         image: nstoik/fd_1wire:dev
+        labels:
+            - "traefik.http.routers.fd_1wire.rule=PathPrefix(`/`)"
+            - "traefik.http.routers.fd_1wire.entrypoints=web"
 
     traefik:
         ports:
@@ -17,3 +20,9 @@ services:
             - "$TRAEFIK_WEBUI_PORT:8080"
         volumes:
             - ./traefik/traefik.dev.yml:/etc/traefik/traefik.yml
+
+    pgadmin:
+        labels:
+            - "traefik.http.routers.fd_pgadmin.rule=PathPrefix(`/pgadmin`)"
+            - "traefik.http.routers.fd_pgadmin.entrypoints=web"
+

@@ -30,9 +30,16 @@ services:
             - "/dev/i2c-1:/dev/i2c-1"
         networks:
             - farm_device
-        ports:
-        - "2121:2121"
         restart: unless-stopped
+        labels:
+            - custom.label=farm_device
+            - traefik.enable=true
+            - traefik.http.services.fd_1wire.loadbalancer.server.port=${FD_1WIRE_PORT}
+            - traefik.http.routers.fd_1wire.service=fd_1wire
+            # this middleware strips the prefix from the request path
+            - traefik.http.middlewares.fd_1wire_strip_prefix.stripprefix.prefixes=/1wire
+            - traefik.http.routers.fd_1wire.middlewares=fd_1wire_strip_prefix@docker
+
 
     # traefik container configuration below
     traefik:
@@ -46,7 +53,7 @@ services:
             - traefik:/letsencrypt
         environment:
             - CLOUDFLARE_EMAIL=${CLOUDFLARE_EMAIL}
-            - CLOUDFLARE_DNS_API_KEY=${CLOUDFLARE_DNS_API_KEY}
+            - CLOUDFLARE_DNS_API_KEY=${CLOUDFLARE_DNS_API_TOKEN}
         restart: unless-stopped
         depends_on:
             - device
@@ -68,6 +75,8 @@ services:
             - "dbdata:/var/lib/postgresql/data"
         networks:
             - farm_device
+        labels:
+            - custom.label=farm_device
 
     pgadmin:
         container_name: fd_pgadmin
@@ -86,6 +95,11 @@ services:
         networks:
             - farm_device
         restart: unless-stopped
+        labels:
+            - custom.label=farm_device
+            - traefik.enable=true
+            - traefik.http.services.fd_pgadmin.loadbalancer.server.port=80
+            - traefik.http.routers.fd_pgadmin.service=fd_pgadmin
   
 volumes:
     logs:
