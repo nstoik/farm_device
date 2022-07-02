@@ -20,6 +20,20 @@ services:
             - "/sys/devices/w1_bus_master1:/sys/devices/w1_bus_master1"
         restart: unless-stopped
 
+    database_management:
+        image: nstoik/fd_device:${FD_DEVICE}
+        container_name: fd_database_management
+        command: ["pipenv", "run", "fd_device", "database", "database_upgrade", "--revision", "head"]
+        build:
+            context: ./device
+            dockerfile: Dockerfile
+        environment:
+            FD_DEVICE_CONFIG: ${FD_DEVICE_CONFIG}
+        networks:
+            - farm_device
+        depends_on:
+            - "database"
+
     1wire:
         image: nstoik/fd_1wire:${FD_1WIRE}
         container_name: fd_1wire

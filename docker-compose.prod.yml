@@ -6,18 +6,8 @@ services:
             target: prod-stage
 
     database_management:
-        image: nstoik/fd_device:{FD_DEVICE}
-        container_name: fd_database_management
-        command: pipenv run fd_device database database_upgrade --revision "head"
         build:
-            context: ./device
-            dockerfile: Dockerfile
             target: prod-stage
-        networks:
-            - farm_device
-        depends_on:
-            - database
-        restart: on-failure
 
     1wire:
         labels:
