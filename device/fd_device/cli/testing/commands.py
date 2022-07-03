@@ -7,7 +7,6 @@ from subprocess import PIPE, call, run
 from typing import List
 
 import click
-from pyment import PyComment
 
 from fd_device.settings import get_config
 
@@ -210,6 +209,7 @@ def docstring(filename, write, verbose):
     If write is passed in, and a filename is passed. Then overwrite the changes and run black.
 
     """
+    from pyment import PyComment
 
     # Only overwrite if looking at a single file and write flag is passed in.
     if filename and write:

@@ -39,7 +39,8 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 COPY --chown=${USER_UID}:${USER_GID} . $WORKING_DIR/
-RUN pipenv run pip install -e .
+RUN pipenv sync --dev
+# RUN pipenv run pip install -e .
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=
