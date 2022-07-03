@@ -35,7 +35,7 @@ typing-extensions = "~=4.2.0"
 pyment = {git = "https://github.com/dadadel/pyment",editable = true}
 
 [packages]
-SQLAlchemy = "~=1.4.37"
+SQLAlchemy = "~=1.4.39"
 # for Postgresql
 psycopg2 = "~=2.9.3"
 alembic = "~=1.8.0"
