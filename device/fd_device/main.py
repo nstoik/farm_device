@@ -10,7 +10,7 @@ from fd_device.celery_runner import run_scheduled_tasks
 from fd_device.database.base import get_session
 
 from .settings import get_config
-from .startup import get_rabbitmq_address
+from .startup import get_rabbitmq_address, check_if_setup
 
 # from fd_device.device.service import run_connection
 
@@ -51,6 +51,11 @@ def main():
     config = get_config()
     logger = configure_logging(config)
     session = get_session()
+
+    if not check_if_setup(logger, session):
+        logger.error("System has not been setup. Please run first time setup command")
+        time.sleep(1)
+        return
 
     if not get_rabbitmq_address(logger, session):
         logger.error("No address for rabbitmq server found")

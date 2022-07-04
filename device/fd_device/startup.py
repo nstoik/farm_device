@@ -7,10 +7,31 @@ from pika.exceptions import AMQPConnectionError
 from sqlalchemy.orm.exc import NoResultFound
 
 from fd_device.database.device import Connection
-from fd_device.database.system import Interface
+from fd_device.database.system import Interface, SystemSetup
 from fd_device.settings import get_config
 from fd_device.system.info import get_ip_of_interface
 
+
+def check_if_setup(logger, session):
+    """Check if the system has been setup.
+    
+    @return True if the system has been setup, False otherwise.
+    """
+
+    logger.debug(f"Checking if the system has been setup.")
+
+    try:
+        system_setup = session.query(SystemSetup).one()
+        if system_setup.first_setup:
+            logger.debug(f"System has been setup on {system_setup.first_setup_time}")
+            return True
+
+    except NoResultFound:
+        logger.warn(f"System has not been setup")
+        return False
+
+    logger.warn(f"System has not been setup")
+    return False
 
 def get_rabbitmq_address(logger, session):  # noqa: C901
     """Find and return the address of the RabbitMQ server to connect to."""
