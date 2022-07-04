@@ -43,7 +43,7 @@ gpiozero = "~=1.6.2"
 netifaces = "~=0.11.0"
 click = "~=8.1.3"
 psutil = "~=5.9.1"
-pika = "~=1.2.1"
+pika = "~=1.3.0"
 celery = "~=5.2.7"
 multiprocessing-logging = "~=0.3.3"
 # Environment and variable parsing
