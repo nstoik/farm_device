@@ -18,7 +18,7 @@ services:
         volumes:
             - "logs:/logs"
             - "/sys/devices/w1_bus_master1:/sys/devices/w1_bus_master1"
-        restart: unless-stopped
+        restart: on-failure
 
     database_management:
         image: nstoik/fd_device:${FD_DEVICE}
