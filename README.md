@@ -22,8 +22,19 @@ Add the following line to ```/boot/firmware/config.txt```
 1. Pull the latest code from the repository.
 2. Copy the `.env.example` file to `.env` and edit the values to match your setup.
 3. Pull the docker images down to the host machine (see [Production](#Production))
-    * In the `docker-compose.prod.yml` file, a special service is specified to update the database to the latest revision.
-    * This way, the database always applies any available updates when the application starts.
+4. Start the docker containers (see [Production](#Production))
+5. When starting, the `fd_device` container will check the database if the first time setup has been run.
+    * If it has, the application will start normally.
+    * If it has not, the application will notify the user to run the first time setup and then exit.
+        * To go through the first time setup, run the following docker command (with the other docker containers still running):
+            ```bash
+            docker run --rm -it --network=farm_device -e "FD_DEVICE_CONFIG=dev" nstoik/fd_device:dev /bin/bash -c "pipenv run fd_device first-setup"
+            ```
+        * Set the `FD_DEVICE_CONFIG` environment variable to as needed
+        * Set the image tag to match the container
+        * IF a standalone device, add `--standalone` to the command
+        * Go through the first time setup steps.
+        * Restart the containers (see [Production](#Production))
 
 
 # Environment Variables
