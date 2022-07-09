@@ -7,3 +7,7 @@ build/
 .env
 
 .coverage
+
+# Python files
+.mypy_cache
+.pytest_cache
