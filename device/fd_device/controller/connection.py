@@ -295,7 +295,7 @@ class Message:
         self.LOGGER.debug("Adding consumer cancellation callback")
         self._channel.add_on_cancel_callback(self.on_consumer_cancelled)
 
-    def on_consumer_cancelled(self, method_frame):  # pylint: disable=no-self-use
+    def on_consumer_cancelled(self, method_frame):
         """Invoked by pika when RabbitMQ sends a Basic.Cancel for a consumer receiving messages.
 
         :param pika.frame.Method method_frame: The Basic.Cancel frame
@@ -342,7 +342,7 @@ class Message:
                 consumer_tag=self._consumer_tag, callback=self.on_cancelok
             )
 
-    def on_cancelok(self, unused_frame):  # pylint: disable=no-self-use
+    def on_cancelok(self, unused_frame):
         """This method is invoked by pika when RabbitMQ acknowledges the cancellation of a consumer.
 
         At this point we will close the channel.
