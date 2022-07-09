@@ -48,7 +48,7 @@ class TestDevice:
         device = Device(device_id="TEST01")
         device.save()
 
-        assert device.__repr__() == "<Device: device_id=TEST01>"
+        assert repr(device) == "<Device: device_id=TEST01>"
         assert device.device_id == "TEST01"
         assert device.interior_sensor == "null"
         assert device.exterior_sensor == "null"
