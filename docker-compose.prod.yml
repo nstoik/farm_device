@@ -11,7 +11,7 @@ services:
 
     1wire:
         labels:
-            - traefik.http.routers.fd_1wire.rule=Host(`${TRAEFIK_DOMAIN}`) && PathPrefix(`/`)"
+            - traefik.http.routers.fd_1wire.rule=Host(`${TRAEFIK_DOMAIN}`) && PathPrefix(`/`)
             - traefik.http.routers.fd_1wire.entrypoints=websecure
             - traefik.http.routers.fd_1wire.tls.certresolver=letsencrypt
 
@@ -22,14 +22,14 @@ services:
         volumes:
             - ./traefik/traefik.prod.yml:/etc/traefik/traefik.yml
         labels:
-            - "traefik.enable=true"
-            - "traefik.http.routers.fm_traefik.rule=Host(`traefik.${TRAEFIK_DOMAIN}`)"
-            - "traefik.http.routers.fm_traefik.entrypoints=websecure"
-            - "traefik.http.routers.fm_traefik.tls.certresolver=letsencrypt"
-            - "traefik.http.routers.fm_traefik.service=api@internal"
+            - traefik.enable=true
+            - traefik.http.routers.fm_traefik.rule=Host(`traefik.${TRAEFIK_DOMAIN}`)
+            - traefik.http.routers.fm_traefik.entrypoints=websecure
+            - traefik.http.routers.fm_traefik.tls.certresolver=letsencrypt
+            - traefik.http.routers.fm_traefik.service=api@internal
 
     pgadmin:
         labels:
-            - traefik.http.routers.fd_pgadmin.rule=Host(`${TRAEFIK_DOMAIN}`) && PathPrefix(`/pgadmin`)"
+            - traefik.http.routers.fd_pgadmin.rule=Host(`${TRAEFIK_DOMAIN}`) && PathPrefix(`/pgadmin`)
             - traefik.http.routers.fd_pgadmin.entrypoints=websecure
             - traefik.http.routers.fd_pgadmin.tls.certresolver=letsencrypt
