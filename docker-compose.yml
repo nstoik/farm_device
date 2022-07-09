@@ -68,7 +68,7 @@ services:
             - traefik:/letsencrypt
         environment:
             - CLOUDFLARE_EMAIL=${CLOUDFLARE_EMAIL}
-            - CLOUDFLARE_DNS_API_KEY=${CLOUDFLARE_DNS_API_TOKEN}
+            - CLOUDFLARE_DNS_API_TOKEN=${CLOUDFLARE_DNS_API_TOKEN}
         restart: unless-stopped
         depends_on:
             - device
