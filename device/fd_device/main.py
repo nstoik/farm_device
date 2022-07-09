@@ -10,7 +10,7 @@ from fd_device.celery_runner import run_scheduled_tasks
 from fd_device.database.base import get_session
 
 from .settings import get_config
-from .startup import get_rabbitmq_address, check_if_setup
+from .startup import check_if_setup, get_rabbitmq_address
 
 # from fd_device.device.service import run_connection
 
