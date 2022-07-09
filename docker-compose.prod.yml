@@ -23,10 +23,10 @@ services:
             - ./traefik/traefik.prod.yml:/etc/traefik/traefik.yml
         labels:
             - traefik.enable=true
-            - traefik.http.routers.fm_traefik.rule=Host(`traefik.${TRAEFIK_DOMAIN}`)
-            - traefik.http.routers.fm_traefik.entrypoints=websecure
-            - traefik.http.routers.fm_traefik.tls.certresolver=letsencrypt
-            - traefik.http.routers.fm_traefik.service=api@internal
+            - traefik.http.routers.fd_traefik.rule=Host(`traefik.${TRAEFIK_DOMAIN}`)
+            - traefik.http.routers.fd_traefik.entrypoints=websecure
+            - traefik.http.routers.fd_traefik.tls.certresolver=letsencrypt
+            - traefik.http.routers.fd_traefik.service=api@internal
 
     pgadmin:
         labels:
