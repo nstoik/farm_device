@@ -54,12 +54,12 @@ def main():
 
     if not check_if_setup(logger, session):
         logger.error("System has not been setup. Please run first time setup command")
-        time.sleep(1)
+        time.sleep(5)
         return
 
     if not get_rabbitmq_address(logger, session):
         logger.error("No address for rabbitmq server found")
-        time.sleep(1)
+        time.sleep(5)
         return
 
     # device_connection = Process(target=run_connection)
