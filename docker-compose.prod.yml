@@ -17,8 +17,8 @@ services:
 
     traefik:
         ports:
-            - $TRAEKIK_ACCESS_PORT:80
-            - $TRAEKIK_ACCESS_PORT_SECURE:443
+            - $TRAEFIK_ACCESS_PORT:80
+            - $TRAEFIK_ACCESS_PORT_SECURE:443
         volumes:
             - ./traefik/traefik.prod.yml:/etc/traefik/traefik.yml
         labels:
