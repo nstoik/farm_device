@@ -15,6 +15,7 @@ services:
         depends_on:
             - "database"
             - "1wire"
+            - "database_management"
         volumes:
             - "logs:/logs"
             - "/sys/devices/w1_bus_master1:/sys/devices/w1_bus_master1"
