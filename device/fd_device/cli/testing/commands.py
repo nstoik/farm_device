@@ -209,7 +209,7 @@ def docstring(filename, write, verbose):
     If write is passed in, and a filename is passed. Then overwrite the changes and run black.
 
     """
-    from pyment import PyComment
+    from pyment import PyComment  # pylint: disable=import-outside-toplevel
 
     # Only overwrite if looking at a single file and write flag is passed in.
     if filename and write:
@@ -237,7 +237,6 @@ def docstring(filename, write, verbose):
 
     files_with_changes = 0
     files_without_changes = 0
-    total_files = len(file_list)
 
     for file in file_list:
         pycom = PyComment(file, output_style="google")
@@ -258,7 +257,7 @@ def docstring(filename, write, verbose):
 
     click.echo(
         (
-            f"{total_files} files scanned, {files_with_changes} files with changes and "
+            f"{len(file_list)} files scanned, {files_with_changes} files with changes and "
             f"{files_without_changes} files without changes."
         )
     )
