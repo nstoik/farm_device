@@ -14,11 +14,11 @@ from fd_device.system.info import get_ip_of_interface
 
 def check_if_setup(logger, session):
     """Check if the system has been setup.
-    
+
     @return True if the system has been setup, False otherwise.
     """
 
-    logger.debug(f"Checking if the system has been setup.")
+    logger.debug("Checking if the system has been setup.")
 
     try:
         system_setup = session.query(SystemSetup).one()
@@ -27,11 +27,12 @@ def check_if_setup(logger, session):
             return True
 
     except NoResultFound:
-        logger.warn(f"System has not been setup")
+        logger.warn("System has not been setup")
         return False
 
-    logger.warn(f"System has not been setup")
+    logger.warn("System has not been setup")
     return False
+
 
 def get_rabbitmq_address(logger, session):  # noqa: C901
     """Find and return the address of the RabbitMQ server to connect to."""
