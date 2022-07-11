@@ -105,7 +105,7 @@ def get_config(override_default=None):
     """
 
     if override_default is None:
-        environment = os.environ.get("FD_DEVICE_CONFIG", default="dev")
+        environment = env.str("FD_DEVICE_CONFIG", default="dev")
     else:
         environment = override_default
 
