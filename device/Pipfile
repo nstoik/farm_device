@@ -24,7 +24,7 @@ pylint = "~=2.14"
 
 # type hints
 types-beautifulsoup4 = "~=4.11.2"
-types-setuptools = "~=62.6"
+types-setuptools = "~=63.2"
 types-psutil = "~=5.9"
 types-requests = "~=2.28.0"
 
