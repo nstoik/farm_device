@@ -19,14 +19,14 @@ flake8-docstrings = "~=1.6.0"
 flake8-isort = "~=4.1.1"
 isort = "~=5.10.1"
 mypy = "~=0.961"
-pep8-naming = "~=0.13.0"
+pep8-naming = "~=0.13.1"
 pylint = "~=2.14"
 
 # type hints
-types-beautifulsoup4 = "~=4.11.2"
-types-setuptools = "~=62.6"
+types-beautifulsoup4 = "~=4.11.3"
+types-setuptools = "~=63.2"
 types-psutil = "~=5.9"
-types-requests = "~=2.28.0"
+types-requests = "~=2.28.1"
 
 # Documentation and Docstrings
 # pyment = "~=0.3.4"
@@ -36,7 +36,7 @@ pyment = {git = "https://github.com/dadadel/pyment",editable = true}
 SQLAlchemy = "~=1.4.39"
 # for Postgresql
 psycopg2 = "~=2.9.3"
-alembic = "~=1.8.0"
+alembic = "~=1.8.1"
 gpiozero = "~=1.6.2"
 netifaces = "~=0.11.0"
 click = "~=8.1.3"
@@ -55,6 +55,3 @@ beautifulsoup4 = "~=4.11.1"
 
 [requires]
 python_version = "3.10"
-
-[pipenv]
-allow_prereleases = true

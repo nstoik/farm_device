@@ -19,7 +19,7 @@ class Config:
 
     PRESENCE_PORT = 5554
 
-    LOG_LEVEL = logging.INFO
+    LOG_LEVEL = env.log_level("FD_LOG_LEVEL", default=logging.INFO)
     LOG_FILE = "/logs/farm_device.log"
 
     # UPDATER_PATH = "/home/pi/farm_monitor/farm_update/update.sh"
@@ -40,23 +40,23 @@ class Config:
     # Scheduler settings
     SEND_TASK_GET_TIMEOUT = 5
     # How often to send the device update. Every x minutes
-    SCHEDULER_DEVICE_UPDATE_INTERVAL = 30
+    SCHEDULER_DEVICE_UPDATE_INTERVAL = 60
     # How often to send the grainbin update. Every x minutes
-    SCHEDULER_GRAINBIN_UPDATE_INTERVAL = 10
+    SCHEDULER_GRAINBIN_UPDATE_INTERVAL = 30
 
 
 class DevConfig(Config):
     """Development configuration."""
 
     DEBUG = True
-    LOG_LEVEL = logging.DEBUG
+    LOG_LEVEL = env.log_level("FD_LOG_LEVEL", default=logging.DEBUG)
 
 
 class ProdConfig(Config):
     """Production configuration."""
 
     DEBUG = False
-    LOG_LEVEL = logging.INFO
+    LOG_LEVEL = env.log_level("FD_LOG_LEVEL", default=logging.INFO)
 
 
 class TestConfig(Config):
@@ -105,7 +105,7 @@ def get_config(override_default=None):
     """
 
     if override_default is None:
-        environment = os.environ.get("FD_DEVICE_CONFIG", default="dev")
+        environment = env.str("FD_DEVICE_CONFIG", default="dev")
     else:
         environment = override_default
 
