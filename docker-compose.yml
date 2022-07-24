@@ -9,7 +9,6 @@ services:
             dockerfile: Dockerfile
         environment:
             FD_DEVICE_CONFIG: ${FD_DEVICE_CONFIG}
-            FD_DEVICE_LOG_LEVEL: ${FD_DEVICE_LOG_LEVEL}
             RABBITMQ_HOST_ADDRESS: ${RABBITMQ_HOST_ADDRESS}
         networks:
             - farm_device
@@ -31,7 +30,6 @@ services:
             dockerfile: Dockerfile
         environment:
             FD_DEVICE_CONFIG: ${FD_DEVICE_CONFIG}
-            FD_DEVICE_LOG_LEVEL: ${FD_DEVICE_LOG_LEVEL}
         networks:
             - farm_device
         depends_on:
