@@ -4,25 +4,26 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
 
   # configuration for the 1wire directory
   - package-ecosystem: "docker"
     directory: "/1wire"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
 
   # configuration for the device directory
   - package-ecosystem: "docker"
     directory: "/device"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
+
   - package-ecosystem: "docker"
     directory: "/device/.devcontainer"
     schedule:
-          interval: "weekly"
+          interval: "monthly"
 
   - package-ecosystem: "pip"
     directory: "/device"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
