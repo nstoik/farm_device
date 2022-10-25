@@ -14,7 +14,7 @@ def fetch_and_parse_page(url: str) -> Union[list[list[str]], None]:
     The parsing is designed specifically for the layout of the OWFS
     HTTPD pages.
     """
-    page = requests.get(url)
+    page = requests.get(url, timeout=5)
 
     if page.status_code != 200:
         LOGGER.error(f"Error fetching page from fd_1wire. URL is: {url}")
