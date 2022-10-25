@@ -4,6 +4,7 @@ import logging
 import os
 import socket
 import subprocess
+from typing import Dict
 
 import netifaces
 import psutil
@@ -152,7 +153,7 @@ def get_system_data() -> dict:
     return system_data
 
 
-def get_system_memory() -> dict:
+def get_system_memory() -> Dict[str, float]:
     """Get the system memory.
 
     :return: The system memory with the following keys: 'ram_used', ram_total', 'ram_free',
@@ -161,7 +162,7 @@ def get_system_memory() -> dict:
     """
 
     logger.debug("getting system memory")
-    system_mem = {}
+    system_mem = {}  # type: Dict[str, float]
 
     virtual_mem = psutil.virtual_memory()
     disk = psutil.disk_usage("/")
