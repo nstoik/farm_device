@@ -19,7 +19,7 @@ class Config:
 
     PRESENCE_PORT = 5554
 
-    LOG_LEVEL = env.log_level("FD_LOG_LEVEL", default=logging.INFO)
+    LOG_LEVEL = env.log_level("FD_DEVICE_LOG_LEVEL", default=logging.INFO)
     LOG_FILE = "/logs/farm_device.log"
 
     # UPDATER_PATH = "/home/pi/farm_monitor/farm_update/update.sh"
@@ -49,14 +49,14 @@ class DevConfig(Config):
     """Development configuration."""
 
     DEBUG = True
-    LOG_LEVEL = env.log_level("FD_LOG_LEVEL", default=logging.DEBUG)
+    LOG_LEVEL = env.log_level("FD_DEVICE_LOG_LEVEL", default=logging.DEBUG)
 
 
 class ProdConfig(Config):
     """Production configuration."""
 
     DEBUG = False
-    LOG_LEVEL = env.log_level("FD_LOG_LEVEL", default=logging.INFO)
+    LOG_LEVEL = env.log_level("FD_DEVICE_LOG_LEVEL", default=logging.INFO)
 
 
 class TestConfig(Config):
