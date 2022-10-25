@@ -72,14 +72,9 @@ docker compose -f docker-compose.yml -f docker-compose.prod.yml --env-file .env 
 Some of the file paths in the development files are configured differently depending on whether you are developing locally (on the same machine) or remotely (eg. a Raspberry Pi). These files include:
 * `.vscode\settings.json`
 * `..\.devcontainer\devcontainer.json`
-    * one under the device subfolder
-    * one under the 1wire subfolder
+    * two of these files
 * `docker-compose.devcontainer.yml`
-    * change the workspace mount
 * `docker-compose.yml`
-    * comment out the `1w_bus_master` mount on the fd_device container for local development
-    * comment out the `i2c` device on the fd_1wire container for local development
-
 ## Docker Commands
 To run the farm_device in development, execute the following docker-compose command from the root of the project:
 
