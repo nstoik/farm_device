@@ -16,5 +16,15 @@ services:
         # Overrides default command so things don't shut down after the process ends.
         command: /bin/sh -c "while sleep 1000; do :; done"
 
+    # specify to use the same image as the device service but give it a dummy command so it
+    # doesn't do anything.
+    database_management:
+        build:
+            context: ./device
+            dockerfile: .devcontainer/devcontainer.Dockerfile
+        command: "true"
+        entrypoint: "true"
+        restart: "no"
+
 volumes:
     bashhistory:
