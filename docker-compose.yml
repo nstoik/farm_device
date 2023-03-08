@@ -36,6 +36,8 @@ services:
             - farm_device
         depends_on:
             - "database"
+        volumes:
+            - "logs:/logs"
 
     1wire:
         image: nstoik/fd_1wire:${FD_1WIRE}
@@ -60,7 +62,7 @@ services:
 
     # traefik container configuration below
     traefik:
-        image: traefik:latest
+        image: traefik:2.9
         container_name: fd_traefik
         networks:
             - farm_device
