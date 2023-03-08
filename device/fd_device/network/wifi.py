@@ -107,7 +107,7 @@ def scan_wifi(interface=None) -> List:
 
 
 def add_wifi_network(
-    wifi_name: str, wifi_password: str, interface: Interface = None
+    wifi_name: str, wifi_password: str, interface: Interface | None = None
 ) -> Optional[Wifi]:
     """Add a wifi entry to the database of stored WiFi networks.
 
