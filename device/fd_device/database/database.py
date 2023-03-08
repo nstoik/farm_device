@@ -4,7 +4,7 @@ from sqlalchemy import Column, ForeignKey, Integer
 
 from fd_device.database.base import get_base, get_session
 
-Base = get_base(with_query=True)
+Base = get_base()
 
 
 class CRUDMixin:
@@ -68,10 +68,9 @@ class SurrogatePK(Model):  # pylint: disable=too-few-public-methods
                 isinstance(record_id, (int, float)),
             ),
         ):
-            if session:
-                return session.query(cls).get(int(record_id))
-
-            return cls.query.get(int(record_id))
+            if session is None:
+                session = get_session()
+            return session.get(cls, int(record_id))
         return None
 
 
