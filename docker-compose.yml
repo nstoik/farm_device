@@ -44,7 +44,7 @@ services:
 
     # traefik container configuration below
     traefik:
-        image: traefik:latest
+        image: traefik:2.9
         container_name: fd_traefik
         networks:
             - farm_device
