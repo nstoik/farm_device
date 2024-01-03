@@ -107,7 +107,7 @@ def scan_wifi(interface=None) -> List:
 
 
 def add_wifi_network(
-    wifi_name: str, wifi_password: str, interface: Interface = None
+    wifi_name: str, wifi_password: str, interface: Optional[Interface] = None
 ) -> Optional[Wifi]:
     """Add a wifi entry to the database of stored WiFi networks.
 
@@ -115,7 +115,7 @@ def add_wifi_network(
         wifi_name (str): The SSID of the WiFi network.
         wifi_password (str): The password of the WiFi network.
         interface (Interface, optional): The Interface to assign the WiFi to.
-        If Noine, the first 'wlan' interface set to DHCP is used. Defaults to None.
+        If None, the first 'wlan' interface set to DHCP is used. Defaults to None.
 
     Returns:
         Optional[Wifi]: The WiFi instance that was created or None if no Interface is found.
