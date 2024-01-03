@@ -105,12 +105,28 @@ services:
             - traefik.enable=true
             - traefik.http.services.fd_pgadmin.loadbalancer.server.port=80
             - traefik.http.routers.fd_pgadmin.service=fd_pgadmin
+
+    netmaker_client:
+        container_name: fd_netmaker_client
+        image: gravitl/netclient:${NETCLIENT_DOCKER_TAG}
+        networks:
+            - farm_device
+        restart: always
+        environment:
+            NETCLIENT_ACCESSTOKEN: ${NETCLIENT_ACCESSTOKEN}
+            NETCLIENT_NAME: ${NETCLIENT_NAME}
+        volumes:
+            - netclient:/etc/netclient
+        labels:
+            - custom.label=farm_device
+
   
 volumes:
     logs:
     dbdata:
     pgadmin:
     traefik:
+    netclient:
 
 networks:
     farm_device:
