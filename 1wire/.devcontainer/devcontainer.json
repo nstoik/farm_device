@@ -7,7 +7,7 @@
 	 "dockerComposeFile": [
 		"../../docker-compose.yml",
 		"../../docker-compose.dev.yml",
-		"../../docker-compose.devcontainer.yml",
+		"../../docker-compose.devcontainer.yml"
     ],
 
 	//"remoteUser": "fd",
@@ -17,8 +17,12 @@
 	// Otherwise do not need workspaceMount
 	"workspaceMount": "source=/home/ubuntu/farm_device,target=/workspaces,type=bind,consistency=cached",
 	"workspaceFolder": "/workspaces",
-	"shutdownAction": "none",
+	"shutdownAction": "none"
+	// "customizations": {
+	// 	"vscode": {
+	// 		"extensions": []
+	// 	}
+	// }
 
-	"extensions": [],
 	// "postCreateCommand": "git config --global core.autocrlf true && git config --global user.email 'nelsonstoik@gmail.com' && git config --global user.name 'Nelson'",
 }

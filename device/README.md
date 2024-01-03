@@ -3,3 +3,8 @@
 ## Vscode Dev Container
 
 Run ```pipenv install --dev``` inside the container after setting it up
+
+```bash
+cd device
+pipenv install --dev
+```
