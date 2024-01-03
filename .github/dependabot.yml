@@ -23,7 +23,16 @@ updates:
     schedule:
           interval: "monthly"
 
+  # configurations for the python filews in the device directory
   - package-ecosystem: "pip"
     directory: "/device"
     schedule:
       interval: "monthly"
+    # group the dependencies into a single PR
+    groups:
+      # Name for the group of dependencies
+      python-updates:
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
