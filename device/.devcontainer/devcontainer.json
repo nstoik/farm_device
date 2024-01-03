@@ -7,7 +7,7 @@
 	 "dockerComposeFile": [
 		"../../docker-compose.yml",
 		"../../docker-compose.dev.yml",
-		"../../docker-compose.devcontainer.yml",
+		"../../docker-compose.devcontainer.yml"
     ],
 
 	"remoteUser": "fd",
@@ -19,21 +19,25 @@
 	"workspaceFolder": "/workspaces",
 	"shutdownAction": "none",
 
-	"extensions": [
-		"ms-python.python",
-		"eamodio.gitlens",
-		"ms-python.vscode-pylance",
-		"github.copilot",
-	],
-	"postCreateCommand": "git config --global core.autocrlf true && git config --global user.email 'nelsonstoik@gmail.com' && git config --global user.name 'Nelson'",
-	"settings": {
-		"python.linting.enabled": true,
-		"python.linting.pylintEnabled": true,
-		"python.linting.pylintArgs": ["--load-plugins",],
-		"python.linting.flake8Enabled": true,
-		"python.linting.flake8Args": ["--config=/workspaces/device/setup.cfg"],
-		"python.linting.mypyEnabled": true,
-		"python.linting.mypyArgs": ["--config=/workspaces/device/setup.cfg"],
-		"python.formatting.provider": "black"
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"eamodio.gitlens",
+				"ms-python.vscode-pylance",
+				"github.copilot"
+			],
+			"postCreateCommand": "git config --global core.autocrlf true && git config --global user.email 'nelsonstoik@gmail.com' && git config --global user.name 'Nelson'",
+			"settings": {
+				"python.linting.enabled": true,
+				"python.linting.pylintEnabled": true,
+				"python.linting.pylintArgs": ["--load-plugins"],
+				"python.linting.flake8Enabled": true,
+				"python.linting.flake8Args": ["--config=/workspaces/device/setup.cfg"],
+				"python.linting.mypyEnabled": true,
+				"python.linting.mypyArgs": ["--config=/workspaces/device/setup.cfg"],
+				"python.formatting.provider": "black"
+			}
+		}
 	}
 }
