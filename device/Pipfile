@@ -5,50 +5,49 @@ name = "pypi"
 
 [dev-packages]
 # Testing
-factory-boy = "~=3.2.1"
-pytest = "~=7.1.3"
-pytest-cov = "~=4.0.0"
-pytest-mock = "~=3.10.0"
+factory-boy = "~=3.3"
+pytest = "~=7.4"
+pytest-cov = "~=4.1"
+pytest-mock = "~=3.12"
 # Lint and code style
-black = "~=22.10"
-flake8 = "~=5.0.4"
+black = "~=23.12"
+flake8 = "~=6.1.0"
 flake8-blind-except = "~=0.2.0"
 flake8-debugger = "~=4.1.2"
-flake8-docstrings = "~=1.6.0"
-flake8-isort = "~=5.0.0"
-isort = "~=5.10.1"
-mypy = "~=0.961"
+flake8-docstrings = "~=1.7.0"
+flake8-isort = "~=6.1.1"
+isort = "~=5.13"
+mypy = "~=1.8"
 pep8-naming = "~=0.13.2"
-pylint = "~=2.15"
+pylint = "~=3.0"
 # type hints
-types-beautifulsoup4 = "~=4.11.6"
-types-setuptools = "~=65.5"
+types-beautifulsoup4 = "~=4.12"
+types-setuptools = "~=69.0"
 types-psutil = "~=5.9.5"
-types-requests = "~=2.28.11"
-# Self
-fd-device = {file = ".", editable = true}
+types-requests = "~=2.31"
 
 [packages]
 SQLAlchemy = "~=1.4.42"
 # for Postgresql
 psycopg2 = "~=2.9.4"
-alembic = "~=1.8.1"
-gpiozero = "~=1.6.2"
+alembic = "~=1.13.1"
+gpiozero = "~=2.0"
 netifaces = "~=0.11.0"
 click = "~=8.1.3"
 psutil = "~=5.9.3"
 pika = "~=1.3"
-celery = "~=5.2.7"
+celery = "~=5.3"
 multiprocessing-logging = "~=0.3.3"
 # Environment and variable parsing
-environs = "~=9.5.0"
+environs = "~=10.0"
 # basic scheduler
-schedule = "~=1.1.0"
+schedule = "~=1.2"
 # for reading temperature from owfs webserver
 requests = "~=2.28"
-beautifulsoup4 = "~=4.11.1"
+beautifulsoup4 = "~=4.12.2"
+# self
 # "e1839a8" = {path = ".", editable = true}
 fd-device = {file = ".", editable = true}
 
 [requires]
-python_version = "3.11"
+python_version = "3.12"
