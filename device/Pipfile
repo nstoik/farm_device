@@ -27,7 +27,7 @@ types-psutil = "~=5.9.5"
 types-requests = "~=2.31"
 
 [packages]
-SQLAlchemy = "~=1.4.42"
+SQLAlchemy = "~=2.0"
 # for Postgresql
 psycopg2 = "~=2.9.4"
 alembic = "~=1.13.1"
