@@ -5,6 +5,10 @@ from sqlalchemy.sql import func
 
 from .database import SurrogatePK, reference_col
 
+# https://github.com/pylint-dev/pylint/issues/8138
+# can be removed once upstream issue in pylint is fixed
+# pylint: disable=not-callable
+
 
 class SystemSetup(SurrogatePK):
     """The state of the setup of the system."""
