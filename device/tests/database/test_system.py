@@ -11,22 +11,20 @@ class TestSystemSetup:
     """SystemSetup model tests."""
 
     @staticmethod
-    def test_create_systemsetup(dbsession):
+    def test_create_systemsetup():
         """Create a SystemSetup instance."""
 
-        system_setup = SystemSetup()
-        system_setup.save(dbsession)
+        system_setup = SystemSetup.create()
 
         assert not bool(system_setup.first_setup)
         assert isinstance(system_setup.first_setup_time, dt.datetime)
         assert bool(system_setup.standalone_configuration)
 
     @staticmethod
-    def test_get_system_setup_by_id(dbsession):
+    def test_get_system_setup_by_id():
         """Retrieve a SystemSetup instance by id."""
 
-        system_setup = SystemSetup()
-        system_setup.save(dbsession)
+        system_setup = SystemSetup.create()
 
         retrieved = SystemSetup.get_by_id(system_setup.id)
         assert retrieved.id == system_setup.id
@@ -37,10 +35,9 @@ class TestInterface:
     """Interface model tests."""
 
     @staticmethod
-    def test_create_interface(dbsession):
+    def test_create_interface():
         """Create a Interface instance."""
-        interface = Interface("eth0")
-        interface.save(dbsession)
+        interface = Interface.create(interface="eth0")
 
         assert interface.interface == "eth0"
         assert bool(interface.is_active)
@@ -50,10 +47,9 @@ class TestInterface:
         assert interface.credentials == []
 
     @staticmethod
-    def test_interface_get_by_id(dbsession):
+    def test_interface_get_by_id():
         """Retrieve an interface by the id."""
-        interface = Interface("eth0")
-        interface.save(dbsession)
+        interface = Interface.create(interface="eth0")
 
         retrieved = Interface.get_by_id(interface.id)
         assert retrieved.id == interface.id
@@ -64,10 +60,9 @@ class TestWifi:
     """WiFi model tests."""
 
     @staticmethod
-    def test_create_wifi(dbsession):
+    def test_create_wifi():
         """Create a WiFi instance."""
-        wifi = Wifi()
-        wifi.save(dbsession)
+        wifi = Wifi.create()
 
         assert wifi.name == "FarmMonitor"
         assert wifi.password == "raspberry"
@@ -76,23 +71,20 @@ class TestWifi:
         assert wifi.interface is None
 
     @staticmethod
-    def test_create_wifi_with_interface(dbsession):
+    def test_create_wifi_with_interface():
         """Create a WiFi instance with an interface."""
-        interface = Interface("eth0")
-        interface.save(dbsession)
+        interface = Interface.create(interface="eth0")
 
-        wifi = Wifi()
-        wifi.interface = interface
-        wifi.save(dbsession)
+        wifi = Wifi.create()
+        wifi.update(interface=interface)
 
         assert wifi.interface == interface
         assert wifi.interface_id == interface.id
 
     @staticmethod
-    def test_wifi_get_by_id(dbsession):
+    def test_wifi_get_by_id():
         """Test retrieving a WiFi instance by id."""
-        wifi = Wifi()
-        wifi.save(dbsession)
+        wifi = Wifi.create()
 
         retrieved = Wifi.get_by_id(wifi.id)
 
@@ -104,10 +96,9 @@ class TestHardware:
     """Hardware model tests."""
 
     @staticmethod
-    def test_create_hardware(dbsession):
+    def test_create_hardware():
         """Create a Hardware instance."""
-        hardware = Hardware()
-        hardware.save(dbsession)
+        hardware = Hardware.create()
 
         assert hardware.device_name is None
         assert hardware.hardware_version is None
@@ -117,10 +108,9 @@ class TestHardware:
         assert hardware.grainbin_reader_count == 0
 
     @staticmethod
-    def test_hardware_get_by_id(dbsession):
+    def test_hardware_get_by_id():
         """Retrieve a Hardware instance by the id."""
-        hardware = Hardware()
-        hardware.save(dbsession)
+        hardware = Hardware.create()
 
         retrieved = Hardware.get_by_id(hardware.id)
         assert retrieved.id == hardware.id
@@ -131,19 +121,17 @@ class TestSoftware:
     """Software model tests."""
 
     @staticmethod
-    def test_create_software(dbsession):
+    def test_create_software():
         """Create a Software instance."""
-        software = Software()
-        software.save(dbsession)
+        software = Software.create()
 
         assert software.software_version is None
         assert software.software_version_last is None
 
     @staticmethod
-    def test_software_get_by_id(dbsession):
+    def test_software_get_by_id():
         """Retrieve a Software instance by the id."""
-        software = Software()
-        software.save(dbsession)
+        software = Software.create()
 
         retrieved = Software.get_by_id(software.id)
         assert retrieved.id == software.id
