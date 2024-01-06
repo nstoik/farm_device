@@ -20,10 +20,9 @@ fileConfig(config.config_file_name)
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-from fd_device.database.base import get_base
+from fd_device.database.database import Base
 from fd_device.database.device import Device, Grainbin
 from fd_device.database.system import Hardware
-Base = get_base()
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,

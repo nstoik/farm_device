@@ -1,7 +1,9 @@
 """Create a device update object."""
 import datetime
 
-from fd_device.database.base import get_session
+from sqlalchemy import select
+
+from fd_device.database.database import get_session
 from fd_device.database.device import Device
 from fd_device.device.temperature import temperature
 
@@ -14,7 +16,11 @@ def get_device_info(session=None) -> dict:
         close_session = True
         session = get_session()
 
-    device: Device = session.query(Device).first()
+    device = session.scalars(select(Device).limit(1)).first()
+    if device is None:
+        # this is an error, there should always be a device
+        return {}
+
     device.interior_temp = temperature(device.interior_sensor)
     device.exterior_temp = temperature(device.exterior_sensor)
     session.commit()

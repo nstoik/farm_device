@@ -4,7 +4,7 @@ from datetime import datetime
 import click
 from sqlalchemy.orm.exc import NoResultFound
 
-from fd_device.database.base import get_session
+from fd_device.database.database import get_session
 from fd_device.database.device import Device, Grainbin
 from fd_device.database.system import Hardware, Software, SystemSetup
 from fd_device.device.temperature import get_connected_sensors

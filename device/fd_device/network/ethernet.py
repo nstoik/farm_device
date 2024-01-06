@@ -5,7 +5,7 @@ from typing import List
 import netifaces
 from netifaces import AF_INET
 
-from fd_device.database.base import get_session
+from fd_device.database.database import get_session
 from fd_device.database.system import Interface
 
 logger = logging.getLogger("fm.network.ethernet")
@@ -72,10 +72,11 @@ def get_external_interface() -> str:
 
     if ethernet_connected():
         ethernet = session.query(Interface).filter_by(interface="eth0").first()
-        ethernet.is_external = True
-        session.commit()
-        session.close()
-        return "eth0"
+        if ethernet is not None:
+            ethernet.is_external = True
+            session.commit()
+            session.close()
+            return "eth0"
 
     # now check if it is either wlan0 or wlan1
     interfaces = session.query(Interface).filter_by(state="dhcp").all()

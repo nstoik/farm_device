@@ -1,9 +1,15 @@
 """The system models for the database."""
-from sqlalchemy import Boolean, Column, DateTime, Integer, String
-from sqlalchemy.orm import relationship
+# pylint: disable=duplicate-code
+from datetime import datetime
+from typing import List, Optional
+
+from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql import func
 
-from .database import SurrogatePK, reference_col
+from .database import SurrogatePK, reference_col, str20
+
+# pylint: enable=duplicate-code
 
 # https://github.com/pylint-dev/pylint/issues/8138
 # can be removed once upstream issue in pylint is fixed
@@ -15,9 +21,9 @@ class SystemSetup(SurrogatePK):
 
     __tablename__ = "system_setup"
 
-    first_setup = Column(Boolean, default=False)
-    first_setup_time = Column(DateTime, default=func.now())
-    standalone_configuration = Column(Boolean, default=True)
+    first_setup: Mapped[bool] = mapped_column(default=False)
+    first_setup_time: Mapped[datetime] = mapped_column(default=func.now())
+    standalone_configuration: Mapped[bool] = mapped_column(default=True)
 
     def __init__(self):
         """Create the SystemSetup object."""
@@ -29,12 +35,12 @@ class Wifi(SurrogatePK):
 
     __tablename__ = "system_wifi"
 
-    name = Column(String(20), default="FarmMonitor")
-    password = Column(String(20), default="raspberry")
-    mode = Column(String(20), default="wpa")
+    name: Mapped[str20] = mapped_column(default="FarmMonitor")
+    password: Mapped[str20] = mapped_column(default="raspberry")
+    mode: Mapped[str20] = mapped_column(default="wpa")
 
-    interface_id = reference_col("system_interface", nullable=True)
-    interface = relationship("Interface", backref="credentials")
+    interface_id: Mapped[int] = reference_col("system_interface", nullable=True)
+    interface: Mapped["Interface"] = relationship(back_populates="credentials")
 
     def __init__(self):
         """Create the Wifi object."""
@@ -46,11 +52,13 @@ class Interface(SurrogatePK):
 
     __tablename__ = "system_interface"
 
-    interface = Column(String(5), nullable=True)
-    is_active = Column(Boolean, default=True)
-    is_for_fm = Column(Boolean, default=False)
-    is_external = Column(Boolean, default=False)
-    state = Column(String(20))
+    interface: Mapped[str] = mapped_column(String(5), nullable=True)
+    is_active: Mapped[bool] = mapped_column(default=True)
+    is_for_fm: Mapped[bool] = mapped_column(default=False)
+    is_external: Mapped[bool] = mapped_column(default=False)
+    state: Mapped[Optional[str20]]
+
+    credentials: Mapped[List["Wifi"]] = relationship(back_populates="interface")
 
     def __init__(self, interface):
         """Create the interface object."""
@@ -63,14 +71,14 @@ class Hardware(SurrogatePK):
 
     __tablename__ = "system_hardware"
 
-    device_name = Column(String(20))
-    hardware_version = Column(String(20))
+    device_name: Mapped[Optional[str20]]
+    hardware_version: Mapped[Optional[str20]]
 
-    interior_sensor = Column(String(20), nullable=True, default=None)
-    exterior_sensor = Column(String(20), nullable=True, default=None)
+    interior_sensor: Mapped[str20] = mapped_column(nullable=True, default=None)
+    exterior_sensor: Mapped[str20] = mapped_column(nullable=True, default=None)
 
-    serial_number = Column(String(20))
-    grainbin_reader_count = Column(Integer, default=0)
+    serial_number: Mapped[Optional[str20]]
+    grainbin_reader_count: Mapped[int] = mapped_column(default=0)
 
     def __init__(self):
         """Create the Hardware object."""
@@ -82,8 +90,8 @@ class Software(SurrogatePK):
 
     __tablename__ = "system_software"
 
-    software_version = Column(String(20))
-    software_version_last = Column(String(20))
+    software_version: Mapped[Optional[str20]]
+    software_version_last: Mapped[Optional[str20]]
 
     def __init__(self):
         """Create the Software object."""

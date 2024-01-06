@@ -3,10 +3,10 @@ import click
 from alembic import command as al_command
 from alembic.config import Config as AlConfig
 
-from fd_device.database.base import (
+from fd_device.database.database import (
+    Base,
     create_all_tables,
     drop_all_tables,
-    get_base,
     get_session,
 )
 
@@ -39,9 +39,8 @@ def delete_all_data(confirm):
     else:
         click.echo("deleting all data from the database.")
 
-        base = get_base()
         session = get_session()
-        for table in reversed(base.metadata.sorted_tables):
+        for table in reversed(Base.metadata.sorted_tables):
             session.execute(table.delete())
         session.commit()
 

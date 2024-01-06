@@ -2,9 +2,10 @@
 import logging
 import subprocess
 
+from sqlalchemy import select
 from sqlalchemy.orm.exc import NoResultFound
 
-from fd_device.database.base import get_session
+from fd_device.database.database import get_session
 from fd_device.database.system import Hardware, Software
 from fd_device.device.temperature import get_connected_sensors
 
@@ -65,7 +66,7 @@ def set_sensor_info(interior: int, exterior: int):
     # now set the sensor info into the tables
     session = get_session()
     try:
-        hd = session.query(Hardware).one()
+        hd = session.execute(select(Hardware)).scalar_one()
 
     except NoResultFound:
         hd = Hardware()

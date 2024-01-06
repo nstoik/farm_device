@@ -7,7 +7,7 @@ import pika
 
 from fd_device.celery_runner import app
 from fd_device.controller.connection import Connection, Message
-from fd_device.database.base import get_session
+from fd_device.database.database import get_session
 from fd_device.database.device import Connection as db_Connection
 from fd_device.database.device import Device
 from fd_device.device.update import get_device_info
