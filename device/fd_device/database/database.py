@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Database module, including the SQLAlchemy database object and DB-related utilities."""
-from sqlalchemy import Column, ForeignKey, Integer, String, create_engine
+from sqlalchemy import ForeignKey, String, create_engine
 from sqlalchemy.orm import (
     DeclarativeBase,
     Mapped,
@@ -51,36 +51,28 @@ class CRUDMixin:
     """Mixin that adds convenience methods for CRUD (create, read, update, delete) operations."""
 
     @classmethod
-    def create(cls, session=None, **kwargs):
+    def create(cls, **kwargs):
         """Create a new record and save it the database."""
-        if session is None:
-            session = db_session
         instance = cls(**kwargs)
-        return instance.save(session)
+        return instance.save()
 
-    def update(self, session=None, commit=True, **kwargs):
+    def update(self, commit=True, **kwargs):
         """Update specific fields of a record."""
-        if session is None:
-            session = db_session
         for attr, value in kwargs.items():
             setattr(self, attr, value)
-        return self.save(session) if commit else self
+        return self.save() if commit else self
 
-    def save(self, session=None, commit=True):
+    def save(self, commit=True):
         """Save the record."""
-        if session is None:
-            session = db_session
-        session.add(self)
+        db_session.add(self)
         if commit:
-            session.commit()
+            db_session.commit()
         return self
 
-    def delete(self, session=None, commit=True):
+    def delete(self, commit=True):
         """Remove the record from the database."""
-        if session is None:
-            session = db_session
-        session.delete(self)
-        return commit and session.commit()
+        db_session.delete(self)
+        return commit and db_session.commit()
 
 
 class Model(CRUDMixin, Base):
@@ -97,10 +89,10 @@ class SurrogatePK(Model):  # pylint: disable=too-few-public-methods
     __table_args__ = {"extend_existing": True}
     __abstract__ = True
 
-    id = Column(Integer, primary_key=True)
+    id: Mapped[int] = mapped_column(primary_key=True)
 
     @classmethod
-    def get_by_id(cls, record_id, session=None):
+    def get_by_id(cls, record_id):
         """Get record by ID."""
         if any(
             (
@@ -108,9 +100,7 @@ class SurrogatePK(Model):  # pylint: disable=too-few-public-methods
                 isinstance(record_id, (int, float)),
             ),
         ):
-            if session is None:
-                session = get_session()
-            return session.get(cls, int(record_id))
+            return db_session.get(cls, int(record_id))
         return None
 
 
