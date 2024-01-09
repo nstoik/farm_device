@@ -1,6 +1,7 @@
 """Test the setup_commands module."""
 import pytest
 from click.testing import CliRunner
+from sqlalchemy import select
 
 from fd_device.cli.manage.setup_commands import first_setup
 from fd_device.database.device import Device
@@ -18,13 +19,12 @@ def test_first_setup_execution():
 
 
 @pytest.mark.usefixtures("tables")
-def test_first_setup_already_completed(dbsession):
+def test_first_setup_already_completed():
     """Test that the cli command detects if setup already done."""
 
     # explicitly set the first_setup to true.
-    system = SystemSetup()
-    system.first_setup = True
-    system.save(dbsession)
+    system = SystemSetup.create()
+    system.update(first_setup=True)
 
     runner = CliRunner()
     result = runner.invoke(first_setup, input="N\n")
@@ -91,7 +91,7 @@ def test_first_setup_not_standalone_db(dbsession):
     input_text = "n\nY\n\n1\n\nY\n0.1\n"
     result = runner.invoke(first_setup, input=input_text)
 
-    device = dbsession.query(Device).one()
+    device = dbsession.execute(select(Device)).scalar_one()
 
     assert not result.exception
     assert isinstance(device.device_id, str)

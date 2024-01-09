@@ -2,6 +2,7 @@
 import random
 
 import pytest
+from sqlalchemy import select
 
 from fd_device.cli.manage.setup_commands import initialize_device, initialize_grainbin
 from fd_device.database.device import Device
@@ -25,7 +26,7 @@ def test_initialize_device_no_hardware_or_software(dbsession):
 
     initialize_device()
 
-    device = dbsession.query(Device).first()
+    device = dbsession.execute(select(Device)).scalar_one_or_none()
 
     assert device is None
 
@@ -42,7 +43,7 @@ def test_initialize_device(dbsession):
 
     initialize_device()
 
-    device = dbsession.query(Device).first()
+    device = dbsession.execute(select(Device)).scalar_one()
 
     assert len(device.grainbins) == number_of_grainbins
 
@@ -61,12 +62,12 @@ def test_initialize_device_twice(dbsession):
     set_software_info("TEST_SOFTWARE_VERSION")
     initialize_device()
 
-    device = dbsession.query(Device).first()
+    device = dbsession.execute(select(Device)).scalar_one()
     assert len(device.grainbins) == number_of_grainbins
 
     # now initialize the device again.
     number_of_grainbins_second_time = random.randint(1, 10)
     set_hardware_info("TEST_HARDWARE_VERSION", str(number_of_grainbins_second_time))
     initialize_device()
-    device_second = dbsession.query(Device).first()
+    device_second = dbsession.execute(select(Device)).scalar_one()
     assert len(device_second.grainbins) == number_of_grainbins_second_time
