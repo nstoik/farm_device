@@ -97,7 +97,7 @@ def set_hardware_info(hardware_version: str, gb_reader_count: str):
     serial_number = get_serial()
 
     try:
-        hd = session.query(Hardware).one()
+        hd = session.execute(select(Hardware)).scalar_one()
 
     except NoResultFound:
         hd = Hardware()
@@ -123,7 +123,7 @@ def set_software_info(software_version: str):
     session = get_session()
 
     try:
-        sd = session.query(Software).one()
+        sd = session.execute(select(Software)).scalar_one()
 
     except NoResultFound:
         sd = Software()

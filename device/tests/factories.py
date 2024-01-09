@@ -21,8 +21,7 @@ class BaseFactory(SQLAlchemyModelFactory):
         correctly.
         """
         obj = model_class(*args, **kwargs)
-        obj.save()
-        return obj
+        return obj.save()
 
     class Meta:
         """Factory configuration."""

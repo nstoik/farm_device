@@ -10,16 +10,15 @@ from fd_device.network.wifi import add_wifi_network, delete_wifi_network
 
 
 @pytest.mark.usefixtures("tables")
-def test_add_wifi_network(dbsession):
+def test_add_wifi_network():
     """Test the add_wifi_network function."""
 
     interface = Interface("wlan0")
-    interface.state = "dhcp"
-    interface.save(dbsession)
+    interface.update(state="dhcp")
 
     wifi = add_wifi_network(wifi_name="TestWiFiName", wifi_password="password")
 
-    dbsession.add(wifi)
+    wifi.save()
 
     assert wifi.name == "TestWiFiName"
     assert wifi.password == "password"
@@ -29,12 +28,11 @@ def test_add_wifi_network(dbsession):
 
 
 @pytest.mark.usefixtures("tables")
-def test_add_wifi_network_with_interface(dbsession):
+def test_add_wifi_network_with_interface():
     """Test the add_wifi_netwrok function passing in an Interface."""
 
     interface = Interface("wlan0")
-    interface.state = "dhcp"
-    interface.save(dbsession)
+    interface.update(state="dhcp")
 
     wifi = add_wifi_network(
         wifi_name="TestWiFiName", wifi_password="password", interface=interface
@@ -57,11 +55,11 @@ def test_add_wifi_network_no_interface():
 
 
 @pytest.mark.usefixtures("populate_interfaces")
-def test_delete_wifi_network(dbsession):
+def test_delete_wifi_network():
     """Test the delete_wifi_network function."""
 
     wifi = add_wifi_network(wifi_name="TestWiFiName", wifi_password="password")
-    dbsession.add(wifi)
+    wifi.save()
 
     confirmed_deleted = delete_wifi_network(wifi.id)
     retrieved = Wifi.get_by_id(wifi.id)

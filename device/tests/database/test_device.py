@@ -30,8 +30,7 @@ class TestConnection:
         connection = Connection()
         connection.save()
 
-        connection.is_connected = True
-        connection.save()
+        connection.update(is_connected=True)
 
         assert isinstance(connection.last_updated, dt.datetime)
         assert bool(connection.is_connected)
@@ -104,8 +103,9 @@ class TestGrainbin:
         device = DeviceFactory()
         device.save()
 
-        grainbin = Grainbin(name="TestGrainbin", bus_number=1, device_id=device.id)
-        grainbin.save()
+        grainbin = Grainbin.create(
+            name="TestGrainbin", bus_number=1, device_id=device.id
+        )
 
         assert grainbin.device_id == device.id
         assert grainbin.bus_number == 1
@@ -117,8 +117,9 @@ class TestGrainbin:
         device = DeviceFactory()
         device.save()
 
-        grainbin = Grainbin(name="TestGrainbin", bus_number=1, device_id=device.id)
-        grainbin.save()
+        grainbin = Grainbin.create(
+            name="TestGrainbin", bus_number=1, device_id=device.id
+        )
 
         retrieved = Grainbin.get_by_id(grainbin.id)
 

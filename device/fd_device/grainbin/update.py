@@ -4,6 +4,7 @@ import logging
 import statistics
 from typing import Optional
 
+from sqlalchemy import select
 from sqlalchemy.orm.session import Session
 
 from fd_device.database.database import get_session
@@ -27,7 +28,7 @@ def get_grainbin_updates(session: Optional[Session] = None) -> list:
 
     all_updates: list = []
 
-    grainbins: list[Grainbin] = session.query(Grainbin).all()
+    grainbins: list[Grainbin] = list(session.scalars(select(Grainbin)).all())
 
     all_busses = get_all_busses()
 

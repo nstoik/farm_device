@@ -90,7 +90,9 @@ def search_on_socket(logger, session, connection):
     presence_port = config.PRESENCE_PORT
 
     # get the first interface that is for farm monitor
-    interface = session.query(Interface.interface).filter_by(is_for_fm=True).scalar()
+    interface = session.execute(
+        sql_select(Interface.interface).filter_by(is_for_fm=True)
+    ).scalar_one()
 
     if interface is None:
         logger.warning(
