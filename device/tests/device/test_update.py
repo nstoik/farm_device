@@ -13,9 +13,7 @@ def test_get_device_info(mocker):
     """Test the get_device_info function."""
 
     device = DeviceFactory()
-    device.interior_sensor = "sensor_1"
-    device.exterior_sensor = "sensor_2"
-    device.save()
+    device.update(interior_sensor="sensor_1", exterior_sensor="sensor_2")
 
     mocker.patch(
         "fd_device.device.update.temperature",

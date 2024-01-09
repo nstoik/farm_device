@@ -4,7 +4,8 @@ import socket
 
 import pika
 from pika.exceptions import AMQPConnectionError
-from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy import select as sql_select
+from sqlalchemy.orm import Session
 
 from fd_device.database.device import Connection
 from fd_device.database.system import Interface, SystemSetup
@@ -12,7 +13,7 @@ from fd_device.settings import get_config
 from fd_device.system.info import get_ip_of_interface
 
 
-def check_if_setup(logger, session):
+def check_if_setup(logger, session: Session) -> bool:
     """Check if the system has been setup.
 
     @return True if the system has been setup, False otherwise.
@@ -20,26 +21,25 @@ def check_if_setup(logger, session):
 
     logger.debug("Checking if the system has been setup.")
 
-    try:
-        system_setup = session.query(SystemSetup).one()
-        if system_setup.first_setup:
-            logger.debug(f"System has been setup on {system_setup.first_setup_time}")
-            return True
+    system_setup = session.execute(sql_select(SystemSetup)).scalar_one_or_none()
 
-    except NoResultFound:
+    if system_setup is None:
         logger.warn("System has not been setup")
         return False
+
+    if system_setup.first_setup:
+        logger.debug(f"System has been setup on {system_setup.first_setup_time}")
+        return True
 
     logger.warn("System has not been setup")
     return False
 
 
-def get_rabbitmq_address(logger, session):  # noqa: C901
+def get_rabbitmq_address(logger, session: Session):  # noqa: C901
     """Find and return the address of the RabbitMQ server to connect to."""
 
-    try:
-        connection = session.query(Connection).one()
-    except NoResultFound:
+    connection = session.execute(sql_select(Connection)).scalar_one_or_none()
+    if connection is None:
         connection = Connection()
         session.add(connection)
 
@@ -90,7 +90,9 @@ def search_on_socket(logger, session, connection):
     presence_port = config.PRESENCE_PORT
 
     # get the first interface that is for farm monitor
-    interface = session.query(Interface.interface).filter_by(is_for_fm=True).scalar()
+    interface = session.execute(
+        sql_select(Interface.interface).filter_by(is_for_fm=True)
+    ).scalar_one()
 
     if interface is None:
         logger.warning(

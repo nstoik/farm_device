@@ -7,7 +7,7 @@ from multiprocessing import Process
 from multiprocessing_logging import install_mp_handler
 
 from fd_device.celery_runner import run_scheduled_tasks
-from fd_device.database.base import get_session
+from fd_device.database.database import get_session
 
 from .settings import get_config
 from .startup import check_if_setup, get_rabbitmq_address

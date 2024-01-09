@@ -1,33 +1,42 @@
 """The device models for the database."""
-from sqlalchemy import Boolean, Column, DateTime, Integer, String
-from sqlalchemy.orm import relationship
+from datetime import datetime
+from typing import List, Optional
+
+from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql import func
 
-from .database import SurrogatePK, reference_col
+from .database import SurrogatePK, reference_col, str7, str20
+
+# https://github.com/pylint-dev/pylint/issues/8138
+# can be removed once upstream issue in pylint is fixed
+# pylint: disable=not-callable
 
 
 class Connection(SurrogatePK):
     """Represent the device's connecticon to the server."""
 
     __tablename__ = "connection"
-    address = Column(String(20))
-    last_updated = Column(DateTime, onupdate=func.now())
-    first_connected = Column(DateTime, default=func.now())
-    is_connected = Column(Boolean, default=False)
+    address: Mapped[Optional[str20]]
+    last_updated: Mapped[Optional[datetime]] = mapped_column(onupdate=func.now())
+    first_connected: Mapped[datetime] = mapped_column(default=func.now())
+    is_connected: Mapped[bool] = mapped_column(default=False)
 
 
 class Grainbin(SurrogatePK):
     """Represent a Grainbin that is connected to the device."""
 
     __tablename__ = "grainbin"
-    name = Column(String(20), unique=True)
-    bus_number = Column(Integer, nullable=False)
-    bus_number_string = Column(String(10), nullable=True)
-    creation_time = Column(DateTime, default=func.now())
-    last_updated = Column(DateTime, default=func.now(), onupdate=func.now())
-    average_temp = Column(String(7))
+    name: Mapped[str20] = mapped_column(unique=True)
+    bus_number: Mapped[int]
+    bus_number_string: Mapped[str] = mapped_column(String(10), nullable=True)
+    creation_time: Mapped[datetime] = mapped_column(default=func.now())
+    last_updated: Mapped[datetime] = mapped_column(
+        default=func.now(), onupdate=func.now()
+    )
+    average_temp: Mapped[str7]
 
-    device_id = reference_col("device")
+    device_id: Mapped[int] = reference_col("device")
 
     def __init__(self, name: str, bus_number: int, device_id: int):
         """Create the Grainbin object."""
@@ -46,22 +55,24 @@ class Device(SurrogatePK):
     """Represent the Device."""
 
     __tablename__ = "device"
-    device_id = Column(String(20), unique=True)
-    hardware_version = Column(String(20))
-    software_version = Column(String(20))
-    creation_time = Column(DateTime, default=func.now())
-    last_updated = Column(DateTime, default=func.now(), onupdate=func.now())
+    device_id: Mapped[str20] = mapped_column(unique=True)
+    hardware_version: Mapped[Optional[str20]]
+    software_version: Mapped[Optional[str20]]
+    creation_time: Mapped[datetime] = mapped_column(default=func.now())
+    last_updated: Mapped[datetime] = mapped_column(
+        default=func.now(), onupdate=func.now()
+    )
 
-    interior_sensor = Column(String(20), nullable=True, default=None)
-    exterior_sensor = Column(String(20), nullable=True, default=None)
-    interior_temp = Column(String(7), nullable=True, default=None)
-    exterior_temp = Column(String(7), nullable=True, default=None)
+    interior_sensor: Mapped[Optional[str20]]
+    exterior_sensor: Mapped[Optional[str20]]
+    interior_temp: Mapped[Optional[str7]]
+    exterior_temp: Mapped[Optional[str7]]
 
     # grainbin related data
-    grainbin_count = Column(Integer, default=0)
-    grainbins = relationship("Grainbin", backref="device")
+    grainbin_count: Mapped[int] = mapped_column(default=0)
+    grainbins: Mapped[List["Grainbin"]] = relationship(backref="device")
 
-    def __init__(self, device_id, interior_sensor="null", exterior_sensor="null"):
+    def __init__(self, device_id: str, interior_sensor="null", exterior_sensor="null"):
         """Create the Device object."""
         self.device_id = device_id
         self.interior_sensor = interior_sensor

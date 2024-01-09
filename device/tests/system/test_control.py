@@ -3,6 +3,7 @@
 TODO: add tests for set_device_name, set_service_state, set_sensor_info
 """
 import pytest
+from sqlalchemy import select
 from sqlalchemy.orm.exc import NoResultFound
 
 from fd_device.database.system import Hardware, Software
@@ -18,7 +19,7 @@ def test_set_sensor_info(dbsession, mocker):
     """Test the set_sensor_info function works."""
 
     with pytest.raises(NoResultFound):
-        dbsession.query(Hardware).one()
+        dbsession.scalars(select(Hardware)).one()
 
     mocked_sensors = [{"name": "sensor_1_name"}, {"name": "sensor_2_name"}]
 
@@ -30,7 +31,7 @@ def test_set_sensor_info(dbsession, mocker):
 
     set_sensor_info(interior=1, exterior=2)
 
-    hd = dbsession.query(Hardware).one()
+    hd = dbsession.scalars(select(Hardware)).one()
 
     assert hd.interior_sensor == mocked_sensors[0]["name"]
     assert hd.exterior_sensor == mocked_sensors[1]["name"]
@@ -41,7 +42,7 @@ def test_set_sensor_info_wrong_choices(dbsession, mocker):
     """Test the set_sensor_info function handles incorrect choices."""
 
     with pytest.raises(NoResultFound):
-        dbsession.query(Hardware).one()
+        dbsession.scalars(select(Hardware)).one()
 
     mocked_sensors = [{"name": "sensor_1_name"}, {"name": "sensor_2_name"}]
 
@@ -53,7 +54,7 @@ def test_set_sensor_info_wrong_choices(dbsession, mocker):
 
     set_sensor_info(interior=3, exterior=4)
 
-    hd = dbsession.query(Hardware).one()
+    hd = dbsession.scalars(select(Hardware)).one()
 
     assert hd.interior_sensor == "no_sensor_selected"
     assert hd.exterior_sensor == "no_sensor_selected"
@@ -65,7 +66,7 @@ def test_set_hardware_info(dbsession):
 
     set_hardware_info("test_hardware_version", 0)
 
-    hd = dbsession.query(Hardware).one()
+    hd = dbsession.scalars(select(Hardware)).one()
 
     assert hd.hardware_version == "test_hardware_version"
     assert isinstance(hd.device_name, str)
@@ -82,6 +83,6 @@ def test_set_software_info(dbsession):
 
     set_software_info("test_software_version")
 
-    sd = dbsession.query(Software).one()
+    sd = dbsession.scalars(select(Software)).one()
 
     assert sd.software_version == "test_software_version"

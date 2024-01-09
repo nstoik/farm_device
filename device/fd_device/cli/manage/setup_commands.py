@@ -2,9 +2,10 @@
 from datetime import datetime
 
 import click
+from sqlalchemy import select
 from sqlalchemy.orm.exc import NoResultFound
 
-from fd_device.database.base import get_session
+from fd_device.database.database import get_session
 from fd_device.database.device import Device, Grainbin
 from fd_device.database.system import Hardware, Software, SystemSetup
 from fd_device.device.temperature import get_connected_sensors
@@ -34,7 +35,7 @@ def first_setup(standalone):  # noqa: C901
     session = get_session()
 
     try:
-        system = session.query(SystemSetup).one()
+        system = session.scalars(select(SystemSetup)).one()
     except NoResultFound:
         system = SystemSetup()
         session.add(system)
@@ -147,14 +148,14 @@ def initialize_device():
     session = get_session()
 
     try:
-        hd = session.query(Hardware).one()
-        sd = session.query(Software).one()
+        hd = session.scalars(select(Hardware)).one()
+        sd = session.scalars(select(Software)).one()
     except NoResultFound:
         session.close()
         return
 
     try:
-        device = session.query(Device).one()
+        device = session.scalars(select(Device)).one()
     except NoResultFound:
         device = Device(
             device_id=hd.serial_number,

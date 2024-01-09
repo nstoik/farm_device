@@ -1,13 +1,13 @@
 """Control the wifi connections of the device."""
 import logging
 import subprocess
-from typing import List, Optional
+from typing import List, Optional, TypedDict
 
 import netifaces
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.session import object_session
 
-from fd_device.database.base import get_session
+from fd_device.database.database import get_session
 from fd_device.database.system import Interface, Wifi
 from fd_device.network.ethernet import get_external_interface, get_interfaces
 from fd_device.network.network_files import (
@@ -132,7 +132,12 @@ def add_wifi_network(
                 break
     # if an interface is passed in, get the session from the interface.
     else:
-        session = object_session(interface)
+        retrieved_session = object_session(interface)
+        if retrieved_session is None:
+            logger.error("No session available from the supplied interface")
+            session = get_session()
+        else:
+            session = retrieved_session
 
     if interface is None:
         logger.error("No interface available to add new wifi network")
@@ -169,7 +174,19 @@ def delete_wifi_network(wifi_id: str) -> bool:
     return bool(deleted_count > 0)
 
 
-def wifi_info() -> List:
+class WifiInfo(TypedDict):
+    """The information that is returned from the wifi_info function."""
+
+    interface: Interface
+    clients: int
+    ssid: str
+    password: str
+    state: str
+    state_boolean: bool
+    address: str
+
+
+def wifi_info() -> List[WifiInfo]:
     """Get a list of WiFi details for all wlan interfaces.
 
     Returns:
@@ -192,34 +209,48 @@ def wifi_info() -> List:
 
     wlan_interfaces = get_interfaces(keep_eth=False)
 
-    wifi = []
+    wifi: List[WifiInfo] = []
 
     session = get_session()
 
     for w_interface in wlan_interfaces:
         try:
-            info = {}
             interface = session.query(Interface).filter_by(interface=w_interface).one()
-            info["interface"] = interface
             if interface.state == "ap":
-                info["clients"] = wifi_ap_clients(interface.interface)
-                info["ssid"] = interface.credentials[0].name
-                info["password"] = interface.credentials[0].password
+                wifi_clients = wifi_ap_clients(interface.interface)
+                wifi_ssid = interface.credentials[0].name
+                wifi_password = interface.credentials[0].password
+                wifi_state = "ap"
+                wifi_state_boolean = True
+                wifi_address = ""
             else:
-                info["state"] = wifi_dhcp_info(interface.interface)
-                if info["state"] is False:
-                    info["state_boolean"] = False
+                wifi_clients = 0
+                wifi_ssid = ""
+                wifi_password = ""
+                wifi_state = wifi_dhcp_info(interface.interface)
+                wifi_address = ""
+                if wifi_state == "Not connected":
+                    wifi_state_boolean = False
                 else:
-                    info["state_boolean"] = True
+                    wifi_state_boolean = True
                     if w_interface in netifaces.interfaces():
                         address = netifaces.ifaddresses(w_interface)
-                        info["address"] = address[netifaces.AF_INET][0]["addr"]
+                        wifi_address = address[netifaces.AF_INET][0]["addr"]
 
                 if interface.credentials:
-                    info["ssid"] = interface.credentials[0].name
-                    info["password"] = interface.credentials[0].password
-
-            wifi.append(info)
+                    wifi_ssid = interface.credentials[0].name
+                    wifi_password = interface.credentials[0].password
+            wifi.append(
+                WifiInfo(
+                    interface=interface,
+                    clients=wifi_clients,
+                    ssid=wifi_ssid,
+                    password=wifi_password,
+                    state=wifi_state,
+                    state_boolean=wifi_state_boolean,
+                    address=wifi_address,
+                )
+            )
 
         except NoResultFound:
             pass

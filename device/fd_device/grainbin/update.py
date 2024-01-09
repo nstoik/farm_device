@@ -2,10 +2,12 @@
 import datetime
 import logging
 import statistics
+from typing import Optional
 
+from sqlalchemy import select
 from sqlalchemy.orm.session import Session
 
-from fd_device.database.base import get_session
+from fd_device.database.database import get_session
 from fd_device.database.device import Grainbin
 from fd_device.grainbin.owfs_interface import (
     get_all_busses,
@@ -16,7 +18,7 @@ from fd_device.grainbin.owfs_interface import (
 LOGGER = logging.getLogger("fd.grainbin.update")
 
 
-def get_grainbin_updates(session: Session = None) -> list:
+def get_grainbin_updates(session: Optional[Session] = None) -> list:
     """Get all grainbin updates as a list for each grainbin."""
 
     close_session = False
@@ -26,7 +28,7 @@ def get_grainbin_updates(session: Session = None) -> list:
 
     all_updates: list = []
 
-    grainbins: list[Grainbin] = session.query(Grainbin).all()
+    grainbins: list[Grainbin] = list(session.scalars(select(Grainbin)).all())
 
     all_busses = get_all_busses()
 

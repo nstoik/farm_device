@@ -11,7 +11,7 @@ pytest-cov = "~=4.1"
 pytest-mock = "~=3.12"
 # Lint and code style
 black = "~=23.12"
-flake8 = "~=6.1.0"
+flake8 = "~=7.0"
 flake8-blind-except = "~=0.2.0"
 flake8-debugger = "~=4.1.2"
 flake8-docstrings = "~=1.7.0"
@@ -27,7 +27,7 @@ types-psutil = "~=5.9.5"
 types-requests = "~=2.31"
 
 [packages]
-SQLAlchemy = "~=1.4.42"
+SQLAlchemy = "~=2.0"
 # for Postgresql
 psycopg2 = "~=2.9.4"
 alembic = "~=1.13.1"

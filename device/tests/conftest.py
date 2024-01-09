@@ -3,7 +3,7 @@
 # pylint: disable=redefined-outer-name
 import pytest
 
-from fd_device.database.base import create_all_tables, drop_all_tables, get_session
+from fd_device.database.database import create_all_tables, drop_all_tables, get_session
 
 
 @pytest.fixture(scope="session")
