@@ -98,7 +98,8 @@ services:
             - farm_device
         restart: unless-stopped
         healthcheck:
-            test: ["CMD", "wget", "-O", "-", "http://localhost:80/misc/ping"]
+            test: ["CMD", "wget", "-O", "-", "http://localhost:80/pgadmin/misc/ping"]
+            start_period: 140s
         labels:
             - custom.label=farm_device
             - traefik.enable=true
