@@ -76,10 +76,20 @@ def get_indivudual_grainbin_update(grainbin: Grainbin) -> dict:
 
 
 def get_average_temperature(temperatures: list, percision: int = 4) -> str:
-    """Get the average temperature from a list of temperature strings."""
+    """Get the average temperature from a list of temperature strings.
+
+    Args:
+        temperatures (list): A list of temperature strings.
+        percision (int, optional): The number of decimal places to round the average temperature to. Defaults to 4.
+
+    Returns:
+        str: The average temperature as a string. If the list is empty, returns "N/A".
+    """
+
+    if len(temperatures) == 0:
+        return "N/A"
 
     avg = round(statistics.mean([float(i) for i in temperatures]), percision)
-
     return str(avg)
 
 
