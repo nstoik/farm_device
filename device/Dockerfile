@@ -92,4 +92,4 @@ RUN pipenv run pip install -e .
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=
 
-CMD ["pipenv", "run", "fd_device", "run"]
+ENTRYPOINT ["$WORKING_DIR/start.sh"]
