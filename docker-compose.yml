@@ -92,6 +92,8 @@ services:
             - "dbdata:/var/lib/postgresql/data"
         networks:
             - farm_device
+        healthcheck:
+            test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}"]
         labels:
             - custom.label=farm_device
 
@@ -111,6 +113,8 @@ services:
         networks:
             - farm_device
         restart: unless-stopped
+        healthcheck:
+            test: ["CMD", "wget", "-O", "-", "http://localhost:80/misc/ping"]
         labels:
             - custom.label=farm_device
             - traefik.enable=true
