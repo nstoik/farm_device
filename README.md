@@ -106,6 +106,14 @@ docker compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose
 # Building Docker Containers
 There are multiple options for building the docker containers
 
+## Login to Docker Hub
+To login to docker hub, execute the following command and enter your credentials:
+```bash
+docker login
+```
+
+This is required to push the containers to docker hub.
+
 ## Build single platform container
 To build a single docker container for a single platform, execute the following command:
 ```bash
@@ -153,6 +161,13 @@ Bake all the containers. In the example below, the TAG variable is set to the ta
 ```bash
 TAG=0.1 docker buildx bake --builder fd_buildx --file docker-bake.hcl --push
 ```
+
+To bake a single target or group specified in the `docker-bake.hcl` configuration file, run the following, replacing "TARGET_NAME" with the target or group name:
+```bash
+TAG=0.1 docker buildx bake --builder fd_buildx --file docker-bake.hcl --push "TARGET_NAME"
+```
+
+
 **Note** Overwrite variables defined in the `docker-bake.hcl` file by specifying them as arguments to the command. Any required `ARG` in the docker files need to be specified in the `docker-bake.hcl` file.
 
 The list of available variables are:

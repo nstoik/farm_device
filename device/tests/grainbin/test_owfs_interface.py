@@ -99,7 +99,7 @@ def test_get_all_busses_including_all(mocker):
 def test_get_all_sensors_of_bus(mocker):
     """Test the get_all_busses function including fetching the all bus."""
 
-    with open(f"{CONFIG.TEST_DIR}/grainbin/test_bus_owfs_page.txt") as f:
+    with open(f"{CONFIG.TEST_DIR}/grainbin/test_bus_1_owfs_page.txt") as f:
         text_as_list = f.readlines()
         test_text = "/n".join(text_as_list)
 
@@ -118,7 +118,7 @@ def test_get_all_sensors_of_bus(mocker):
 def test_read_sensor_of_bus(mocker):
     """Test the read_sensor_of_bus function."""
 
-    with open(f"{CONFIG.TEST_DIR}/grainbin/test_sensor_owfs_page.txt") as f:
+    with open(f"{CONFIG.TEST_DIR}/grainbin/test_sensor_1_1_owfs_page.txt") as f:
         text_as_list = f.readlines()
         test_text = "/n".join(text_as_list)
 

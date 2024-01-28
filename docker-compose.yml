@@ -16,26 +16,10 @@ services:
         depends_on:
             - "database"
             - "1wire"
-            - "database_management"
         volumes:
             - "logs:/logs"
             - "/sys/devices/w1_bus_master1:/sys/devices/w1_bus_master1"
         restart: on-failure
-
-    database_management:
-        image: nstoik/fd_device:${FD_DEVICE}
-        container_name: fd_database_management
-        command: ["pipenv", "run", "fd_device", "database", "database_upgrade", "--revision", "head"]
-        build:
-            context: ./device
-            dockerfile: Dockerfile
-        environment:
-            FD_DEVICE_CONFIG: ${FD_DEVICE_CONFIG}
-            FD_DEVICE_LOG_LEVEL: ${FD_DEVICE_LOG_LEVEL}
-        networks:
-            - farm_device
-        depends_on:
-            - "database"
 
     1wire:
         image: nstoik/fd_1wire:${FD_1WIRE}
@@ -92,6 +76,8 @@ services:
             - "dbdata:/var/lib/postgresql/data"
         networks:
             - farm_device
+        healthcheck:
+            test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}"]
         labels:
             - custom.label=farm_device
 
@@ -111,6 +97,9 @@ services:
         networks:
             - farm_device
         restart: unless-stopped
+        healthcheck:
+            test: ["CMD", "wget", "-O", "-", "http://localhost:80/pgadmin/misc/ping"]
+            start_period: 140s
         labels:
             - custom.label=farm_device
             - traefik.enable=true

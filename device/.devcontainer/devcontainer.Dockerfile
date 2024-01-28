@@ -15,11 +15,12 @@ ARG USER_GID=$USER_UID
 ARG WORKING_DIR=/workspaces/device
 
 # Configure apt and install packages
+# install netcat for the start.sh script
 RUN apt-get update && \
     apt-get -yqq install --no-install-recommends apt-utils dialog apt-transport-https locales 2>&1 && \
     #
     # Verify git, process tools, lsb-release (common in install instructions for CLIs) installed
-    apt-get -yqq install git procps lsb-release && \
+    apt-get -yqq install git procps lsb-release netcat-traditional && \
     # Clean up
     apt-get autoremove -y && \
     apt-get clean -y && \

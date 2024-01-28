@@ -5,10 +5,6 @@ services:
         build:
             target: prod-stage
 
-    database_management:
-        build:
-            target: prod-stage
-
     1wire:
         labels:
             - traefik.http.routers.fd_1wire.rule=Host(`${TRAEFIK_DOMAIN}`) && PathPrefix(`/`)
