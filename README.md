@@ -121,9 +121,9 @@ docker build {PATH} --file {PATH}/Dockerfile --no-cache --pull --build-arg {ENV 
 ```
 An example command for building the fd_device container version 1.0.0-rc is:
 ```bash
-docker build device --file device/Dockerfile --no-cache --pull --tag nstoik/fd_device:1.0.0-rc
+docker build . --file device/Dockerfile --no-cache --pull --tag nstoik/fd_device:1.0.0-rc
 ```
-- {PATH} is the submodule path
+- {PATH} is the context of the build
 - --build-arg is optional and can pass in environment variables to docker build. It can be repeated for multiple variables.
     - {ENV NAME} is the name of the environment variable
     - {ENV VALUE} is the value of the environment variable
@@ -179,3 +179,4 @@ A few additional comments on the `docker-bake.hcl` file:
 - push will push the built images to the registry
 - --load is optional and will load the image into docker
   - When using --load, only a sinle platform can be specified. An example of overriding the platform for 'linux/amd64' is `--set default.platform=linux/amd64`
+  - Is no longer an issue if using containerd as the backend (https://www.docker.com/blog/extending-docker-integration-with-containerd/)

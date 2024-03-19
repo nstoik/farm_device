@@ -5,8 +5,8 @@ services:
         image: nstoik/fd_device:${FD_DEVICE}
         container_name: fd_device
         build:
-            context: ./device
-            dockerfile: Dockerfile
+            context: .
+            dockerfile: device/Dockerfile
         environment:
             FD_DEVICE_CONFIG: ${FD_DEVICE_CONFIG}
             FD_DEVICE_LOG_LEVEL: ${FD_DEVICE_LOG_LEVEL}
@@ -25,10 +25,10 @@ services:
         image: nstoik/fd_1wire:${FD_1WIRE}
         container_name: fd_1wire
         build:
-            context: ./1wire
-            dockerfile: Dockerfile
         devices:
             - "/dev/i2c-1:/dev/i2c-1"
+            context: .
+            dockerfile: 1wire/Dockerfile
         networks:
             - farm_device
         restart: unless-stopped
