@@ -7,11 +7,11 @@ RUN apt-get update && \
     apt-get autoclean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY start.sh /start.sh
+COPY 1wire/start.sh /start.sh
 
 RUN ["chmod", "+x", "/start.sh"]
 
-COPY owfs.conf /etc/owfs.conf
+COPY 1wire/owfs.conf /etc/owfs.conf
 
 EXPOSE 2121
 
