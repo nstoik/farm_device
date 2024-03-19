@@ -23,7 +23,7 @@ updates:
     schedule:
           interval: "monthly"
 
-  # configurations for the python filews in the device directory
+  # configurations for the python files in the device directory
   - package-ecosystem: "pip"
     directory: "/device"
     schedule:

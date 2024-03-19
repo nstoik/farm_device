@@ -22,5 +22,33 @@ The available app commands are:
 - ```pipenv install --dev``` - install dev dependencies
 - ```pipenv run {command}``` - run a command in the virtual environment
 - ```fd_device``` - commands for the device
-    - ```fd_device --help``` - help for the device commands
-    
+
+To see all available commands type: `fd_device`
+
+```bash
+> cd device
+> pipenv shell
+> pipenv install --dev
+> fd_device
+Usage: fd_device [OPTIONS] COMMAND [ARGS]...
+
+  Entry point for CLI.
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  database     Command group for database commands.
+  first-setup  First time setup.
+  lint         Lint and check code style with black, flake8 and isort.
+  run          Run the server.
+  test         Run the tests.
+```
+
+
+
+## Docker startup command
+The startup script [`start.sh`](./start.sh) is used to start the application. It
+waits for the database to be ready, applies any migrations, and then starts the application using the `fd_device run` command.
+
+The `start.sh` script is the entrypoint for the docker container.

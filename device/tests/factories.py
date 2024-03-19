@@ -11,23 +11,12 @@ from fd_device.database.device import Device, Grainbin
 class BaseFactory(SQLAlchemyModelFactory):
     """Base factory."""
 
-    @classmethod
-    def _create(cls, model_class, *args, **kwargs):
-        """Override the _create classmethod.
-
-        Does not actually change from the default, but
-        for some reason it needs to be specified otherwise
-        SubFactory elements do not get the primary key created
-        correctly.
-        """
-        obj = model_class(*args, **kwargs)
-        return obj.save()
-
     class Meta:
         """Factory configuration."""
 
         abstract = True
         sqlalchemy_session = get_session()
+        sqlalchemy_session_persistence = "flush"
 
 
 class DeviceFactory(BaseFactory):
