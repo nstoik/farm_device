@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # A start up script for the fd_device container.
 # This script is run when the container is started.
 # It will wait for the database to be ready, then run any migrations
@@ -17,3 +19,9 @@ pipenv run fd_device database database_upgrade --revision head
 # Start fd_device
 echo "Starting fd_device..."
 pipenv run fd_device run
+
+# Wait for the fd_device process to finish
+echo "Waiting for fd_device to finish..."
+wait $!
+
+echo "fd_device has finished, exiting..."
