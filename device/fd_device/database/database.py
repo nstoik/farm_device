@@ -107,10 +107,29 @@ class SurrogatePK(Model):  # pylint: disable=too-few-public-methods
 def reference_col(tablename, nullable=False, pk_name="id", **kwargs) -> Mapped[int]:
     """Column that adds primary key foreign key reference.
 
-    Usage: ::
+      Usage: ::
 
-        category_id: Mapped[ForeignKey] = reference_col('category')
-        categorys: Mapped[List["Category"]] = relationship(backref='categories')
+    For a bi-directional one to many relationship
+
+    Parent:
+        children: Mapped[List["Child"]] = relationship(back_populates="parent")
+
+    Child:
+        parent_id: Mapped[int] = reference_col('parent')
+        parent: Mapped["Parent"] = relationship(back_populates='children')
+
+
+    For a bi-directional many to one relationship
+
+    Parent:
+        child_id: Mapped[int] = reference_col('child')
+        child: Mapped["Child"] = relationship(back_populates='parents')
+
+    Child:
+        parents: Mapped[List["Parent"]] = relationship(back_populates='child')
+
+    For a many to many relationship see:
+    https://docs.sqlalchemy.org/en/20/orm/basic_relationships.html#many-to-many
     """
     return mapped_column(
         ForeignKey(f"{tablename}.{pk_name}"), nullable=nullable, **kwargs

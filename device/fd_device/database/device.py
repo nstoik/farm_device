@@ -37,6 +37,7 @@ class Grainbin(SurrogatePK):
     average_temp: Mapped[str7]
 
     device_id: Mapped[int] = reference_col("device")
+    device: Mapped["Device"] = relationship("Device", back_populates="grainbins")
 
     def __init__(self, name: str, bus_number: int, device_id: int):
         """Create the Grainbin object."""
@@ -70,7 +71,7 @@ class Device(SurrogatePK):
 
     # grainbin related data
     grainbin_count: Mapped[int] = mapped_column(default=0)
-    grainbins: Mapped[List["Grainbin"]] = relationship(backref="device")
+    grainbins: Mapped[List["Grainbin"]] = relationship(back_populates="device")
 
     def __init__(self, device_id: str, interior_sensor="null", exterior_sensor="null"):
         """Create the Device object."""
