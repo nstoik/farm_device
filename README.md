@@ -1,6 +1,26 @@
 # Farm Device
 Main documentation for the Farm Device project.
 
+# Table of Contents
+1. [Raspberry Pi Ubuntu 21.04 host setup](#Raspberry-Pi-Ubuntu-21.04-host-setup)
+    1. [Installing Docker and Docker Compose](#Installing-Docker-and-Docker-Compose)
+    2. [Additional Host Setup](#Additional-Host-Setup)
+2. [First Time Setup](#First-Time-Setup)
+3. [Environment Variables](#Environment-Variables)
+4. [Production](#Production)
+5. [Development](#Development)
+    1. [Remote vs Local Development](#Remote-vs-Local-Devlopment)
+    2. [Docker Commands](#Docker-Commands)
+6. [VS Code Development](#VS-Code-Development)
+7. [Building Docker Containers](#Building-Docker-Containers)
+    1. [Login to Docker Hub](#Login-to-Docker-Hub)
+    2. [Build single platform container](#Build-single-platform-container)
+    3. [Bulid multiple containers for a single platform](#Build-multiple-containers-for-a-single-platform)
+    4. [Building multi platform containers and pushing to a registry](#Building-multi-platform-containers-and-pushing-to-a-registry)
+8. [Publishing Versions](#Publishing-Versions)
+    1. [Git Branches](#Git-Branches)
+    2. [Publishing Changes](#Publishing-Changes)
+
 # Raspberry Pi Ubuntu 21.04 host setup
 
 ## Installing Docker and Docker Compose
@@ -180,3 +200,38 @@ A few additional comments on the `docker-bake.hcl` file:
 - --load is optional and will load the image into docker
   - When using --load, only a sinle platform can be specified. An example of overriding the platform for 'linux/amd64' is `--set default.platform=linux/amd64`
   - Is no longer an issue if using containerd as the backend (https://www.docker.com/blog/extending-docker-integration-with-containerd/)
+
+
+# Publishing Versions
+The workflow for publishing a new version of the farm device is documented below. The project uses semantic versioning.
+
+## Git Branches
+The `main` branch is the latest version of the project. All new code should be merged into this branch.
+
+The `v{major.minor}` branches track the combination of major and minor versions of the project. Each `v{major.minor}` version has its own branch. The `v1.2` branch will track all changes to the `1.2` version of the project. This includes patches and new features.
+
+New features or patches should be created in a new branch. Eg. `feature/temperature_reading_average` or `fix/temperature_reading_bug`. Once the changes are complete, the branch should be merged into the `main` branch and optionally into the `v{major.minor}` branch and tagged with the appropriate version number (eg. `v{major.minor.patch}`).
+
+
+## Publishing Changes
+When a new version is to be published, the following steps should be taken.
+
+The new version can either be a major, minor, or patch version. Determine the appropriate version number that is to be published.
+
+If the version is a patch version change:
+1. Create a new branch from either the `main` or `v{major.minor}`branch with an appropriate name. eg. `fix/temperature_reading_bug`
+2. Make the necessary changes to the code.
+3. Update the `CHANGELOG.md` file with the increased patch version, changes made, and any update instructions.
+4. Merge the branch into the `main` branch
+    1. Build the docker containers with the `latest` tag and push them to the registry.
+5. Optionally, merge the branch into the appropriate `v{major.minor}` branches.
+    1. Create a tag with the new version number (eg. `v{major.minor.patch}`).
+    2. Build the docker containers with the required tags (eg. `v{major.minor}` and `v{major.minor.patch}`) and push to the registry.
+6. Delete the feature or fix branch.
+
+If the version is a major or minor version change:
+1. Create a new branch from the `main` branch following the semanting versioning rules. eg. `v{major.minor}`
+2. Update the `CHANGELOG.md` file with the increased version number, changes made, and any update instructions.
+3. From that point on, the new branch will track this major version and the `main` branch will continue to track the latest version.
+4. Build the docker containers with the new tag and push them to the registry.
+4. Add patch or fix versions to the `v{major.minor}` branch as needed (described above).
