@@ -203,35 +203,36 @@ A few additional comments on the `docker-bake.hcl` file:
 
 
 # Publishing Versions
-The workflow for publishing a new version of the farm device is documented below. The project uses semantic versioning.
+The workflow for publishing a new version of the farm device is documented below. The project uses semantic versioning and the GitHub flow model. Releases are tagged with the version number and the changelog is updated with the changes made.
 
 ## Git Branches
-The `main` branch is the latest version of the project. All new code should be merged into this branch.
+There are short lived branches for features, fixes, and releases (if needed). The `main` branch is the latest version of the project. There can be a medium lived branch for major versions.
 
-The `v{major.minor}` branches track the combination of major and minor versions of the project. Each `v{major.minor}` version has its own branch. The `v1.2` branch will track all changes to the `1.2` version of the project. This includes patches and new features.
+The `main` branch is a long lived branch and is the latest version of the project. All new completed code should be merged into this branch as squash commits. This is a protected branch and requires a pull request to merge code into it.
 
-New features or patches should be created in a new branch. Eg. `feature/temperature_reading_average` or `fix/temperature_reading_bug`. Once the changes are complete, the branch should be merged into the `main` branch and optionally into the `v{major.minor}` branch and tagged with the appropriate version number (eg. `v{major.minor.patch}`).
+Feature or fix branches are created from the `main` branch and merged back into the `main` branch. Use a descriptive name for the branch that describes the feature or fix being worked on. Eg. `feature/temperature_reading_average`.
+
+Release branches are created from the `main` branch and are short lived. They are used to prepare the code for a new version (eg. updating version numbers and changelogs). The release branch should be named with the `release/version number`. Eg. `release/v0.1`. The release branch is merged into the `main` branch and tagged with the version number.
+
+If there is a fix or feature that needs to be applied to a previous version, a branch should be created from the appropriate `v{major.minor}` tag. The feature or fix branch should be merged into the new branch and tested. The branch can then be merged into the `main` branch and the appropriate tag applied.
+
+If there is a major version change (eg. `v1` to `v2`), a medium lived branch can be created to track the previous version for as long as that version is still in use and supported. The branch should be named with the `v{major}` version number.
 
 
 ## Publishing Changes
-When a new version is to be published, the following steps should be taken.
+New code and fixes are continuously merged into the `main` branch. 
 
-The new version can either be a major, minor, or patch version. Determine the appropriate version number that is to be published.
+When it is time for a new version, the following steps should be taken:
+1. Determine the appropriate version number that is to be published.
+2. Create a new branch from the `main` branch with the appropriate name. eg. `release/v0.4.0`
+3. Make the necessary changes for the changed version number.
+4. Update the `CHANGELOG.md` file with the version number, changes made, and any update instructions.
+5. Merge the branch into the `main` branch
+6. Create a tag with the new version number (eg. `v{0.4.0}`).
+7. Build the docker containers with the required tags (eg. `v{0.4}` and `v{0.4.1}`) and push to the registry.
+8. Delete the release branch.
 
-If the version is a patch version change:
-1. Create a new branch from either the `main` or `v{major.minor}`branch with an appropriate name. eg. `fix/temperature_reading_bug`
-2. Make the necessary changes to the code.
-3. Update the `CHANGELOG.md` file with the increased patch version, changes made, and any update instructions.
-4. Merge the branch into the `main` branch
-    1. Build the docker containers with the `latest` tag and push them to the registry.
-5. Optionally, merge the branch into the appropriate `v{major.minor}` branches.
-    1. Create a tag with the new version number (eg. `v{major.minor.patch}`).
-    2. Build the docker containers with the required tags (eg. `v{major.minor}` and `v{major.minor.patch}`) and push to the registry.
-6. Delete the feature or fix branch.
-
-If the version is a major or minor version change:
-1. Create a new branch from the `main` branch following the semanting versioning rules. eg. `v{major.minor}`
-2. Update the `CHANGELOG.md` file with the increased version number, changes made, and any update instructions.
-3. From that point on, the new branch will track this major version and the `main` branch will continue to track the latest version.
-4. Build the docker containers with the new tag and push them to the registry.
-4. Add patch or fix versions to the `v{major.minor}` branch as needed (described above).
+If the new version is for a previously released version, the following steps should be taken:
+1. Create a new branch from the appropriate tag with the appropriate name. eg. `release/v0.2.1`
+2. Cherry pick commits from `main` or merge required fix or feature branches into this branch
+3. Continue from step 4 above.
