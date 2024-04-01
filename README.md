@@ -177,21 +177,21 @@ To list the available builders run:
 docker buildx ls
 ```
 
-Bake all the containers. In the example below, the TAG variable is set to the tag you want to build.
+Bake all the containers. In the example below, the TAGS variable is set to the tag (or comma seperated string of multiple tags) you want to build.
 ```bash
-TAG=0.1 docker buildx bake --builder fd_buildx --file docker-bake.hcl --push
+TAGS=0.1 docker buildx bake --builder fd_buildx --file docker-bake.hcl --push
 ```
 
 To bake a single target or group specified in the `docker-bake.hcl` configuration file, run the following, replacing "TARGET_NAME" with the target or group name:
 ```bash
-TAG=0.1 docker buildx bake --builder fd_buildx --file docker-bake.hcl --push "TARGET_NAME"
+TAGS=0.1 docker buildx bake --builder fd_buildx --file docker-bake.hcl --push "TARGET_NAME"
 ```
 
 
 **Note** Overwrite variables defined in the `docker-bake.hcl` file by specifying them as arguments to the command. Any required `ARG` in the docker files need to be specified in the `docker-bake.hcl` file.
 
 The list of available variables are:
-- TAG: The tag of the docker image to build. Defaults to "dev"
+- TAGS: The tag of the docker image to build. Defaults to "dev". Can be a comma separated list of tags to apply multiple tags eg. "dev,latest".
 - MULTI_STAGE_TARGET: The target to build. Defaults to "prod-stage"
 
 A few additional comments on the `docker-bake.hcl` file:

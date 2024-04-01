@@ -1,4 +1,4 @@
-variable "TAG" {
+variable "TAGS" {
     default = "dev"
 }
 variable "MULTI_STAGE_TARGET" {
@@ -11,20 +11,19 @@ group "default" {
 
 target "default" {
     platforms = ["linux/amd64", "linux/arm64", "linux/arm/v7"]
+    context = "."
     pull = true
 }
 
 target "fd_device" {
     inherits = ["default"]
-    context = "."
     dockerfile = "device/Dockerfile"
-    tags = ["nstoik/fd_device:${TAG}"]
+    tags = [for tag in split(",", "${TAGS}") : "nstoik/fd_device:${tag}"]
     target = "${MULTI_STAGE_TARGET}"
 }
 
 target "fd_1wire" {
     inherits = ["default"]
-    context = "."
     dockerfile = "1wire/Dockerfile"
-    tags = ["nstoik/fd_1wire:${TAG}"]
+    tags = [for tag in split(",", "${TAGS}") : "nstoik/fd_1wire:${tag}"]
 }
