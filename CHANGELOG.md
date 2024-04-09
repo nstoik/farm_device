@@ -19,7 +19,7 @@ Here we write upgrading notes for.
 
 ## Unreleased - [v0.3.4](https://github.com/nstoik/farm_device/releases/tag/v0.3.4) - 2024-mm-dd
  
-Update the `TAG` variable in the `.env` file to `v0.3.4`. Then execute the following to pull and run the containers:
+Update the `FD_TAG` variable in the `.env` file to `v0.3.4`. Then execute the following to pull and run the containers:
 ```bash
 > docker compose -f docker-compose.yml -f docker-compose.prod.yml --env-file .env -p fd_prod down
 > docker compose -f docker-compose.yml -f docker-compose.prod.yml --env-file .env -p fd_prod pull
@@ -28,6 +28,7 @@ Update the `TAG` variable in the `.env` file to `v0.3.4`. Then execute the follo
 
 ### Added
 - `CHANGELOG.md` file to track changes to the project and added documentation on how to release new versions.
+- Docker buildx bake file can now accept a comma separated list of tags to apply to containters
 
 ### Changed
 - SQLAlchemy relations. Changed `backref` to `back_populates`.
